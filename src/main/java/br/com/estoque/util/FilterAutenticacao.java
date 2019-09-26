@@ -1,7 +1,11 @@
 package br.com.estoque.util;
 
+import br.com.estoque.beans.UsuarioMB;
+import br.com.estoque.model.Usuario;
+
 import java.io.IOException;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,9 +27,22 @@ public class FilterAutenticacao implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) // em todas requisições
             throws IOException, ServletException {
 
-                System.out.println("Filtrando");
+                HttpServletRequest req = (HttpServletRequest) request;
+                HttpSession session = req.getSession();
+                Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
 
-            chain.doFilter(request, response);
+
+
+            if(usuarioLogado != null) {
+                chain.doFilter(request, response);
+           } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/login.xhtml");
+                dispatcher.forward(request, response);
+           }
+
+
+
+
 
 
     }

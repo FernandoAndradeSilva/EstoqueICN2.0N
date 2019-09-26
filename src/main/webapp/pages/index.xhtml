@@ -1,27 +1,150 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="head-end">
         <ui:param name="renderBreadCrumb" value="false"/>
     </ui:define>
 
-    <ui:define name="title">
-        <p:growl autoUpdate="true" life="4000"/>
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-button {
 
-        <h2 class="align-center">
-            Bem vindo ao crud do <span class="text-aqua"> <i><a href="http://karanalpe.com.br/" target="_blank"
-                                                          style="text-transform: none;text-decoration: none"> Karanalpe</a></i></span>!
-            <br/>
-            <small>Utilizando <p:link value="Primefaces" href="http://primefaces.org" target="_blank"/>, <p:link value="Bootstrap"
-                                                                                                  href="http://getbootstrap.com/" target="_blank"/> e
-                <p:link value="Admin LTE" href="https://almsaeedstudio.com/themes/AdminLTE/index2.html" target="_blank"/> com
-                <p:link value="JSF" href="https://javaserverfaces.java.net/" target="_blank"/>.
-            </small>
-        </h2>
+                width: 160px;
+                height: 70px;
+                margin-right: 3%;
+            }
 
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+
+
+        </style>
     </ui:define>
 
+    <ui:define name="title">
+        <b>GERENCIAMENTO DE ESTOQUE</b>
+    </ui:define>
+
+    <ui:define name="body">
+        <f:metadata>
+        </f:metadata>
+
+        <adm:breadcrumb title="Cadastro Default" link="cadastro-default.xhtml?id="/>
+        <h:form id="formCadastroItem" prependId="false">
+            <p:focus/>
+
+
+            <div class="box-header with-border" align="center">
+                <p:commandButton value="ITENS" styleClass="btn-info" icon="fa fa-bar-chart"/>
+                <p:commandButton value="MOVIMENTAÇÕES" styleClass="btn-primary" icon="fa fa-th-list"/>
+                <p:commandButton value="USUÁRIOS" styleClass="btn-warning" icon="fa fa-user"/>
+                <p:commandButton value="SETORES" styleClass="btn-danger" icon="fa fa-building-o"/>
+                <p:commandButton value="CONFIGURAÇÕES" styleClass="btn-success" icon="fa fa-gears"/>
+            </div>
+            <br/>
+
+
+            <div class="box box-primary">
+            <div class="box-header with-border">
+                <p:panel>
+                <f:facet name="header">
+                    Valor gasto em Entradas de Produtos
+                </f:facet>
+
+                    <p:dataTable var="car">
+                        <p:column headerText="Mês">
+                            <h:outputText value="#{car.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Valor Gasto">
+                            <h:outputText value="#{car.year}"/>
+                        </p:column>
+
+                        <p:column headerText="Ultima Entrada">
+                            <h:outputText value="#{car.brand}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                <p:panel>
+                    <f:facet name="header" >
+                        Valor gasto em Saídas de Produtos
+                    </f:facet>
+
+                <p:dataTable var="car">
+                    <p:column headerText="Mês">
+                        <h:outputText value="#{car.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Valor Gasto">
+                        <h:outputText value="#{car.year}"/>
+                    </p:column>
+
+                    <p:column headerText="Ultima Entrada">
+                        <h:outputText value="#{car.brand}"/>
+                    </p:column>
+                </p:dataTable>
+                </p:panel>
+            </div>
+            </div>
+
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <p:panel>
+                        <f:facet name="header">
+                            Produtos mais consumidos
+                        </f:facet>
+
+                        <p:dataTable var="car">
+                            <p:column headerText="Código">
+                                <h:outputText value="#{car.id}"/>
+                            </p:column>
+
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{car.year}"/>
+                            </p:column>
+
+                            <p:column headerText="Mês de Referência">
+                                <h:outputText value="#{car.brand}"/>
+                            </p:column>
+
+                            <p:column headerText="Quantidade consumida">
+                                <h:outputText value="#{car.brand}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </p:panel>
+                </div>
+            </div>
+
+
+        </h:form>
+    </ui:define>
 
 </ui:composition>
