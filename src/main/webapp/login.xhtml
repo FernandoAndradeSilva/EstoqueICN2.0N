@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>GERENCIAMENTO DE ESTOQUE</title>
+
+	<h:outputStylesheet library="css" name="style-login.css" />
+</h:head>
+
+
+<h:body styleClass="flat-blue login-page">
+	
+	<div id="top-header">
+		<ui:insert name="top-header">
+			<p:growl id="msg" sticky="false" life="4000" />
+		</ui:insert>
+	</div>
+
+	<div class="container">
+
+		<div class="login-box">
+			<div>
+				<div class="login-form row">
+
+					<div id="header">
+						<div class="col-sm-12 text-center login-header">
+
+							<p:graphicImage url="/resources/images/logo-icn-azul.png"
+								width="200px" height="80px"/>
+
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="login-body"
+							style="background-color: rgba(0, 0, 0, 10%)">
+
+							<div class="progress hidden" id="login-progress">
+								<div
+									class="progress-bar progress-bar-success progress-bar-striped active"
+									 style="width: 100%">Log In...</div>
+							</div>
+
+
+
+
+
+
+							<div id="content">
+								<h:form id="frm">
+
+
+									<div class="control">
+										<p:inputText styleClass="form-control" placeholder="E-mail"
+											size="30" />
+									</div>
+									<div class="control">
+										<p:password styleClass="form-control" placeholder="Senha"
+											size="30" />
+									</div>
+									<div class="login-button text-center">
+										<p:commandButton value="ENTRAR"  update="frm , msg"
+											styleClass="btn-primary" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+
+						<h:form>
+
+						<div id="footer">
+							<div class="login-footer">
+
+								<div class="col-sm-6 text-left">
+
+								</div>
+
+								<div class="col-sm-6 text-right">
+
+
+
+
+
+								</div>
+
+							</div>
+						</div>
+
+						</h:form>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+</h:body>
+</html>
