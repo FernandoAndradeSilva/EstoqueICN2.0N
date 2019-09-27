@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        USUÁRIOS
+    </ui:define>
+
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Pesquisa Default"/>
+
+        <h:form id="frm">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+
+                    <p:dataTable id="usuarios" var="user" value="#{usuarioMB.users}" editable="true"
+                                 style="margin-bottom:20px">
+                        <f:facet name="header">
+                            Row Editing
+                        </f:facet>
+
+
+                        <p:ajax event="rowEdit" update="frm:usuarios"/>
+
+
+                        <p:column headerText="Nome">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{user.nome}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{user.nome}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Email">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{user.email}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{user.email}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Senha">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{user.senha}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{user.senha}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Ativo" style="text-align: center ; width: 10%" >
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{user.ativo == true ? 'SIM' : 'NÃO'}"
+                                                  styleClass="#{user.ativo ? 'btn-success' : 'btn-danger'}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <div align="center">
+                                        <p:selectBooleanButton onLabel="Desativar" offLabel="Ativar"
+                                                               value="#{user.ativo}"
+                                                               style="width:80%; text-align: center"/>
+                                    </div>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:35px">
+                            <p:rowEditor/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

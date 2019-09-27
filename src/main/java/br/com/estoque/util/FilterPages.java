@@ -18,31 +18,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-
-
-@WebFilter(urlPatterns = { "/pages/*" })
-public class FilterAutenticacao implements Filter {
+@WebFilter(urlPatterns = {"/pages/*"})
+public class FilterPages implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) // em todas requisições
             throws IOException, ServletException {
 
-                HttpServletRequest req = (HttpServletRequest) request;
-                HttpSession session = req.getSession();
-                Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
 
 
+        if (usuarioLogado != null) {
+            chain.doFilter(request, response);
+        } else {
+            String[] urlDividida = ((HttpServletRequest) request).getRequestURI().split("/");
+            if(urlDividida.length == 5) {
+                String urlFinal = urlDividida[2] + "/" + urlDividida[3] + "/" + urlDividida[4] + "?faces-redirect=true";
+                session.setAttribute("pagina", urlFinal);
+            }
 
-            if(usuarioLogado != null) {
-                chain.doFilter(request, response);
-           } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/login.xhtml");
-                dispatcher.forward(request, response);
-           }
-
-
-
-
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.xhtml");
+            dispatcher.forward(request, response);
+        }
 
 
     }
@@ -56,7 +55,6 @@ public class FilterAutenticacao implements Filter {
     public void destroy() {
 
     }
-
 
 
 }

@@ -29,42 +29,44 @@ public class Charts implements Serializable {
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
 
-        ChartSeries boys = new ChartSeries();
-        boys.setLabel("Entradas");
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
-        boys.set("2009", 40);
-        boys.set("2010", 85);
-        boys.set("2011", 100);
-        boys.set("2012", 120);
-        boys.set("2013", 10);
+        ChartSeries entradas = new ChartSeries();
+        entradas.setLabel("Entradas");
+        entradas.set("Janeiro", 120);
+        entradas.set("Fevereiro", 100);
+        entradas.set("Março", 44);
+        entradas.set("Abril", 150);
+        entradas.set("Maio", 25);
+        entradas.set("Junho", 40);
+        entradas.set("Julho", 85);
+        entradas.set("Agosto", 100);
+        entradas.set("Setembro", 120);
+        entradas.set("Outubro", 10);
+        entradas.set("Novembro", 120);
+        entradas.set("Dezembro", 75);
 
-        ChartSeries girls = new ChartSeries();
-        girls.setLabel("Saídas");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 110);
-        girls.set("2007", 135);
-        girls.set("2008", 77);
-        girls.set("2009", 88);
-        girls.set("2010", 20);
-        girls.set("2011", 60);
-        girls.set("2012", 47);
-        girls.set("2013", 120);
+        ChartSeries saidas = new ChartSeries();
+        saidas.setLabel("Saídas");
+        saidas.set("Janeiro", 52);
+        saidas.set("Fevereiro", 60);
+        saidas.set("Março", 110);
+        saidas.set("Abril", 135);
+        saidas.set("Maio", 77);
+        saidas.set("Junho", 88);
+        saidas.set("Julho", 20);
+        saidas.set("Agosto", 60);
+        saidas.set("Setembro", 47);
+        saidas.set("Outubro", 120);
+        saidas.set("Novembro", 77);
+        saidas.set("Dezembro", 15);
 
-
-        model.addSeries(boys);
-        model.addSeries(girls);
+        model.addSeries(entradas);
+        model.addSeries(saidas);
 
         return model;
     }
 
     private void createAnimatedModels() {
         animatedModel2 = initBarModel();
-        animatedModel2.setTitle("Gráfico de Movimentações");
         animatedModel2.setAnimate(true);
         animatedModel2.setLegendPosition("ne");
 

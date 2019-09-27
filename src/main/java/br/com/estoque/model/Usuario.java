@@ -29,6 +29,16 @@ public class Usuario implements Serializable {
 
     private boolean ativo = false;
 
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha, int nivelDeAcesso, boolean ativo) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.nivelDeAcesso = nivelDeAcesso;
+        this.ativo = ativo;
+    }
 
     public long getId() {
         return id;

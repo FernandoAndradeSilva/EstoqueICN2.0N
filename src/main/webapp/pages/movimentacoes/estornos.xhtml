@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <p:outputLabel value="#{movimentacaoMB.imprimeEstorno()}"/>
+
+    <p:dataTable id="tableEstornos" widgetVar="tableEstornos" rows="10"
+                 paginator="true"
+                 paginatorPosition="bottom"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                 currentPageReportTemplate=""
+                 rowsPerPageTemplate="5,10,15,20,30">
+
+        <p:ajax event="rowSelectCheckbox" update="@(.ui-button)"/>
+        <p:ajax event="rowUnselectCheckbox" update="@(.ui-button)"/>
+        <p:ajax event="rowSelect" update="@(.ui-button)"/>
+        <p:ajax event="rowUnselect" update="@(.ui-button)"/>
+
+
+        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>
+
+
+    </p:dataTable>
+
+
+</ui:composition>
