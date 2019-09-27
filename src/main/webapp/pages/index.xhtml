@@ -62,54 +62,11 @@
 
 
             <div class="box box-primary">
-            <div class="box-header with-border">
-                <p:panel>
-                <f:facet name="header">
-                    Valor gasto em Entradas de Produtos
-                </f:facet>
-
-                    <p:dataTable var="car">
-                        <p:column headerText="Mês">
-                            <h:outputText value="#{car.id}"/>
-                        </p:column>
-
-                        <p:column headerText="Valor Gasto">
-                            <h:outputText value="#{car.year}"/>
-                        </p:column>
-
-                        <p:column headerText="Ultima Entrada">
-                            <h:outputText value="#{car.brand}"/>
-                        </p:column>
-
-                    </p:dataTable>
-
-                </p:panel>
-            </div>
-            </div>
-
-            <div class="box box-primary">
                 <div class="box-header with-border">
 
-                <p:panel>
-                    <f:facet name="header" >
-                        Valor gasto em Saídas de Produtos
-                    </f:facet>
+                    <p:chart type="bar" model="#{charts.animatedModel2}"  />
 
-                <p:dataTable var="car">
-                    <p:column headerText="Mês">
-                        <h:outputText value="#{car.id}"/>
-                    </p:column>
-
-                    <p:column headerText="Valor Gasto">
-                        <h:outputText value="#{car.year}"/>
-                    </p:column>
-
-                    <p:column headerText="Ultima Entrada">
-                        <h:outputText value="#{car.brand}"/>
-                    </p:column>
-                </p:dataTable>
-                </p:panel>
-            </div>
+                </div>
             </div>
 
 
