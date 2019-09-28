@@ -1,6 +1,9 @@
 package br.com.estoque.beans;
 
+import br.com.estoque.model.Categoria;
 import br.com.estoque.model.Usuario;
+import br.com.estoque.service.CategoriaService;
+import br.com.estoque.util.Transacional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -9,6 +12,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +32,23 @@ public class UsuarioMB implements Serializable {
 
     private Usuario usuario = null;
 
-    private List<Usuario> users = new ArrayList<>();
+    @Inject
+    private CategoriaService categoriaService;
 
+    private List<Usuario> users = new ArrayList<>();
+    private List<Categoria> categorias = new ArrayList<>();
+
+    private Categoria categoriaSelecionada = null;
+    private Categoria novaCategoria = null;
     private boolean teste = false;
+
+
+
+    public void preCadastroNovaCategoria() {
+
+        this.novaCategoria = new Categoria();
+
+    }
 
     @PostConstruct
     public void carrega() {
@@ -47,7 +65,21 @@ public class UsuarioMB implements Serializable {
         users.add(usuario);
         usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
         users.add(usuario);
+
+        this.categorias = categoriaService.listar();
     }
+
+
+    @Transacional
+    public void salvaPrimeiraCategoria() {
+
+        Categoria categoria = new Categoria();
+        categoria.setNome("Eletrônicos");
+
+        categoriaService.salvar(categoria);
+
+    }
+
 
 
     public String carregaUsuario() {
@@ -73,9 +105,13 @@ public class UsuarioMB implements Serializable {
     }
 
 
+    public Categoria getNovaCategoria() {
+        return novaCategoria;
+    }
 
-
-
+    public void setNovaCategoria(Categoria novaCategoria) {
+        this.novaCategoria = novaCategoria;
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -94,11 +130,24 @@ public class UsuarioMB implements Serializable {
         this.teste = teste;
     }
 
+    public Categoria getCategoriaSelecionada() {
+        return categoriaSelecionada;
+    }
+
+    public void setCategoriaSelecionada(Categoria categoriaSelecionada) {
+        this.categoriaSelecionada = categoriaSelecionada;
+    }
+
     public List<Usuario> getUsers() {
-
-
-
         return users;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
     public void setUsers(List<Usuario> users) {

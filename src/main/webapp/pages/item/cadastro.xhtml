@@ -60,7 +60,7 @@
 
                     <p:separator/>
 
-                    <div class="ui-g ui-fluid">
+                    <div class="ui-g ui-fluid ">
 
 
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
@@ -82,12 +82,11 @@
                         </div>
 
 
-
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel for="descricao" value="Descrição"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5">
-                            <p:inputText id="descricao" />
+                            <p:inputText id="descricao"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
@@ -103,26 +102,26 @@
                             <p:outputLabel for="codigo" value="Código"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-2">
-                            <p:inputText id="codigo" value="" />
+                            <p:inputText id="codigo" value=""/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel for="especificacao" value="Especificação "/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-5">
-                            <p:inputText id="especificacao" />
+                            <p:inputText id="especificacao"/>
                         </div>
-
 
 
                         <div class="ui-sm-12 ui-md-2 ui-lg-1">
                             <p:outputLabel for="estMin" value="Notificar quantidade mínima"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-2">
-                            <p:inputSwitch  id="estMin" onLabel="Sim" offLabel="Não" value="#{usuarioMB.teste}">
-                                <p:ajax event="change"  update="campoEstMin"  />
+                            <p:inputSwitch id="estMin" onLabel="Sim" offLabel="Não" value="#{usuarioMB.teste}">
+                                <p:ajax event="change" update="campoEstMin"/>
                             </p:inputSwitch>
-                            <p:spinner placeholder="Preencha a quantidade" id="campoEstMin"  disabled="#{!usuarioMB.teste}"/>
+                            <p:spinner placeholder="Preencha a quantidade" id="campoEstMin"
+                                       disabled="#{!usuarioMB.teste}"/>
                         </div>
 
 
@@ -130,10 +129,8 @@
                             <p:outputLabel for="observacoes" value="Observações"/>
                         </div>
                         <div class="ui-sm-12 ui-md-4 ui-lg-8">
-                            <p:inputTextarea id="observacoes" />
+                            <p:inputTextarea id="observacoes"/>
                         </div>
-
-
 
 
                     </div>
@@ -141,6 +138,95 @@
             </div>
 
         </h:form>
+
+
+        <div class="box box-primary ui-sm-12 ui-md-6 ui-lg-6">
+            <div class="box-header with-border ">
+
+                <div class="ui-sm-12 ui-md-6 ui-lg-12" style="display: inline-list-item">
+
+                    <div class="ui-sm-12 ui-md-6 ui-lg-6" style="float: left">
+
+                        <h:form id="formCat">
+                            <p:panel header="CATEGORIA - #{usuarioMB.categoriaSelecionada.nome}" id="panel">
+                                <p:dataList value="#{usuarioMB.categorias}" var="categoria" type="unordered"
+                                            itemType="none" paginatorPosition="bottom"
+                                            paginator="true" rows="10" styleClass="paginated">
+                                    <f:facet name="header">
+                                        <div align="left">
+                                            <p:commandButton value="+" styleClass="btn-info btn-xs"
+                                                             action="#{usuarioMB.preCadastroNovaCategoria()}"
+                                                             update="formCat:panel"/>
+                                            <p:outputLabel value="Adicionar"/>
+                                        </div>
+
+
+                                    </f:facet>
+
+                                    <p:commandButton styleClass="btn-xs btn-warning" icon="fa fa-edit" title="Editar"/>
+                                    <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" title="Excluir"/>
+                                    <p:commandLink value="- #{categoria.nome}" update="formTip"
+                                                   title="Clique para visualisar os Tipos">
+                                        <f:setPropertyActionListener value="#{categoria}"
+                                                                     target="#{usuarioMB.categoriaSelecionada}"/>
+                                    </p:commandLink>
+
+
+                                    <f:facet name="footer">
+
+                                        <div style="#{usuarioMB.novaCategoria == null ? 'display: none' : '' }">
+
+
+                                            <p:inputText placeholder="Descricao da categoria"/>
+                                            <p:commandButton value="Salvar" styleClass="btn-success"/>
+                                            <p:commandButton value="Cancelar" styleClass="btn-danger"/>
+
+
+                                        </div>
+                                    </f:facet>
+
+                                </p:dataList>
+                            </p:panel>
+                        </h:form>
+
+
+
+                    </div>
+
+                    <div class="ui-sm-12 ui-md-6 ui-lg-6" style="float: right">
+                        <h:form id="formTip">
+                            <p:panel header="TIPOS" id="pnl" rendered="#{usuarioMB.categoriaSelecionada != null}">
+                                <p:dataList value="#{usuarioMB.categoriaSelecionada.tipos}" var="tipo" type="unordered"
+                                            itemType="none" paginatorPosition="bottom"
+                                            paginator="true" rows="10" styleClass="paginated">
+                                    <f:facet name="header">
+                                        <div align="left">
+                                            <p:commandButton value="+" styleClass="btn-info btn-xs"/>
+                                            <p:outputLabel value="Adicionar"/>
+                                        </div>
+                                    </f:facet>
+
+                                    <p:commandButton styleClass="btn-xs btn-warning" icon="fa fa-edit" title="Editar"/>
+                                    <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" title="Excluir"/>
+                                    <p:commandLink value="- #{tipo.nome}"/>
+
+
+                                    <f:facet name="footer">
+
+
+                                    </f:facet>
+
+                                </p:dataList>
+                            </p:panel>
+                        </h:form>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
 
 
 
