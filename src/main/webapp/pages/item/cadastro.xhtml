@@ -150,22 +150,32 @@
                         <h:form id="formCat">
                             <p:panel header="CATEGORIA - #{usuarioMB.categoriaSelecionada.nome}" id="panel">
                                 <p:dataList value="#{usuarioMB.categorias}" var="categoria" type="unordered"
-                                            itemType="none" paginatorPosition="bottom"
+                                            itemType="none" paginatorPosition="bottom" id="dtList"
                                             paginator="true" rows="10" styleClass="paginated">
                                     <f:facet name="header">
-                                        <div align="left">
-                                            <p:commandButton value="+" styleClass="btn-info btn-xs"
-                                                             action="#{usuarioMB.preCadastroNovaCategoria()}"
-                                                             update="formCat:panel"/>
-                                            <p:outputLabel value="Adicionar"/>
-                                        </div>
 
+                                        <div class="ui-grid-row">
+                                            <div class="pull-left">
+                                                <p:commandButton value="+" styleClass="btn-info btn-xs"
+                                                                 action="#{usuarioMB.preCadastroNovaCategoria()}"
+                                                                 update="formCat:panel"/>
+                                                <p:outputLabel value="Adicionar"/>
+
+
+                                            </div>
+
+
+                                            <div class="pull-right">
+                                                <p:inputText placeholder="Pesquisar" id="pesquisar"/>
+                                            </div>
+
+                                        </div>
 
                                     </f:facet>
 
                                     <p:commandButton styleClass="btn-xs btn-warning" icon="fa fa-edit" title="Editar"/>
                                     <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" title="Excluir"/>
-                                    <p:commandLink value="- #{categoria.nome}" update="formTip"
+                                    <p:commandLink value="- #{categoria.nome}" update="formTip , formCat"
                                                    title="Clique para visualisar os Tipos">
                                         <f:setPropertyActionListener value="#{categoria}"
                                                                      target="#{usuarioMB.categoriaSelecionada}"/>
@@ -188,7 +198,6 @@
                                 </p:dataList>
                             </p:panel>
                         </h:form>
-
 
 
                     </div>
@@ -226,8 +235,6 @@
                 </div>
             </div>
         </div>
-
-
 
 
         <h:outputScript library="js" name="script.js"/>
