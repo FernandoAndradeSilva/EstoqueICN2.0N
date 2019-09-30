@@ -17,7 +17,7 @@ public class CategoriaService implements Serializable {
         categoriaDao.save(categoria);
     }
 
-    public List<Categoria> listar() {
+    public List<Categoria> listarTodas() {
        return categoriaDao.listar(Categoria.class);
     }
 }

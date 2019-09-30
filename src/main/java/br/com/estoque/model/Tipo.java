@@ -22,6 +22,16 @@ public class Tipo extends AbstractEntity {
     }
 
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

@@ -1,27 +1,15 @@
 package br.com.estoque.beans;
 
-import br.com.estoque.model.Categoria;
 import br.com.estoque.model.Usuario;
-import br.com.estoque.service.CategoriaService;
-import br.com.estoque.util.Transacional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.omnifaces.util.Faces.getRequestURI;
 
 
 @Named
@@ -31,24 +19,9 @@ public class UsuarioMB implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Usuario usuario = null;
-
-    @Inject
-    private CategoriaService categoriaService;
-
     private List<Usuario> users = new ArrayList<>();
-    private List<Categoria> categorias = new ArrayList<>();
-
-    private Categoria categoriaSelecionada = null;
-    private Categoria novaCategoria = null;
     private boolean teste = false;
-
-
-
-    public void preCadastroNovaCategoria() {
-
-        this.novaCategoria = new Categoria();
-
-    }
+    private String campoPesquisa;
 
     @PostConstruct
     public void carrega() {
@@ -66,19 +39,25 @@ public class UsuarioMB implements Serializable {
         usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
         users.add(usuario);
 
-        this.categorias = categoriaService.listar();
-    }
-
-
-    @Transacional
-    public void salvaPrimeiraCategoria() {
-
-        Categoria categoria = new Categoria();
-        categoria.setNome("Eletrônicos");
-
-        categoriaService.salvar(categoria);
 
     }
+
+//
+//    public void pesquisa() {
+//
+//        List<Categoria> categoriasTemp = new ArrayList<>();
+//
+//        for(Categoria categoria : this.categorias) {
+//            if(categoria.getNome().equals(this.campoPesquisa)) {
+//                categoriasTemp.add(categoria);
+//                break;
+//            }
+//        }
+//
+//        categorias = categoriasTemp;
+//    }
+
+
 
 
 
@@ -104,14 +83,14 @@ public class UsuarioMB implements Serializable {
 
     }
 
-
-    public Categoria getNovaCategoria() {
-        return novaCategoria;
+    public String getCampoPesquisa() {
+        return campoPesquisa;
     }
 
-    public void setNovaCategoria(Categoria novaCategoria) {
-        this.novaCategoria = novaCategoria;
+    public void setCampoPesquisa(String campoPesquisa) {
+        this.campoPesquisa = campoPesquisa;
     }
+
 
     public Usuario getUsuario() {
         return usuario;
@@ -130,25 +109,12 @@ public class UsuarioMB implements Serializable {
         this.teste = teste;
     }
 
-    public Categoria getCategoriaSelecionada() {
-        return categoriaSelecionada;
-    }
-
-    public void setCategoriaSelecionada(Categoria categoriaSelecionada) {
-        this.categoriaSelecionada = categoriaSelecionada;
-    }
 
     public List<Usuario> getUsers() {
         return users;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
 
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
 
     public void setUsers(List<Usuario> users) {
         this.users = users;

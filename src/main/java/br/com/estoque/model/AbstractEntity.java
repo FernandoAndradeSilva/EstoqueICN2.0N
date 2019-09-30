@@ -30,10 +30,6 @@ public class AbstractEntity implements Serializable {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "id=" + id;
-    }
 
     @Override
     public boolean equals(Object o) {

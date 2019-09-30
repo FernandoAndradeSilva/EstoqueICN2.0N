@@ -8,15 +8,18 @@
 // });
 
 
-jQuery("#formCadastroItem\\:bt").click(function () {
-    alert('Clicadop');
-});
+// jQuery("#formCadastroItem\\:bt").click(function () {
+//     alert('Clicadop');
+// });
+
+
+// $("#formCat\\:dtList\\:pesquisar").on("keyup", function () {
+//     var value = $(this).val().toLowerCase();
+//     $("#formCat\\:dtList div > ul > li").filter(function () {
+//         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+//     });
+// });
 
 
 
-    $("#formCat\\:dtList\\:pesquisar").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#formCat\\:dtList div > ul > li").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+

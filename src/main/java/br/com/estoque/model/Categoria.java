@@ -14,7 +14,6 @@ public class Categoria extends AbstractEntity {
     @OneToMany(mappedBy="categoria" , fetch = FetchType.EAGER)
     private List<Tipo> tipos = new ArrayList<>();
 
-
     public String getNome() {
         return nome;
     }
@@ -22,7 +21,6 @@ public class Categoria extends AbstractEntity {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
     public List<Tipo> getTipos() {
         return tipos;
@@ -32,10 +30,13 @@ public class Categoria extends AbstractEntity {
         this.tipos = tipos;
     }
 
+
+
     @Override
     public String toString() {
-        return "Categoria{" +
-                "nome='" + nome + '\'' +
-                '}';
+        return nome;
     }
+
+
+
 }
