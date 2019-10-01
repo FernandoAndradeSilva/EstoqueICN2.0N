@@ -14,10 +14,18 @@ public class CategoriaService implements Serializable {
     private CategoriaDao categoriaDao;
 
     public void salvar(Categoria categoria) {
+
+        if(categoria.getId() >0) {
+            categoriaDao.update(categoria);
+        } else
         categoriaDao.save(categoria);
     }
 
     public List<Categoria> listarTodas() {
-       return categoriaDao.listar(Categoria.class);
+        return categoriaDao.listar(Categoria.class);
+    }
+
+    public void excluir(Categoria categoria) {
+        categoriaDao.delete(categoria ,  categoria.getId());
     }
 }

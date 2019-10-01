@@ -6,10 +6,10 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class AbstractDao<E, PK> implements Serializable{
+public abstract class AbstractDao<E, PK> implements Serializable {
 
     private final Class<E> entityClass =
-            (Class<E>) ( (ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     private static final long serialVersionUID = 1L;
 
@@ -26,9 +26,10 @@ public abstract class AbstractDao<E, PK> implements Serializable{
         manager.merge(entidade);
     }
 
-    public E findById(PK id ) {
 
-        return  manager.find(entityClass , id);
+    public E findById(PK id) {
+
+        return manager.find(entityClass, id);
     }
 
     public List<E> listar(Class<E> entidade) {
@@ -38,8 +39,13 @@ public abstract class AbstractDao<E, PK> implements Serializable{
 
     }
 
+    public void delete(E entidade , PK id) {
 
+
+
+        manager.remove(this.findById(id));
     }
+}
 
 
 
