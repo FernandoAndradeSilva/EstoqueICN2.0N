@@ -23,6 +23,8 @@ public class UsuarioMB implements Serializable {
     private boolean teste = false;
     private String campoPesquisa;
 
+    private boolean quantidadeMinima = false;
+
     @PostConstruct
     public void carrega() {
 
@@ -114,7 +116,13 @@ public class UsuarioMB implements Serializable {
         return users;
     }
 
+    public boolean isQuantidadeMinima() {
+        return quantidadeMinima;
+    }
 
+    public void setQuantidadeMinima(boolean quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
+    }
 
     public void setUsers(List<Usuario> users) {
         this.users = users;

@@ -2,7 +2,9 @@ package br.com.estoque.beans;
 
 
 import br.com.estoque.model.Categoria;
+import br.com.estoque.model.Tipo;
 import br.com.estoque.service.CategoriaService;
+import br.com.estoque.service.TipoService;
 import br.com.estoque.util.Transacional;
 
 import javax.annotation.PostConstruct;
@@ -21,31 +23,75 @@ public class CategoriaMB implements Serializable {
 
     @Inject
     private CategoriaService categoriaService;
+    @Inject
+    private TipoService tipoService;
 
-    private Categoria categoria;
+    public void imprimeCatgTeste() {
+        System.out.println(categoriaSelecionada);
+    }
+
+    private boolean editandoTipo = false;
+    private boolean cadastrandoTipo = false;
+
+    private boolean editandoCategoria = false;
+    private boolean cadastrandoCategoria = false;
+
+    private Categoria categoria = new Categoria();
+
     private Categoria categoriaSelecionada = new Categoria();
-    private Categoria novaCategoria = new Categoria();
-    private String campoPesquisa = null;
+    private Tipo tipoSelecionado = new Tipo();
 
-    private boolean novoCadastro = false;
+    private Tipo novoTipo = new Tipo();
+    private Categoria novaCategoria = new Categoria();
+
+
+    private String campoPesquisaCategoria = null;
+    private String campoPesquisaTipo = null;
+
 
     private List<Categoria> categorias = new ArrayList<>();
 
-    public void cadastroInicialNovaCategoria() {
-        this.novoCadastro = true;
+    public void cadastroInicialTipo() {
+        this.novoTipo.setCategoria(this.categoriaSelecionada);
+        this.cadastrandoTipo = true;
     }
 
-    public void cancelaCadastroNovaCategoria() {
-        this.novoCadastro = false;
+    public void cadastroInicialCategoria() {
+        this.novaCategoria = new Categoria();
+        this.cadastrandoCategoria = true;
     }
 
-    public void pesquisar() {
+    public void edicaoInicialCategoria() {
+        this.editandoCategoria = true;
+    }
+
+    public void edicaoInicialTipo() {
+        this.editandoTipo = true;
+    }
+
+    public void cancelaCadastroCategoria() {
+        this.novaCategoria = new Categoria();
+        this.cadastrandoCategoria = false;
+        this.editandoCategoria = false;
+    }
+
+
+    public void cancelaCadastroTipo() {
+        this.novoTipo = new Tipo();
+        this.tipoSelecionado = new Tipo();
+        this.cadastrandoTipo = false;
+        this.editandoTipo = false;
+    }
+
+
+
+    public void pesquisarCategorias() {
 
         this.carregaCategorias();
         List<Categoria> categoriaPesquisada = new ArrayList<>();
 
         for (Categoria categoria : this.categorias) {
-            if(categoria.getNome().equalsIgnoreCase(campoPesquisa)) {
+            if(categoria.getNome().equalsIgnoreCase(campoPesquisaCategoria)) {
                 categoriaPesquisada.add(categoria);
                 break;
             }
@@ -56,6 +102,27 @@ public class CategoriaMB implements Serializable {
     }
 
 
+    public void pesquisarTipos() {
+
+        this.atualizaPesquisaTipo();
+        List<Tipo> tipoPesquisado = new ArrayList<>();
+
+        for (Tipo tipo : this.categoriaSelecionada.getTipos()) {
+            if(tipo.getNome().equalsIgnoreCase(campoPesquisaTipo)) {
+                tipoPesquisado.add(tipo);
+                break;
+            }
+        }
+        if(tipoPesquisado.size() == 1) {
+            this.categoriaSelecionada.setTipos(tipoPesquisado);
+        }
+    }
+
+    public void atualizaPesquisaTipo() {
+        this.categoriaSelecionada = categoriaService.busca(categoriaSelecionada);
+    }
+
+
     @PostConstruct
     public void carregaCategorias() {
        categorias = categoriaService.listarTodas();
@@ -63,8 +130,8 @@ public class CategoriaMB implements Serializable {
 
     public void recarregarPesquisa() {
         this.carregaCategorias();
-        if(campoPesquisa != null) {
-            campoPesquisa = null;
+        if(campoPesquisaCategoria != null) {
+            campoPesquisaCategoria = null;
         }
     }
 
@@ -83,6 +150,27 @@ public class CategoriaMB implements Serializable {
         this.categoriaSelecionada = new Categoria();
 
     }
+
+    @Transacional
+    public void excluirTipoSelecionado() {
+        this.tipoService.excluir(tipoSelecionado);
+        this.carregaCategorias();
+        this.atualizaPesquisaTipo();
+        this.tipoSelecionado = new Tipo();
+
+    }
+
+    @Transacional
+    public void salvarNovoTipo() {
+
+        tipoService.salvar(novoTipo);
+        categoriaSelecionada = categoriaService.busca(novoTipo.getCategoria());
+        this.novoTipo = new Tipo();
+        this.cadastrandoTipo = false;
+        this.carregaCategorias();
+    }
+
+
 
     public Categoria getCategoriaSelecionada() {
         return categoriaSelecionada;
@@ -108,12 +196,28 @@ public class CategoriaMB implements Serializable {
         this.categorias = categorias;
     }
 
-    public String getCampoPesquisa() {
-        return campoPesquisa;
+    public String getCampoPesquisaCategoria() {
+        return campoPesquisaCategoria;
     }
 
-    public void setCampoPesquisa(String campoPesquisa) {
-        this.campoPesquisa = campoPesquisa;
+    public void setCampoPesquisaCategoria(String campoPesquisaCategoria) {
+        this.campoPesquisaCategoria = campoPesquisaCategoria;
+    }
+
+    public boolean isEditandoCategoria() {
+        return editandoCategoria;
+    }
+
+    public void setEditandoCategoria(boolean editandoCategoria) {
+        this.editandoCategoria = editandoCategoria;
+    }
+
+    public boolean isCadastrandoCategoria() {
+        return cadastrandoCategoria;
+    }
+
+    public void setCadastrandoCategoria(boolean cadastrandoCategoria) {
+        this.cadastrandoCategoria = cadastrandoCategoria;
     }
 
     public Categoria getCategoria() {
@@ -124,11 +228,44 @@ public class CategoriaMB implements Serializable {
         this.categoria = categoria;
     }
 
-    public boolean isNovoCadastro() {
-        return novoCadastro;
+
+    public boolean isEditandoTipo() {
+        return editandoTipo;
     }
 
-    public void setNovoCadastro(boolean novoCadastro) {
-        this.novoCadastro = novoCadastro;
+    public void setEditandoTipo(boolean editandoTipo) {
+        this.editandoTipo = editandoTipo;
+    }
+
+    public boolean isCadastrandoTipo() {
+        return cadastrandoTipo;
+    }
+
+    public void setCadastrandoTipo(boolean cadastrandoTipo) {
+        this.cadastrandoTipo = cadastrandoTipo;
+    }
+
+    public Tipo getNovoTipo() {
+        return novoTipo;
+    }
+
+    public void setNovoTipo(Tipo novoTipo) {
+        this.novoTipo = novoTipo;
+    }
+
+    public Tipo getTipoSelecionado() {
+        return tipoSelecionado;
+    }
+
+    public void setTipoSelecionado(Tipo tipoSelecionado) {
+        this.tipoSelecionado = tipoSelecionado;
+    }
+
+    public String getCampoPesquisaTipo() {
+        return campoPesquisaTipo;
+    }
+
+    public void setCampoPesquisaTipo(String campoPesquisaTipo) {
+        this.campoPesquisaTipo = campoPesquisaTipo;
     }
 }

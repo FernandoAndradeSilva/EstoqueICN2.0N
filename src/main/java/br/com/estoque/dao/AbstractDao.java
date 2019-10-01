@@ -26,6 +26,10 @@ public abstract class AbstractDao<E, PK> implements Serializable {
         manager.merge(entidade);
     }
 
+    public E saveReturn(E entidade) {
+
+        return manager.merge(entidade);
+    }
 
     public E findById(PK id) {
 

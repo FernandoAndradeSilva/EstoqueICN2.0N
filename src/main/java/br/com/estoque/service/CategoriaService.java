@@ -28,4 +28,10 @@ public class CategoriaService implements Serializable {
     public void excluir(Categoria categoria) {
         categoriaDao.delete(categoria ,  categoria.getId());
     }
+
+    public Categoria busca(Categoria categoria) {
+
+        return categoriaDao.findById(categoria.getId());
+    }
+
 }
