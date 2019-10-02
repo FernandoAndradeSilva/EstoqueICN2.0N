@@ -287,12 +287,8 @@
                                                                              target="#{categoriaMB.novoTipo}"/>
                                             </p:commandButton>
 
-                                            <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash"
-                                                             title="Excluir" update="formTip:listTipos , formTip,
-                                                             formCat:panel , formCadastroItem , formCat, formTip:panelTipo"
-                                                             action="#{categoriaMB.excluirTipoSelecionado()}">
-                                            <f:setPropertyActionListener value="#{tipo}"
-                                                                         target="#{categoriaMB.tipoSelecionado}"/>
+                                            <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" update="formTip"
+                                                             title="Excluir" action="#{categoriaMB.excluirTipoSelecionado(tipo)}">
                                             </p:commandButton>
                                             <p:outputLabel value="- #{tipo.nome}"/>
 
