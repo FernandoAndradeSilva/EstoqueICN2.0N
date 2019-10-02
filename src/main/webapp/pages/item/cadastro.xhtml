@@ -287,9 +287,18 @@
                                                                              target="#{categoriaMB.novoTipo}"/>
                                             </p:commandButton>
 
-                                            <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" update="formTip"
-                                                             title="Excluir" action="#{categoriaMB.excluirTipoSelecionado(tipo)}">
+                                            <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" update="formCadastroItem , formTip"
+                                                             title="Excluir" action="#{categoriaMB.excluirTipoSelecionado()}">
+                                                <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
+                                                <f:setPropertyActionListener value="#{tipo}"
+                                                                             target="#{categoriaMB.tipoSelecionado}"/>
                                             </p:commandButton>
+
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" update="formCadastroItem , formTip" />
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"  />
+                                            </p:confirmDialog>
+
                                             <p:outputLabel value="- #{tipo.nome}"/>
 
 

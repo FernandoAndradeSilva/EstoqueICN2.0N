@@ -155,10 +155,16 @@ public class CategoriaMB implements Serializable {
     public void excluirTipoSelecionado() {
         this.tipoService.excluir(tipoSelecionado);
         this.carregaCategorias();
-        this.atualizaPesquisaTipo();
-        this.tipoSelecionado = new Tipo();
-
+        System.out.println(this.categorias.get(0).getTipos());
     }
+
+    public void testar() {
+        this.carregaCategorias();
+        System.out.println(this.categorias.get(0));
+//        this.atualizaPesquisaTipo();
+//        this.tipoSelecionado = new Tipo();
+    }
+
 
     @Transacional
     public void salvarNovoTipo() {
