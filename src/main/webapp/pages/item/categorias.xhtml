@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        Categorias
+    </ui:define>
+
+    <ui:define name="head-end">
+        <style type="text/css">
+
+
+        </style>
+    </ui:define>
+
+
+    <ui:define name="body">
+        <f:metadata>
+
+        </f:metadata>
+
+
+        <h:form id="formCategorias" prependId="false">
+            <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+                <div class="box-header with-border">
+
+
+                    <adm:breadcrumb title="Cadastro Default" link="cadastro-default.xhtml?id="/>
+
+
+                    <p:focus/>
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:splitButton value="Cadastrar" type="button" update="@none" process="@none"
+                                       icon="fa fa-plus" styleClass="btn-primary">
+
+                            <p:menuitem value="CATEGORIA" onclick="PF('dlg2').show();"
+                                        process="@this"
+                                        icon="fa fa-plus-circle"/>
+                            <p:separator/>
+                            <p:menuitem value="TIPO"
+                                        process="@this"
+                                        icon="fa fa-plus-circle"/>
+
+                        </p:splitButton>
+                        <p:spacer width="5"/>
+
+
+                        <p:commandButton  value="Voltar" immediate="true"
+                                         action="cadastro?faces-redirect=true"
+                                         process="@this"
+                                         icon="fa fa-close"/>
+                    </div>
+
+
+                    <p:separator/>
+
+
+                    <p:dataTable var="categoria" value="#{categoriaMB.categorias}" id="categorias"
+                                 rowExpandMode="single"
+                                 editable="true">
+
+                        <f:facet name="header">
+                            CATEGORIAS
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" update="categorias" listener="#{categoriaMB.editarCategoria}"/>
+
+                        <p:ajax event="rowToggle" listener="#{categoriaMB.selecionaCategoria(categoria)}"
+                                update="categorias:tipos"/>
+
+
+                        <p:column style="width:5%">
+                            <p:rowToggler/>
+                        </p:column>
+
+                        <p:column headerText="Nome">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{categoria.nome}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{categoria.nome}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Id">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{categoria.id}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{categoria.id}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+
+                        <p:column style="width:35px">
+                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                        </p:column>
+
+
+                        <p:column style="width:50px;">
+                            <p:commandButton icon="fa fa-bars" styleClass="btn-primary btn-xs"
+                                             title="Cadastrar tipo para essa Categoria"/>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <div class="ui-sm-6 ui-md-6 ui-lg-6">
+                                <p:dataTable id="tipos" var="tipo" value="#{categoriaMB.categoria.tipos}"
+                                             editable="true"
+                                             style="margin-bottom:20px">
+                                    <f:facet name="header">
+                                        TIPOS ASSOCIADOS A CATEGORIA #{categoriaMB.categoria.nome}
+                                    </f:facet>
+
+
+                                    <p:ajax event="rowEdit" update="tipos" listener="#{categoriaMB.editarTipo}"/>
+
+
+                                    <p:column headerText="Nome">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><p:outputLabel value="#{tipo.nome}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{tipo.nome}" style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Id">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><p:outputLabel value="#{tipo.id}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{tipo.id}"
+                                                                               style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+
+                                    <p:column style="width:35px">
+                                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                                    </p:column>
+
+                                    <p:column style="width:50px;">
+                                        <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
+                                                         title="Excluir" update="categorias , tipos"
+                                                         action="#{categoriaMB.excluirTipo()}">
+                                        <f:setPropertyActionListener value="#{tipo}"
+                                                                     target="#{categoriaMB.tipo}"/>
+                                        </p:commandButton>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </div>
+                        </p:rowExpansion>
+                    </p:dataTable>
+
+                </div>
+            </div>
+
+
+            <p:dialog  header="CADASTRO" widgetVar="dlg2" modal="true" >
+
+                <p:panelGrid columns="2">
+                <f:facet name="header">
+                    <p:outputLabel value="CATEGORIA"/>
+                </f:facet>
+
+                    <p:outputLabel value="Sigla: "/>
+                    <p:inputText maxlength="2" styleClass="form-control"/>
+                    <p:outputLabel value="Descricao: "/>
+                    <p:inputText  />
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="SALVAR" style="width: 100%"  styleClass="btn-primary" />
+                    </f:facet>
+
+                </p:panelGrid>
+
+
+
+            </p:dialog>
+
+        </h:form>
+        <h:outputScript library="js" name="script.js"/>
+
+    </ui:define>
+
+</ui:composition>

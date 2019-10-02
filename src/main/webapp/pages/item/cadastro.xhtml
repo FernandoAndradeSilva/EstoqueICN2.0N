@@ -32,311 +32,111 @@
                 <adm:breadcrumb title="Cadastro Default" link="cadastro-default.xhtml?id="/>
 
 
-                <div class="ui-sm-12 ui-md-12 ui-lg-6" style="float: left">
-                    <h:form id="formCadastroItem" prependId="false">
-                        <p:focus/>
+                <h:form id="formCadastroItem" prependId="false">
+                    <p:focus/>
 
-                        <div id="main-buttons" class="hidden-sm hidden-xs">
-                            <p:commandButton value="Salvar" update="@form"
-                                             icon="fa fa-check" styleClass="btn-primary"/>
-                            <p:spacer width="5"/>
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:commandButton value="Salvar" update="@form"
+                                         icon="fa fa-check" styleClass="btn-primary"/>
+                        <p:spacer width="5"/>
 
-                            <p:commandButton value="Excluir" process="@this"
-                                             icon="fa fa-trash"
-                                             styleClass="btn-danger">
-                            </p:commandButton>
-                            <p:spacer width="5"/>
-                            <p:commandButton value="Voltar" immediate="true"
-                                             action="lista?faces-redirect=true"
-                                             process="@this"
-                                             icon="fa fa-close"/>
-                        </div>
+                        <p:commandButton value="Excluir" process="@this" rendered="false"
+                                         icon="fa fa-trash"
+                                         styleClass="btn-danger">
+                        </p:commandButton>
+                        <p:spacer width="5"/>
+                        <p:commandButton value="Categorias" immediate="true"
+                                         action="categorias?faces-redirect=true"
+                                         process="@this"
+                                         icon="fa fa-list-alt"/>
+                    </div>
 
-                        <p:splitButton value="Salvar" update="@form"
-                                       icon="fa fa-check"
-                                       styleClass="hidden-md hidden-lg btn-primary">
-                            <p:menuitem value="Excluir"
-                                        process="@this"
-                                        icon="fa fa-trash"/>
-                            <p:separator/>
-                            <p:menuitem value="Voltar" action="lista-default?faces-redirect=true" process="@this"
-                                        icon="fa fa-close"/>
-                        </p:splitButton>
-
-
+                    <p:splitButton value="Salvar" update="@form"
+                                   icon="fa fa-check"
+                                   styleClass="hidden-md hidden-lg btn-primary">
+                        <p:menuitem value="Excluir"
+                                    process="@this"
+                                    icon="fa fa-trash"/>
                         <p:separator/>
+                        <p:menuitem value="Voltar" action="lista-default?faces-redirect=true" process="@this"
+                                    icon="fa fa-close"/>
+                    </p:splitButton>
 
 
-                        <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-12">
+                    <p:separator/>
 
 
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                                <p:selectOneMenu id="grupo" value="#{categoriaMB.categoria}"
-                                                 converter="omnifaces.SelectItemsConverter">
-                                    <f:selectItem itemLabel="Categoria" noSelectionOption="true"/>
-                                    <f:selectItems value="#{categoriaMB.categorias}"/>
-                                    <p:ajax event="change" update="classe , grupo"
-                                            listener="#{categoriaMB.carregaCategorias()}"/>
-                                </p:selectOneMenu>
-                            </div>
-
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                                <p:selectOneMenu id="classe"
-                                                 converter="omnifaces.SelectItemsConverter">
-                                    <f:selectItem itemLabel="Tipo" noSelectionOption="true"/>
-                                    <f:selectItems value="#{categoriaMB.categoria.tipos}"/>
-                                </p:selectOneMenu>
-                            </div>
-
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                                <p:inputText id="descricao" placeholder="Descricao"/>
-                            </div>
-
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                                <p:inputText id="especificacao" placeholder="Especificação"/>
-                            </div>
-
-                            <div class="ui-sm-12 ui-md-4 ui-lg-4">
-                                <p:selectOneMenu id="unMedida">
-                                    <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
-                                </p:selectOneMenu>
-                            </div>
-
-                            <div class="ui-sm-4 ui-md-4 ui-lg-2">
-                                <p:inputText id="codigo" placeholder="Codigo"/>
-                            </div>
+                    <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-6">
 
 
-                            <div class="ui-sm-4 ui-md-4 ui-lg-3">
-                                <p:selectBooleanCheckbox value="#{usuarioMB.quantidadeMinima}" itemLabel="Qtd. mínima"
-                                                         styleClass="form-control"
-                                                         title="Marque para exibir uma notifição quando o produto atingir uma quantidade mínima">
-                                    <p:ajax event="change" update="campoEstMin"/>
-                                </p:selectBooleanCheckbox>
+                        <div class="ui-sm-12 ui-md-12 ui-lg-6">
+                            <p:selectOneMenu id="grupo" value="#{categoriaMB.categoria}"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Categoria" noSelectionOption="true"/>
+                                <f:selectItems value="#{categoriaMB.categorias}"/>
+                                <p:ajax event="change" update="classe , grupo"
+                                        listener="#{categoriaMB.carregaCategorias()}"/>
+                            </p:selectOneMenu>
+                        </div>
 
-                            </div>
+                        <div class="ui-sm-12 ui-md-12 ui-lg-6">
+                            <p:selectOneMenu id="classe"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Tipo" noSelectionOption="true"/>
+                                <f:selectItems value="#{categoriaMB.categoria.tipos}"/>
+                            </p:selectOneMenu>
+                        </div>
 
-                            <div class="ui-sm-4 ui-md-4 ui-lg-3">
-                                <p:spinner placeholder="Quantidade" id="campoEstMin"
-                                           disabled="#{!usuarioMB.quantidadeMinima}"/>
-                            </div>
+                        <div class="ui-sm-12 ui-md-12 ui-lg-6">
+                            <p:inputText id="descricao" placeholder="Descricao"/>
+                        </div>
 
+                        <div class="ui-sm-12 ui-md-12 ui-lg-6">
+                            <p:inputText id="especificacao" placeholder="Especificação"/>
+                        </div>
 
-                            <div class="ui-sm-12 ui-md-6 ui-lg-6">
-                                <p:inputTextarea id="observacoes" placeholder="Preencha com as observações"/>
-                            </div>
+                        <div class="ui-sm-12 ui-md-4 ui-lg-4">
+                            <p:selectOneMenu id="unMedida">
+                                <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
+                            </p:selectOneMenu>
+                        </div>
 
-
+                        <div class="ui-sm-4 ui-md-4 ui-lg-2">
+                            <p:inputText id="codigo" placeholder="Codigo"/>
                         </div>
 
 
-                    </h:form>
-                </div>
+                        <div class="ui-sm-4 ui-md-4 ui-lg-3">
+                            <p:selectBooleanCheckbox value="#{usuarioMB.quantidadeMinima}" itemLabel="Qtd. mínima"
+                                                     styleClass="form-control"
+                                                     title="Marque para exibir uma notifição quando o produto atingir uma quantidade mínima">
+                                <p:ajax event="change" update="campoEstMin"/>
+                            </p:selectBooleanCheckbox>
 
-                <div class="ui-sm-12 ui-md-12 ui-lg-6" style="float: right">
-                    <p:panel id="toggleable" toggleable="true" closable="false" toggleSpeed="500"
-                             widgetVar="panel" collapsed="true">
-
-                        <f:facet name="header">
-                            Cadastrar categorias e tipos
-                        </f:facet>
-
-                        <div class="ui-grid-row">
-
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6" style="float: left">
-
-                                <h:form id="formCat">
-
-                                    <p:panel id="panel">
-
-                                        <f:facet name="header">
-                                            <p:commandButton value="+" styleClass="btn-primary btn-xs"
-                                                             title="Clique para adicionar uma categoria"
-                                                             update="formCat:panel">
-                                                <p:ajax event="click"
-                                                        listener="#{categoriaMB.cadastroInicialCategoria()}"
-                                                        update="formCat:panel"/>
-                                            </p:commandButton>
-                                            <p:outputLabel value="CATEGORIAS"/>
-                                        </f:facet>
-                                        <p:dataList value="#{categoriaMB.categorias}" var="categoria" type="unordered"
-                                                    itemType="none" paginatorPosition="bottom" id="dtList"
-                                                    paginator="true" rows="5" styleClass="paginated">
-                                            <f:facet name="header">
-
-                                                <div style="display: inline">
-
-
-                                                    <p:inputText placeholder="Pesquisar" id="campoPesquisaCategoria"
-                                                                 value="#{categoriaMB.campoPesquisaCategoria}"
-                                                                 style="width: 60%"/>
-                                                    <p:commandButton style="color: black; background-color: #28a745"
-                                                                     icon="fa fa-fw fa-search"
-                                                                     title="Clique Para Pesquisar"
-                                                                     action="#{categoriaMB.pesquisarCategorias()}"
-                                                                     styleClass="btn-sm" update="formCat:dtList"/>
-                                                    <p:commandButton icon="fa fa-refresh"
-                                                                     style="color: black ; background-color: #17a2b8;"
-                                                                     title="Recarregar"
-                                                                     action="#{categoriaMB.recarregarPesquisa()}"
-                                                                     styleClass="btn-sm" update="formCat:dtList"/>
-
-                                                </div>
-
-                                            </f:facet>
-
-                                            <p:commandButton styleClass="btn-xs btn-warning" icon="fa fa-edit"
-                                                             title="Editar"
-                                                             update="formCat:panel"
-                                                             action="#{categoriaMB.edicaoInicialCategoria()}">
-                                                <f:setPropertyActionListener value="#{categoria}"
-                                                                             target="#{categoriaMB.novaCategoria}"/>
-                                            </p:commandButton>
-                                            <p:commandButton styleClass="btn-xs btn-danger"
-                                                             action="#{categoriaMB.excluirCategoriaSelecionada()}"
-                                                             icon="fa fa-trash" title="Excluir"
-                                                             update="formCat:panel , formCadastroItem , formCat">
-                                                <f:setPropertyActionListener value="#{categoria}"
-                                                                             target="#{categoriaMB.categoriaSelecionada}"/>
-                                            </p:commandButton>
-                                            <p:commandLink value="- #{categoria.nome}" update="formTip"
-                                                           title="Clique para visualisar os Tipos">
-                                                <f:setPropertyActionListener value="#{categoria}"
-                                                                             target="#{categoriaMB.categoriaSelecionada}"/>
-                                            </p:commandLink>
-
-
-                                            <f:facet name="footer">
-
-                                                <div style="#{categoriaMB.cadastrandoCategoria == false and categoriaMB.editandoCategoria == false
-                                            ? 'display: none' : '' }">
-
-                                                    <p:inputText maxlength="2" placeholder="Sigla" style="width: 20%"
-                                                    />
-
-                                                    <p:inputText placeholder="Descrição" style="width: 80%"
-                                                                 value="#{categoriaMB.novaCategoria.nome}"/>
-
-                                                    <p:commandButton value="Salvar" styleClass="btn-success"
-                                                                     style="width: 50%"
-                                                                     action="#{categoriaMB.salvarNovaCategoria()}"
-                                                                     update="formCat:panel , formCadastroItem"/>
-                                                    <p:commandButton value="Cancelar" styleClass="btn-danger">
-                                                        <p:ajax event="click" style="width: 50%"
-                                                                listener="#{categoriaMB.cancelaCadastroCategoria()}"
-                                                                update="formCat:panel"/>
-                                                    </p:commandButton>
-
-
-                                                </div>
-                                            </f:facet>
-
-                                        </p:dataList>
-                                    </p:panel>
-                                </h:form>
-                            </div>
-
-                            <div class="ui-sm-12 ui-md-12 ui-lg-6" style="float: right">
-                                <h:form id="formTip">
-                                    <p:panel rendered="#{categoriaMB.categoriaSelecionada.id != null}" id="panelTipo" >
-
-                                        <f:facet name="header">
-                                            <p:commandButton value="+" styleClass="btn-primary btn-xs"
-                                                             title="Clique para cadastrar um novo tipo">
-                                                <p:ajax event="click"
-                                                        listener="#{categoriaMB.cadastroInicialTipo()}"
-                                                        update="formTip:panelTipo , listTipos"/>
-                                            </p:commandButton>
-
-                                            <p:outputLabel value="TIPO #{categoriaMB.categoriaSelecionada.nome}"/>
-
-                                        </f:facet>
-                                        <p:dataList value="#{categoriaMB.categoriaSelecionada.tipos}" var="tipo"
-                                                    type="unordered" id="listTipos"
-                                                    itemType="none" paginatorPosition="bottom"
-                                                    paginator="true" rows="5" styleClass="paginated">
-                                            <f:facet name="header">
-
-                                                <div style="display: inline">
-
-
-                                                    <p:inputText placeholder="Pesquisar" id="campoPesquisaTipo"
-                                                                 style="width: 60%"
-                                                                value="#{categoriaMB.campoPesquisaTipo}"/>
-                                                    <p:commandButton style="color: black; background-color: #28a745"
-                                                                     icon="fa fa-fw fa-search"
-                                                                     title="Clique Para Pesquisar"
-                                                                     action="#{categoriaMB.pesquisarTipos()}"
-                                                                     styleClass="btn-sm" update="formTip:listTipos"/>
-                                                    <p:commandButton icon="fa fa-refresh"
-                                                                     style="color: black ; background-color: #17a2b8;"
-                                                                     title="Recarregar"
-                                                                     action="#{categoriaMB.atualizaPesquisaTipo()}"
-                                                                     styleClass="btn-sm" update="formTip:listTipos"/>
-
-                                                </div>
-
-
-                                            </f:facet>
-
-                                            <p:commandButton styleClass="btn-xs btn-warning" icon="fa fa-edit"
-                                                             title="Editar"
-                                                             update="formTip:panelTipo"
-                                                             action="#{categoriaMB.edicaoInicialTipo()}">
-                                                <f:setPropertyActionListener value="#{tipo}"
-                                                                             target="#{categoriaMB.novoTipo}"/>
-                                            </p:commandButton>
-
-                                            <p:commandButton styleClass="btn-xs btn-danger" icon="fa fa-trash" update="formCadastroItem , formTip"
-                                                             title="Excluir" action="#{categoriaMB.excluirTipoSelecionado()}">
-                                                <p:confirm header="Confirmation" message="Are you sure?" icon="pi pi-exclamation-triangle" />
-                                                <f:setPropertyActionListener value="#{tipo}"
-                                                                             target="#{categoriaMB.tipoSelecionado}"/>
-                                            </p:commandButton>
-
-                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" update="formCadastroItem , formTip" />
-                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"  />
-                                            </p:confirmDialog>
-
-                                            <p:outputLabel value="- #{tipo.nome}"/>
-
-
-                                            <f:facet name="footer">
-
-                                                <div style="#{categoriaMB.cadastrandoTipo == false and categoriaMB.editandoTipo == false
-                                            ? 'display: none' : '' }">
-
-                                                    <p:inputText maxlength="2" placeholder="Sigla" style="width: 20%"
-                                                    />
-
-                                                    <p:inputText placeholder="Descrição" style="width: 80%"
-                                                                 value="#{categoriaMB.novoTipo.nome}"/>
-
-                                                    <p:commandButton value="Salvar" styleClass="btn-success"
-                                                                     style="width: 50%"
-                                                                     action="#{categoriaMB.salvarNovoTipo()}"
-                                                                     update=" formCadastroItem, formCat:dtList
-                                                                 formTip:listTipos"/>
-                                                    <p:commandButton value="Cancelar" styleClass="btn-danger">
-                                                        <p:ajax event="click" style="width: 50%"
-                                                                listener="#{categoriaMB.cancelaCadastroTipo()}"
-                                                                update="formTip:panelTipo"/>
-                                                    </p:commandButton>
-
-
-                                                </div>
-                                            </f:facet>
-
-                                        </p:dataList>
-                                    </p:panel>
-                                </h:form>
-                            </div>
                         </div>
-                    </p:panel>
-                </div>
+
+                        <div class="ui-sm-4 ui-md-4 ui-lg-3">
+                            <p:spinner placeholder="Quantidade" id="campoEstMin"
+                                       disabled="#{!usuarioMB.quantidadeMinima}"/>
+                        </div>
+
+
+                        <div class="ui-sm-12 ui-md-6 ui-lg-12">
+                            <p:inputTextarea id="observacoes" placeholder="Preencha com as observações"/>
+                        </div>
+
+
+                    </div>
+
+
+                </h:form>
             </div>
+
+
         </div>
+
+
+
 
 
         <h:outputScript library="js" name="script.js"/>
