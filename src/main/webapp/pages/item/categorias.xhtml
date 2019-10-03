@@ -9,10 +9,7 @@
     </ui:define>
 
     <ui:define name="head-end">
-        <style type="text/css">
 
-
-        </style>
     </ui:define>
 
 
@@ -20,7 +17,7 @@
         <f:metadata>
 
         </f:metadata>
-
+        <p:growl id="growl" showDetail="true" sticky="true"/>
 
         <h:form id="formCategorias" prependId="false">
             <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
@@ -36,11 +33,11 @@
                         <p:splitButton value="Cadastrar" type="button" update="@none" process="@none"
                                        icon="fa fa-plus" styleClass="btn-primary">
 
-                            <p:menuitem value="CATEGORIA" onclick="PF('dlg2').show();"
+                            <p:menuitem value="CATEGORIA" onclick="PF('dlgCadastroCategoria').show();"
                                         process="@this"
                                         icon="fa fa-plus-circle"/>
                             <p:separator/>
-                            <p:menuitem value="TIPO"
+                            <p:menuitem value="TIPO" onclick="PF('dlgCadastroTipo').show();"
                                         process="@this"
                                         icon="fa fa-plus-circle"/>
 
@@ -48,7 +45,7 @@
                         <p:spacer width="5"/>
 
 
-                        <p:commandButton  value="Voltar" immediate="true"
+                        <p:commandButton value="Voltar" immediate="true"
                                          action="cadastro?faces-redirect=true"
                                          process="@this"
                                          icon="fa fa-close"/>
@@ -59,14 +56,15 @@
 
 
                     <p:dataTable var="categoria" value="#{categoriaMB.categorias}" id="categorias"
-                                 rowExpandMode="single"
+                                 rowExpandMode="single" style="height: he"
+
                                  editable="true">
 
                         <f:facet name="header">
                             CATEGORIAS
                         </f:facet>
 
-                        <p:ajax event="rowEdit" update="categorias" listener="#{categoriaMB.editarCategoria}"/>
+                        <p:ajax event="rowEdit" listener="#{categoriaMB.editarCategoria}"/>
 
                         <p:ajax event="rowToggle" listener="#{categoriaMB.selecionaCategoria(categoria)}"
                                 update="categorias:tipos"/>
@@ -97,14 +95,36 @@
                             <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                         </p:column>
 
+                        <p:column style="width:50px;" >
+                            <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
+                                             title="Excluir" update="categorias"
+                                             action="#{categoriaMB.excluirCategoria()}">
+                                <f:setPropertyActionListener value="#{categoria}"
+                                                             target="#{categoriaMB.novaCategoria}"/>
+                            </p:commandButton>
+                        </p:column>
+
 
                         <p:column style="width:50px;">
-                            <p:commandButton icon="fa fa-bars" styleClass="btn-primary btn-xs"
-                                             title="Cadastrar tipo para essa Categoria"/>
+
+                            <p:commandButton title="Cadastrar tipo" styleClass="btn-xs btn-primary"
+                                             icon="fa fa-plus" oncomplete="PF('dlgCadastroTipo').show();"
+                                             update="formCadastroTipo , DialogCadastroTipo"
+                                             action="#{categoriaMB.selecionaCategoriaNovoTipo()}">
+
+                                <f:setPropertyActionListener value="#{categoria}"
+                                                             target="#{categoriaMB.categoria}"/>
+                            </p:commandButton>
+
+
                         </p:column>
 
                         <p:rowExpansion>
+
+
                             <div class="ui-sm-6 ui-md-6 ui-lg-6">
+
+
                                 <p:dataTable id="tipos" var="tipo" value="#{categoriaMB.categoria.tipos}"
                                              editable="true"
                                              style="margin-bottom:20px">
@@ -133,19 +153,24 @@
 
 
                                     <p:column style="width:35px">
-                                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações"
+                                                     cancelTitle="Cancelar"/>
                                     </p:column>
 
                                     <p:column style="width:50px;">
-                                        <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
+                                        <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-sm"
                                                          title="Excluir" update="categorias , tipos"
                                                          action="#{categoriaMB.excluirTipo()}">
-                                        <f:setPropertyActionListener value="#{tipo}"
-                                                                     target="#{categoriaMB.tipo}"/>
+                                            <f:setPropertyActionListener value="#{tipo}"
+                                                                         target="#{categoriaMB.tipo}"/>
                                         </p:commandButton>
                                     </p:column>
 
                                 </p:dataTable>
+
+                                <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this"
+                                                 action="#{categoriaMB.onAddNew()}" update="tipos" />
+
                             </div>
                         </p:rowExpansion>
                     </p:dataTable>
@@ -154,30 +179,70 @@
             </div>
 
 
-            <p:dialog  header="CADASTRO" widgetVar="dlg2" modal="true" >
+        </h:form>
 
+        <p:dialog header="CADASTRO" widgetVar="dlgCadastroTipo" modal="true" id="DialogCadastroTipo">
+
+            <h:form id="formCadastroTipo">
                 <p:panelGrid columns="2">
-                <f:facet name="header">
-                    <p:outputLabel value="CATEGORIA"/>
-                </f:facet>
+                    <f:facet name="header">
+                        <p:outputLabel value="TIPO"/>
+                    </f:facet>
+
+
+                    <p:outputLabel value="Categoria: "/>
+                    <p:selectOneMenu height="100" appendTo="@this" id="CategoriasNovoTipo"
+                                     value="#{categoriaMB.categoria}"
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                        <f:selectItems value="#{categoriaMB.categorias}"/>
+                    </p:selectOneMenu>
+
 
                     <p:outputLabel value="Sigla: "/>
-                    <p:inputText maxlength="2" styleClass="form-control"/>
+                    <p:inputText maxlength="2" styleClass="form-control"
+                                 value="#{categoriaMB.tipo.sigla}"/>
                     <p:outputLabel value="Descricao: "/>
-                    <p:inputText  />
+                    <p:inputText value="#{categoriaMB.tipo.nome}"/>
 
 
                     <f:facet name="footer">
-                        <p:commandButton value="SALVAR" style="width: 100%"  styleClass="btn-primary" />
+                        <p:commandButton value="SALVAR" style="width: 100%"
+                                         action="#{categoriaMB.salvarTipo()}" styleClass="btn-primary"
+                                         update="@form , formCategorias"/>
+                    </f:facet>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+
+        <p:dialog header="CADASTRO" widgetVar="dlgCadastroCategoria" modal="true">
+            <h:form id="formCadastroCategoria">
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:outputLabel value="CATEGORIA"/>
+                    </f:facet>
+
+                    <p:outputLabel value="Sigla: "/>
+                    <p:inputText maxlength="2" value="#{categoriaMB.novaCategoria.sigla}"
+                                 styleClass="form-control" required="true"/>
+                    <p:outputLabel value="Descricao: "/>
+                    <p:inputText value="#{categoriaMB.novaCategoria.nome}"/>
+
+
+                    <f:facet name="footer">
+                        <p:commandButton value="SALVAR" style="width: 100%"
+                                         action="#{categoriaMB.salvarCategoria()}" styleClass="btn-primary"
+                                         update="@form , formCategorias , formCadastroTipo , growl"/>
                     </f:facet>
 
                 </p:panelGrid>
 
+            </h:form>
+        </p:dialog>
 
 
-            </p:dialog>
-
-        </h:form>
         <h:outputScript library="js" name="script.js"/>
 
     </ui:define>

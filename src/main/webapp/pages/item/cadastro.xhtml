@@ -45,10 +45,10 @@
                                          styleClass="btn-danger">
                         </p:commandButton>
                         <p:spacer width="5"/>
-                        <p:commandButton value="Categorias" immediate="true"
+                        <p:commandButton value="Cadastrar categorias e tipos" immediate="true"
                                          action="categorias?faces-redirect=true"
-                                         process="@this"
-                                         icon="fa fa-list-alt"/>
+                                         process="@this" styleClass="btn-info"
+                                         icon="fa fa-list-alt" style="float: right"/>
                     </div>
 
                     <p:splitButton value="Salvar" update="@form"
@@ -70,20 +70,21 @@
 
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:selectOneMenu id="grupo" value="#{categoriaMB.categoria}"
-                                             converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemLabel="Categoria" noSelectionOption="true"/>
+                            <p:selectOneMenu id="grupo" value="#{itemMB.item.tipo.categoria}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Selecione a categoria" noSelectionOption="true"/>
                                 <f:selectItems value="#{categoriaMB.categorias}"/>
-                                <p:ajax event="change" update="classe , grupo"
-                                        listener="#{categoriaMB.carregaCategorias()}"/>
+                                <p:ajax event="change" update="classe"/>
                             </p:selectOneMenu>
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
                             <p:selectOneMenu id="classe"
+                                             filter="true" filterMatchMode="startsWith"
                                              converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemLabel="Tipo" noSelectionOption="true"/>
-                                <f:selectItems value="#{categoriaMB.categoria.tipos}"/>
+                                <f:selectItem itemLabel="Selecione o tipo" noSelectionOption="true"/>
+                                <f:selectItems value="#{itemMB.item.tipo.categoria.tipos}"/>
                             </p:selectOneMenu>
                         </div>
 

@@ -1,5 +1,7 @@
 package br.com.estoque.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.Objects;
 public class Categoria extends AbstractEntity {
 
     private String nome;
+
+
+    private String sigla;
 
     @OneToMany(mappedBy="categoria" , fetch = FetchType.EAGER)
     private List<Tipo> tipos = new ArrayList<>();
@@ -30,13 +35,16 @@ public class Categoria extends AbstractEntity {
         this.tipos = tipos;
     }
 
+    public String getSigla() {
+        return sigla;
+    }
 
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
 
     @Override
     public String toString() {
-        return nome;
+        return nome + " - " + sigla;
     }
-
-
-
 }

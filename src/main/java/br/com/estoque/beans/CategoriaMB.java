@@ -33,6 +33,8 @@ public class CategoriaMB implements Serializable {
 
     private Categoria categoria = new Categoria();
 
+    private Categoria novaCategoria = new Categoria();
+
     private Tipo tipo = new Tipo();
 
     private List<Categoria> categorias = new ArrayList<>();
@@ -47,6 +49,10 @@ public class CategoriaMB implements Serializable {
         tipoService.excluir(tipo);
     }
 
+    @Transacional
+    public void excluirCategoria() {
+        categoriaService.excluir(novaCategoria);
+    }
 
     public void selecionaCategoria(Categoria categoria) {
         this.categoria = categoria;
@@ -56,9 +62,6 @@ public class CategoriaMB implements Serializable {
     public void editarCategoria(RowEditEvent event) {
         //FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
         //FacesContext.getCurrentInstance().addMessage(null, msg);
-
-
-
         categoriaService.salvar(((Categoria) event.getObject()));
 
     }
@@ -67,22 +70,40 @@ public class CategoriaMB implements Serializable {
     public void editarTipo(RowEditEvent event) {
         //FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
         //FacesContext.getCurrentInstance().addMessage(null, msg);
-
         tipoService.salvar(((Tipo) event.getObject()));
 
     }
 
-    public void onAddNew() {
-        // Add one new car to the table:
-        Categoria ct = new Categoria();
-        this.categorias.add(ct);
+    @Transacional
+    public void salvarCategoria() {
 
+        this.categoriaService.salvar(novaCategoria);
+        this.novaCategoria = new Categoria();
     }
 
+    @Transacional
+    public void salvarTipo() {
+        this.tipoService.salvar(tipo);
+        this.tipo = new Tipo();
+    }
+
+    public void onAddNew() {
+
+        Tipo tp = new Tipo();
+        tp.setCategoria(this.categorias.get(0));
+        this.categoria.getTipos().add(tp);
+
+
+    }
 
     public List<Categoria> getCategorias() {
         categorias = categoriaService.listarTodas();
         return categorias;
+    }
+
+
+    public void selecionaCategoriaNovoTipo() {
+        this.tipo.setCategoria(this.categoria);
     }
 
     public void setCategorias(List<Categoria> categorias) {
@@ -106,6 +127,18 @@ public class CategoriaMB implements Serializable {
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
+
+
+    public Categoria getNovaCategoria() {
+        return novaCategoria;
+    }
+
+
+    public void setNovaCategoria(Categoria novaCategoria) {
+        this.novaCategoria = novaCategoria;
+    }
+
+
 
 //    public void pesquisarCategorias() {
 //

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        Categorias
+    </ui:define>
+
+    <ui:define name="head-end">
+
+    </ui:define>
+
+
+    <ui:define name="body">
+        <f:metadata>
+
+        </f:metadata>
+        <p:growl id="growl" showDetail="true" sticky="true" />
+
+        <h:form id="formCategorias" prependId="false">
+            <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+                <div class="box-header with-border">
+
+
+                    <adm:breadcrumb title="Cadastro Default" link="cadastro-default.xhtml?id="/>
+
+
+                    <p:focus/>
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:splitButton value="Cadastrar" type="button" update="@none" process="@none"
+                                       icon="fa fa-plus" styleClass="btn-primary">
+
+                            <p:menuitem value="CATEGORIA"
+                                        process="@this"
+                                        icon="fa fa-plus-circle"/>
+                            <p:separator/>
+                            <p:menuitem value="TIPO"
+                                        process="@this"
+                                        icon="fa fa-plus-circle"/>
+
+                        </p:splitButton>
+                        <p:spacer width="5"/>
+
+
+                        <p:commandButton value="Voltar" immediate="true"
+                                         action="cadastro?faces-redirect=true"
+                                         process="@this"
+                                         icon="fa fa-close"/>
+                    </div>
+
+
+                    <p:separator/>
+
+
+                </div>
+            </div>
+        </h:form>
+
+
+        <h:form id="form">
+        <p:growl id="msgs" showDetail="true"/>
+
+        <p:treeTable value="#{categoriaMB.categorias}" editable="true" var="document" style="margin-bottom:20px">
+            <f:facet name="header">
+                Row Editing
+            </f:facet>
+
+
+
+
+        </p:treeTable>
+        </h:form>
+
+        <h:outputScript library="js" name="script.js"/>
+
+    </ui:define>
+
+</ui:composition>
