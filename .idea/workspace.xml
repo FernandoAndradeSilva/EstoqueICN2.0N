@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="785cec35-8e19-4578-8157-2dac03d2b521" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/CategoriaMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/CategoriaMB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/categorias.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/categorias.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,8 +77,9 @@
       <command value="git add." />
       <command value="git commit -m &quot;editando tamanho da tela&quot;" />
       <command value="git commit -m &quot;problema no postConstruct&quot;" />
-      <command value="git add ." />
       <command value="git commit -m &quot;tela-separada-categorias&quot;" />
+      <command value="git add ." />
+      <command value="git commit -m &quot;finalizando tela categorias&quot;" />
       <command value="git push origin master" />
     </option>
   </component>
@@ -186,7 +186,8 @@
       <workItem from="1570018939026" duration="15144000" />
       <workItem from="1570046165250" duration="1276000" />
       <workItem from="1570104612016" duration="22829000" />
-      <workItem from="1570156598829" duration="5282000" />
+      <workItem from="1570156598829" duration="5539000" />
+      <workItem from="1570162441559" duration="543000" />
     </task>
     <servers />
   </component>

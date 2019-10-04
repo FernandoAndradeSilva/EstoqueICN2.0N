@@ -156,26 +156,33 @@
 
                             </div>
 
-                            <div class="ui-sm-4 ui-md-4 ui-lg-4" style="float: left" >
+                            <div class="ui-sm-4 ui-md-4 ui-lg-4" style="float: left">
 
 
-                                <p:panel header="ADICIONAR TIPO">
+                                <p:panel header="ADICIONAR TIPO" styleClass="ui-grid-col-9">
 
+                                    <div style="display: inline">
 
-                                    <p:inputText placeholder="Sigla" styleClass="ui-sm-3 ui-md-3 ui-lg-3" maxlength="2"
-                                                 value="#{categoriaMB.tipo.sigla}" id="campoSigla"/>
+                                        <p:inputText placeholder="Sigla" styleClass="ui-sm-3 ui-md-3 ui-lg-3"
+                                                     maxlength="2"
+                                                     value="#{categoriaMB.tipo.sigla}" id="campoSigla"/>
 
-                                    <p:inputText placeholder="Nome" styleClass="ui-sm-6 ui-md-6 ui-lg-6" value="#{categoriaMB.tipo.nome}" id="campoNome"
-                                                 />
-
-
-                                    <p:commandButton value="Salvar" styleClass="ui-priority-primary btn-success
-                                     ui-sm-3 ui-md-3 ui-lg-3 form-control"
-                                                     action="#{categoriaMB.adicionaNovoTipo()}" icon="fa fa-save"
-                                                     update="tipos , categorias:0:campoNome , categorias:0:campoSigla" >
-                                        <p:resetInput target="categorias:0:campoNome"/>
-                                        <p:resetInput target="categorias:0:campoSigla"/>
-                                    </p:commandButton>
+                                        <p:inputText placeholder="Nome" styleClass="ui-sm-9 ui-md-9 ui-lg-9"
+                                                     value="#{categoriaMB.tipo.nome}" id="campoNome"
+                                        />
+                                        <f:facet name="footer">
+                                            <div align="center">
+                                                <p:commandButton value="Salvar" styleClass="ui-priority-primary btn-success
+                                     ui-sm-6 ui-md-6 ui-lg-6"
+                                                                 action="#{categoriaMB.adicionaNovoTipo()}"
+                                                                 icon="fa fa-save"
+                                                                 update="tipos , categorias:0:campoNome , categorias:0:campoSigla">
+                                                    <p:resetInput target="categorias:0:campoNome"/>
+                                                    <p:resetInput target="categorias:0:campoSigla"/>
+                                                </p:commandButton>
+                                            </div>
+                                        </f:facet>
+                                    </div>
 
                                 </p:panel>
 
