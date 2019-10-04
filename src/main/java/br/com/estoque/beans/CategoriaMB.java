@@ -46,6 +46,7 @@ public class CategoriaMB implements Serializable {
 
     @Transacional
     public void excluirTipo() {
+        this.getCategoria().getTipos().remove(tipo);
         tipoService.excluir(tipo);
     }
 
@@ -87,11 +88,12 @@ public class CategoriaMB implements Serializable {
         this.tipo = new Tipo();
     }
 
-    public void onAddNew() {
-
-        Tipo tp = new Tipo();
-        tp.setCategoria(this.categorias.get(0));
-        this.categoria.getTipos().add(tp);
+    @Transacional
+    public void adicionaNovoTipo() {
+        tipo.setCategoria(this.categoria);
+        this.categoria.getTipos().add(tipo);
+        tipoService.salvar(tipo);
+        this.tipo = new Tipo();
 
 
     }

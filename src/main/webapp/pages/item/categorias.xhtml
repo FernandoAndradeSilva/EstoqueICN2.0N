@@ -95,7 +95,7 @@
                             <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                         </p:column>
 
-                        <p:column style="width:50px;" >
+                        <p:column style="width:50px;">
                             <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
                                              title="Excluir" update="categorias"
                                              action="#{categoriaMB.excluirCategoria()}">
@@ -104,25 +104,10 @@
                             </p:commandButton>
                         </p:column>
 
-
-                        <p:column style="width:50px;">
-
-                            <p:commandButton title="Cadastrar tipo" styleClass="btn-xs btn-primary"
-                                             icon="fa fa-plus" oncomplete="PF('dlgCadastroTipo').show();"
-                                             update="formCadastroTipo , DialogCadastroTipo"
-                                             action="#{categoriaMB.selecionaCategoriaNovoTipo()}">
-
-                                <f:setPropertyActionListener value="#{categoria}"
-                                                             target="#{categoriaMB.categoria}"/>
-                            </p:commandButton>
-
-
-                        </p:column>
-
                         <p:rowExpansion>
 
 
-                            <div class="ui-sm-6 ui-md-6 ui-lg-6">
+                            <div class="ui-sm-6 ui-md-6 ui-lg-6" style="float: left">
 
 
                                 <p:dataTable id="tipos" var="tipo" value="#{categoriaMB.categoria.tipos}"
@@ -159,7 +144,7 @@
 
                                     <p:column style="width:50px;">
                                         <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-sm"
-                                                         title="Excluir" update="categorias , tipos"
+                                                         title="Excluir" update="tipos"
                                                          action="#{categoriaMB.excluirTipo()}">
                                             <f:setPropertyActionListener value="#{tipo}"
                                                                          target="#{categoriaMB.tipo}"/>
@@ -168,12 +153,39 @@
 
                                 </p:dataTable>
 
-                                <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this"
-                                                 action="#{categoriaMB.onAddNew()}" update="tipos" />
 
                             </div>
+
+                            <div class="ui-sm-4 ui-md-4 ui-lg-4" style="float: left" >
+
+
+                                <p:panel header="ADICIONAR TIPO">
+
+
+                                    <p:inputText placeholder="Sigla" styleClass="ui-sm-3 ui-md-3 ui-lg-3" maxlength="2"
+                                                 value="#{categoriaMB.tipo.sigla}" id="campoSigla"/>
+
+                                    <p:inputText placeholder="Nome" styleClass="ui-sm-6 ui-md-6 ui-lg-6" value="#{categoriaMB.tipo.nome}" id="campoNome"
+                                                 />
+
+
+                                    <p:commandButton value="Salvar" styleClass="ui-priority-primary btn-success
+                                     ui-sm-3 ui-md-3 ui-lg-3 form-control"
+                                                     action="#{categoriaMB.adicionaNovoTipo()}" icon="fa fa-save"
+                                                     update="tipos , categorias:0:campoNome , categorias:0:campoSigla" >
+                                        <p:resetInput target="categorias:0:campoNome"/>
+                                        <p:resetInput target="categorias:0:campoSigla"/>
+                                    </p:commandButton>
+
+                                </p:panel>
+
+                            </div>
+
                         </p:rowExpansion>
+
+
                     </p:dataTable>
+
 
                 </div>
             </div>
