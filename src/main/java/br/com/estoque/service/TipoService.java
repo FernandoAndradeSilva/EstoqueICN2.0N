@@ -2,6 +2,7 @@ package br.com.estoque.service;
 
 
 import br.com.estoque.dao.TipoDao;
+import br.com.estoque.model.Categoria;
 import br.com.estoque.model.Tipo;
 
 import javax.inject.Inject;
@@ -29,7 +30,14 @@ public class TipoService implements Serializable {
         tipoDao.delete(tipo ,  tipo.getId());
     }
 
+
+
     public Tipo salvaRetorna(Tipo tipo) {
         return tipoDao.saveReturn(tipo);
+    }
+
+    public List<Tipo> listarPorCategoria(Categoria categoria) {
+
+        return tipoDao.listarPorCategoria(categoria);
     }
 }

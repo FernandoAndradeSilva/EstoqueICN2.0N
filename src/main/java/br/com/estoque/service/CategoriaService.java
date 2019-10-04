@@ -29,9 +29,8 @@ public class CategoriaService implements Serializable {
         categoriaDao.delete(categoria ,  categoria.getId());
     }
 
-    public Categoria busca(Categoria categoria) {
-
-        return categoriaDao.findById(categoria.getId());
+    public Categoria busca(Long id) {
+        return categoriaDao.findById(id);
     }
 
 }

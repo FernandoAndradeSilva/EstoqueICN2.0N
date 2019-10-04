@@ -14,7 +14,7 @@ public abstract class AbstractDao<E, PK> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    private EntityManager manager;
+    EntityManager manager;
 
     public void save(E entidade) {
 
@@ -44,10 +44,15 @@ public abstract class AbstractDao<E, PK> implements Serializable {
     }
 
     public void delete(E entidade , PK id) {
-
-
-
         manager.remove(this.findById(id));
+    }
+
+    public EntityManager getManager() {
+        return manager;
+    }
+
+    public void setManager(EntityManager manager) {
+        this.manager = manager;
     }
 }
 

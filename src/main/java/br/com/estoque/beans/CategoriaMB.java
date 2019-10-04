@@ -44,11 +44,7 @@ public class CategoriaMB implements Serializable {
     }
 
 
-    @Transacional
-    public void excluirTipo() {
-        this.getCategoria().getTipos().remove(tipo);
-        tipoService.excluir(tipo);
-    }
+
 
     @Transacional
     public void excluirCategoria() {
@@ -89,14 +85,28 @@ public class CategoriaMB implements Serializable {
     }
 
     @Transacional
+    public void excluirTipo(Tipo tipo) {
+        tipoService.excluir(tipo);
+    }
+
+    public void atualizaExclusao() {
+        Categoria cat = categoriaService.busca(this.getCategoria().getId());
+        this.getCategoria().setTipos(cat.getTipos());
+        this.tipo = new Tipo();
+    }
+
+    @Transacional
     public void adicionaNovoTipo() {
         tipo.setCategoria(this.categoria);
-        this.categoria.getTipos().add(tipo);
         tipoService.salvar(tipo);
+        Categoria cat = categoriaService.busca(this.getCategoria().getId());
+        this.getCategoria().setTipos(cat.getTipos());
         this.tipo = new Tipo();
 
-
     }
+
+
+
 
     public List<Categoria> getCategorias() {
         categorias = categoriaService.listarTodas();
