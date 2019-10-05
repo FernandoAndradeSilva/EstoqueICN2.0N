@@ -5,11 +5,14 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">
-        Categorias
+        CATEGORIAS
     </ui:define>
 
     <ui:define name="head-end">
+        <style type="text/css">
 
+
+        </style>
     </ui:define>
 
 
@@ -30,25 +33,40 @@
                     <p:focus/>
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
+
+
+
                         <p:splitButton value="Cadastrar" type="button" update="@none" process="@none"
-                                       icon="fa fa-plus" styleClass="btn-primary">
+                                       icon="fa fa-plus" styleClass="btn-primary" >
 
                             <p:menuitem value="CATEGORIA" onclick="PF('dlgCadastroCategoria').show();"
-                                        process="@this"
-                                        icon="fa fa-plus-circle"/>
-                            <p:separator/>
+                                        process="@this"/>
+
                             <p:menuitem value="TIPO" onclick="PF('dlgCadastroTipo').show();"
-                                        process="@this"
-                                        icon="fa fa-plus-circle"/>
+                                        process="@this"/>
 
                         </p:splitButton>
                         <p:spacer width="5"/>
-
-
                         <p:commandButton value="Voltar" immediate="true"
                                          action="cadastro?faces-redirect=true"
                                          process="@this"
                                          icon="fa fa-close"/>
+
+
+                        <div style="float: right">
+
+
+                            <p:inputText value="#{categoriaMB.campoBuscaTipo}" style="width:150px"
+                                         placeholder="Pesquisar Categoria"/>
+                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarCategoria"
+                                             update="categorias"/>
+
+                            <p:slideMenu overlay="true" trigger="buttonPesquisarCategoria" my="left top"
+                                         at="left bottom" style="width:100px ; height: 70px">
+                                <p:menuitem value="SIGLA" update="categorias"/>
+                                <p:menuitem value="NOME" update="categorias"/>
+                            </p:slideMenu>
+                        </div>
                     </div>
 
 
@@ -56,13 +74,14 @@
 
 
                     <p:dataTable var="categoria" value="#{categoriaMB.categorias}" id="categorias"
-                                 rowExpandMode="single" style="height: he"
+                                 rowExpandMode="single" widgetVar="categorias"
 
                                  editable="true">
 
                         <f:facet name="header">
-                            CATEGORIAS
+
                         </f:facet>
+
 
                         <p:ajax event="rowEdit" listener="#{categoriaMB.editarCategoria}"/>
 
@@ -70,7 +89,7 @@
                                 update="categorias:tipos"/>
 
 
-                        <p:column style="width:5%">
+                        <p:column style="width:50px">
                             <p:rowToggler/>
                         </p:column>
 
@@ -112,28 +131,58 @@
 
 
                                 <p:dataTable id="tipos" var="tipo" value="#{categoriaMB.categoria.tipos}"
-                                             editable="true"
+                                             editable="true" widgetVar="tipos"
                                              style="margin-bottom:20px">
                                     <f:facet name="header">
-                                        TIPOS ASSOCIADOS A CATEGORIA #{categoriaMB.categoria.nome}
+                                        <div class="ui-grid-row">
+                                            <p:outputPanel style="float: left ; margin-top: 8px">
+                                                <p:outputLabel
+                                                        value="TIPOS ASSOCIADOS A CATEGORIA #{categoriaMB.categoria.nome}"/>
+                                            </p:outputPanel>
+
+                                            <p:outputPanel id="pnl" style="float: right">
+                                                <p:inputText value="#{categoriaMB.campoBuscaTipo}" style="width:150px"
+                                                             placeholder="Pesquisar Tipo"/>
+                                                <p:commandButton icon="fa fa-search" id="buttonPesquisaTipo"
+                                                                 type="button"
+                                                                 update="tipos"/>
+                                                <p:commandButton icon="fa fa-refresh" update="tipos"
+                                                                 action="#{categoriaMB.recarregarBusca()}"/>
+
+                                                <p:slideMenu overlay="true" trigger="buttonPesquisaTipo" my="left top"
+                                                             at="left bottom" style="width:100px ; height: 70px">
+                                                    <p:menuitem value="SIGLA" action="#{categoriaMB.buscaManual(1)}"
+                                                                update="tipos"/>
+                                                    <p:menuitem value="NOME" action="#{categoriaMB.buscaManual(2)}"
+                                                                update="tipos"/>
+                                                </p:slideMenu>
+                                            </p:outputPanel>
+                                        </div>
                                     </f:facet>
 
 
                                     <p:ajax event="rowEdit" update="tipos" listener="#{categoriaMB.editarTipo}"/>
-
-
-                                    <p:column headerText="Nome">
-                                        <p:cellEditor>
-                                            <f:facet name="output"><p:outputLabel value="#{tipo.nome}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{tipo.nome}" style="width:100%"/></f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
 
                                     <p:column headerText="Id">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:outputLabel value="#{tipo.id}"/></f:facet>
                                             <f:facet name="input"><p:inputText value="#{tipo.id}"
                                                                                style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Sigla">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><p:outputLabel value="#{tipo.sigla}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{tipo.sigla}"
+                                                                               style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Nome">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><p:outputLabel value="#{tipo.nome}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{tipo.nome}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
@@ -147,30 +196,39 @@
                                         <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-sm"
                                                          title="Excluir" update="tipos"
                                                          action="#{categoriaMB.atualizaExclusao()}">
-                                            <p:ajax event="click" listener="#{categoriaMB.excluirTipo(tipo)}"
-                                                    update="tipos"/>
                                             <f:setPropertyActionListener value="#{tipo}"
                                                                          target="#{categoriaMB.tipo}"/>
+                                            <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
+                                                       icon="fa fa-exclamation-triangle"/>
                                         </p:commandButton>
+
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                            <p:commandButton value="Yes" styleClass="ui-confirmdialog-yes btn-success"
+                                                             icon="fa fa-check">
+                                                <p:ajax event="click" listener="#{categoriaMB.excluirTipo(tipo)}"
+                                                        update="tipos"/>
+                                            </p:commandButton>
+                                            <p:commandButton value="No" type="button"
+                                                             styleClass="ui-confirmdialog-no btn-danger"
+                                                             icon="fa fa-times"/>
+                                        </p:confirmDialog>
+
                                     </p:column>
 
                                 </p:dataTable>
 
-
                             </div>
-
 
 
                             <div class="ui-sm-5 ui-md-5 ui-lg-5" style="float: left">
 
 
+                                <p:panelGrid columns="3">
 
-                                    <p:panelGrid columns="3">
+                                    <f:facet name="header">
+                                        ADICIONAR ITEM
 
-                                        <f:facet name="header">
-                                            ADICIONAR ITEM
-
-                                        </f:facet>
+                                    </f:facet>
 
                                     <p:inputText placeholder="Sigla"
                                                  maxlength="2" styleClass="form-control"
@@ -189,7 +247,7 @@
                                         <p:resetInput target="categorias:0:campoSigla"/>
                                     </p:commandButton>
 
-                                    </p:panelGrid>
+                                </p:panelGrid>
 
 
                             </div>

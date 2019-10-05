@@ -32,19 +32,16 @@ public class CategoriaMB implements Serializable {
     private TipoService tipoService;
 
     private Categoria categoria = new Categoria();
-
     private Categoria novaCategoria = new Categoria();
-
     private Tipo tipo = new Tipo();
+
+    private String campoBuscaTipo;
+    private String campoBuscaCategoria;
+
 
     private List<Categoria> categorias = new ArrayList<>();
 
-    public void carregaCategorias() {
-        categorias = categoriaService.listarTodas();
-    }
-
-
-
+    private List<Tipo> tiposFiltrados;
 
     @Transacional
     public void excluirCategoria() {
@@ -53,6 +50,9 @@ public class CategoriaMB implements Serializable {
 
     public void selecionaCategoria(Categoria categoria) {
         this.categoria = categoria;
+        if(this.campoBuscaTipo != "") {
+            this.campoBuscaTipo = "";
+        }
     }
 
     @Transacional
@@ -102,10 +102,38 @@ public class CategoriaMB implements Serializable {
         Categoria cat = categoriaService.busca(this.getCategoria().getId());
         this.getCategoria().setTipos(cat.getTipos());
         this.tipo = new Tipo();
-
     }
 
+    public void buscaManual(int tipoCampoPesquisa) {
 
+        Categoria cat = categoriaService.busca(this.getCategoria().getId());
+        this.getCategoria().setTipos(cat.getTipos());
+
+        List<Tipo> listResult = new ArrayList<>();
+
+        for (Tipo tipo : this.getCategoria().getTipos()) {
+
+            if(tipoCampoPesquisa == 1) {
+                if(tipo.getSigla().equalsIgnoreCase(this.campoBuscaTipo)) {
+                    listResult.add(tipo);
+                }
+            } else if(tipoCampoPesquisa == 2) {
+                if(tipo.getNome().equalsIgnoreCase(this.campoBuscaTipo)) {
+                    listResult.add(tipo);
+                }
+            }
+        }
+        if(listResult.size() >0) {
+            this.getCategoria().setTipos(listResult);
+        }
+    }
+
+    public void recarregarBusca() {
+            tipo.setCategoria(this.categoria);
+            Categoria cat = categoriaService.busca(this.getCategoria().getId());
+            this.getCategoria().setTipos(cat.getTipos());
+            this.tipo = new Tipo();
+    }
 
 
     public List<Categoria> getCategorias() {
@@ -113,13 +141,7 @@ public class CategoriaMB implements Serializable {
         return categorias;
     }
 
-
-    public void selecionaCategoriaNovoTipo() {
-        this.tipo.setCategoria(this.categoria);
-    }
-
     public void setCategorias(List<Categoria> categorias) {
-
         this.categorias = categorias;
     }
 
@@ -145,14 +167,35 @@ public class CategoriaMB implements Serializable {
         return novaCategoria;
     }
 
+    public String getCampoBuscaTipo() {
+        return campoBuscaTipo;
+    }
+
+    public void setCampoBuscaTipo(String campoBuscaTipo) {
+        this.campoBuscaTipo = campoBuscaTipo;
+    }
 
     public void setNovaCategoria(Categoria novaCategoria) {
         this.novaCategoria = novaCategoria;
     }
 
+    public List<Tipo> getTiposFiltrados() {
+        return tiposFiltrados;
+    }
 
+    public void setTiposFiltrados(List<Tipo> tiposFiltrados) {
+        this.tiposFiltrados = tiposFiltrados;
+    }
 
-//    public void pesquisarCategorias() {
+    public String getCampoBuscaCategoria() {
+        return campoBuscaCategoria;
+    }
+
+    public void setCampoBuscaCategoria(String campoBuscaCategoria) {
+        this.campoBuscaCategoria = campoBuscaCategoria;
+    }
+
+    //    public void pesquisarCategorias() {
 //
 //        this.carregaCategorias();
 //        List<Categoria> categoriaPesquisada = new ArrayList<>();
