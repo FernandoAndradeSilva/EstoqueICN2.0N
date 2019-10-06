@@ -46,6 +46,7 @@ public class CategoriaMB implements Serializable {
     @Transacional
     public void excluirCategoria() {
         categoriaService.excluir(novaCategoria);
+        this.carregaTodasCategorias();
     }
 
     public void selecionaCategoria(Categoria categoria) {
@@ -73,7 +74,6 @@ public class CategoriaMB implements Serializable {
 
     @Transacional
     public void salvarCategoria() {
-
         this.categoriaService.salvar(novaCategoria);
         this.novaCategoria = new Categoria();
     }
@@ -104,7 +104,7 @@ public class CategoriaMB implements Serializable {
         this.tipo = new Tipo();
     }
 
-    public void buscaManual(int tipoCampoPesquisa) {
+    public void buscaManualTipo(int tipoCampoPesquisa) {
 
         Categoria cat = categoriaService.busca(this.getCategoria().getId());
         this.getCategoria().setTipos(cat.getTipos());
@@ -126,6 +126,36 @@ public class CategoriaMB implements Serializable {
         if(listResult.size() >0) {
             this.getCategoria().setTipos(listResult);
         }
+
+
+
+    }
+
+    public void buscaManualCategoria(int tipoCampoPesquisa) {
+
+        this.categorias = categoriaService.listarTodas();
+        List<Categoria> listResult = new ArrayList<>();
+
+
+        System.out.println(this.campoBuscaCategoria);
+
+        for (Categoria categoria : this.categorias) {
+
+            if(tipoCampoPesquisa == 1) {
+                if(categoria.getSigla().equalsIgnoreCase(this.campoBuscaCategoria)) {
+                    listResult.add(categoria);
+                }
+            } else if(tipoCampoPesquisa == 2) {
+                if(categoria.getNome().equalsIgnoreCase(this.campoBuscaCategoria)) {
+                    listResult.add(categoria);
+                }
+            }
+        }
+        if(listResult.size() >0) {
+            this.setCategorias(listResult);
+        }
+
+
     }
 
     public void recarregarBusca() {
@@ -135,11 +165,14 @@ public class CategoriaMB implements Serializable {
             this.tipo = new Tipo();
     }
 
+    public void carregaTodasCategorias() {
+        categorias = categoriaService.listarTodas();
+    }
 
     public List<Categoria> getCategorias() {
-        categorias = categoriaService.listarTodas();
         return categorias;
     }
+
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
