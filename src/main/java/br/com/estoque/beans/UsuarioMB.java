@@ -47,9 +47,9 @@ public class UsuarioMB implements Serializable {
 //
 //    public void pesquisa() {
 //
-//        List<Categoria> categoriasTemp = new ArrayList<>();
+//        List<Grupo> categoriasTemp = new ArrayList<>();
 //
-//        for(Categoria categoria : this.categorias) {
+//        for(Grupo categoria : this.categorias) {
 //            if(categoria.getNome().equals(this.campoPesquisa)) {
 //                categoriasTemp.add(categoria);
 //                break;

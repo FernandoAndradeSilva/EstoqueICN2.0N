@@ -25,8 +25,6 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String senha;
 
-    private int nivelDeAcesso;
-
     private boolean ativo = false;
 
     public Usuario() {
@@ -36,8 +34,8 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.nivelDeAcesso = nivelDeAcesso;
         this.ativo = ativo;
+
     }
 
     public long getId() {
@@ -72,13 +70,7 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public int getNivelDeAcesso() {
-        return nivelDeAcesso;
-    }
 
-    public void setNivelDeAcesso(int nivelDeAcesso) {
-        this.nivelDeAcesso = nivelDeAcesso;
-    }
 
     public boolean isAtivo() {
         return ativo;

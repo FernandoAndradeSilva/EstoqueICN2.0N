@@ -1,13 +1,11 @@
 package br.com.estoque.model;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "tipo")
-public class Tipo extends AbstractEntity {
+@Entity(name = "classe")
+public class Classe extends AbstractEntity {
 
 
     private String nome;
@@ -16,8 +14,8 @@ public class Tipo extends AbstractEntity {
     private String sigla;
 
     @ManyToOne
-    @JoinColumn(name="categoria_id",  nullable= false)
-    private Categoria categoria = new Categoria();
+    @JoinColumn(name="grupo_id",  nullable= false)
+    private Grupo grupo = new Grupo();
 
     public String getNome() {
         return nome;
@@ -28,12 +26,12 @@ public class Tipo extends AbstractEntity {
     }
 
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Grupo getGrupo() {
+        return grupo;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
     public String getSigla() {

@@ -5,7 +5,7 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="title">
-        CATEGORIAS
+        GRUPOS
     </ui:define>
 
     <ui:define name="head-end">
@@ -14,7 +14,7 @@
 
         </style>
 
-        <f:event type="preRenderComponent" listener="#{categoriaMB.carregaTodasCategorias()}"/>
+        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
 
     </ui:define>
 
@@ -25,7 +25,7 @@
         </f:metadata>
         <p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
 
-        <h:form id="formCategorias" prependId="false">
+        <h:form id="formGrupos" prependId="false">
             <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
                 <div class="box-header with-border">
 
@@ -43,10 +43,10 @@
                         <p:splitButton value="Cadastrar" type="button"
                                        icon="fa fa-plus" styleClass="btn-primary">
 
-                            <p:menuitem value="CATEGORIA" onclick="PF('dlgCadastroCategoria').show();"
+                            <p:menuitem value="GRUPO" onclick="PF('dlgCadastroGrupo').show();"
                                         process="@this"/>
 
-                            <p:menuitem value="TIPO" onclick="PF('dlgCadastroTipo').show();"
+                            <p:menuitem value="CLASSE" onclick="PF('dlgCadastroClasse').show();"
                                         process="@this"/>
 
                         </p:splitButton>
@@ -60,17 +60,17 @@
                         <div style="float: right">
 
 
-                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarCategoria"
-                                             update="categorias"/>
-                            <p:inputText value="#{categoriaMB.campoBuscaCategoria}" style="width:150px"
-                                         placeholder="Pesquisar Categoria"/>
+                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"
+                                             update="grupos"/>
+                            <p:inputText value="#{grupoMB.campoBuscaGrupo}" style="width:150px"
+                                         placeholder="Pesquisar Grupo"/>
 
-                            <p:slideMenu overlay="true" trigger="buttonPesquisarCategoria" my="left top"
+                            <p:slideMenu overlay="true" trigger="buttonPesquisarGrupo" my="left top"
                                          at="left bottom" style="width:100px ; height: 70px">
-                                <p:menuitem value="Por Sigla" update="categorias"
-                                            action="#{categoriaMB.buscaManualCategoria(1)}"/>
-                                <p:menuitem value="Por Nome" update="categorias"
-                                            action="#{categoriaMB.buscaManualCategoria(2)}"/>
+                                <p:menuitem value="Por Sigla" update="grupos"
+                                            action="#{grupoMB.buscaManualGrupo(1)}"/>
+                                <p:menuitem value="Por Nome" update="grupos"
+                                            action="#{grupoMB.buscaManualGrupo(2)}"/>
                             </p:slideMenu>
                         </div>
                     </div>
@@ -79,16 +79,16 @@
                     <p:separator/>
 
 
-                    <p:dataTable var="categoria" value="#{categoriaMB.categorias}" id="categorias"
-                                 rowExpandMode="single" widgetVar="categorias"
+                    <p:dataTable var="grupo" value="#{grupoMB.grupos}" id="grupos"
+                                 rowExpandMode="single" widgetVar="grupos"
 
                                  editable="true">
 
 
-                        <p:ajax event="rowEdit" listener="#{categoriaMB.editarCategoria}" update="growl"/>
+                        <p:ajax event="rowEdit" listener="#{grupoMB.editarGrupo}" update="growl"/>
 
-                        <p:ajax event="rowToggle" listener="#{categoriaMB.selecionaCategoria(categoria)}"
-                                update="categorias:tipos"/>
+                        <p:ajax event="rowToggle" listener="#{grupoMB.selecionaGrupo(grupo)}"
+                                update="grupos:classes"/>
 
 
                         <p:column style="width:35px">
@@ -98,8 +98,8 @@
 
                             <p:column headerText="Sigla" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
                                 <p:cellEditor>
-                                    <f:facet name="output"><p:outputLabel value="#{categoria.sigla}"/></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{categoria.sigla}"
+                                    <f:facet name="output"><p:outputLabel value="#{grupo.sigla}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{grupo.sigla}"
                                                                        style="width:100%"/></f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -107,16 +107,16 @@
 
                         <p:column headerText="Nome" styleClass="ui-sm-3 ui-md-3 ui-lg-3" style="text-align: center">
                             <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{categoria.nome}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{categoria.nome}"
+                                <f:facet name="output"><p:outputLabel value="#{grupo.nome}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{grupo.nome}"
                                                                    style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Descrição">
                             <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{categoria.descricao}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{categoria.descricao}"
+                                <f:facet name="output"><p:outputLabel value="#{grupo.descricao}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{grupo.descricao}"
                                                                    style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
@@ -128,10 +128,10 @@
 
                         <p:column style="width:50px;">
                             <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
-                                             title="Excluir" update="categorias"
-                                             action="#{categoriaMB.excluirCategoria()}">
-                                <f:setPropertyActionListener value="#{categoria}"
-                                                             target="#{categoriaMB.novaCategoria}"/>
+                                             title="Excluir" update="grupos , growl"
+                                             action="#{grupoMB.excluirGrupo()}">
+                                <f:setPropertyActionListener value="#{grupo}"
+                                                             target="#{grupoMB.novoGrupo}"/>
                                 <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
                                            icon="fa fa-exclamation-triangle"/>
 
@@ -156,58 +156,58 @@
                                  style="float: left ; max-height: 260px ; overflow: auto">
 
 
-                                <p:dataTable id="tipos" var="tipo" value="#{categoriaMB.categoria.tipos}"
-                                             editable="true" widgetVar="tipos"
+                                <p:dataTable id="classes" var="classe" value="#{grupoMB.grupo.classes}"
+                                             editable="true" widgetVar="classes"
                                              style="margin-bottom:20px">
                                     <f:facet name="header">
                                         <div class="ui-grid-row">
 
                                             <div style="float: left ; margin-top: 8px">
                                                 <p:outputLabel
-                                                        value="TIPOS DA CATEGORIA #{categoriaMB.categoria.nome}"/>
+                                                        value="CLASSES DO GRUPO #{grupoMB.grupo.nome}"/>
 
                                             </div>
 
 
                                             <div style="float: right">
-                                                <p:commandButton icon="fa fa-search" id="buttonPesquisaTipo"
+                                                <p:commandButton icon="fa fa-search" id="buttonPesquisaClasse"
                                                                  type="button"
-                                                                 update="tipos"/>
-                                                <p:inputText value="#{categoriaMB.campoBuscaTipo}" style="width:150px"
-                                                             placeholder="Pesquisar Tipo"/>
+                                                                 update="classes"/>
+                                                <p:inputText value="#{grupoMB.campoBuscaClasse}" style="width:150px"
+                                                             placeholder="Pesquisar Classe"/>
 
 
-                                                <p:slideMenu overlay="true" trigger="buttonPesquisaTipo" my="left top"
+                                                <p:slideMenu overlay="true" trigger="buttonPesquisaClasse" my="left top"
                                                              at="left bottom" style="width:100px ; height: 70px">
                                                     <p:menuitem value="Por Sigla"
-                                                                action="#{categoriaMB.buscaManualTipo(1)}"
-                                                                update="tipos"/>
+                                                                action="#{grupoMB.buscaManualClasse(1)}"
+                                                                update="classes"/>
                                                     <p:menuitem value="Por Nome"
-                                                                action="#{categoriaMB.buscaManualTipo(2)}"
-                                                                update="tipos"/>
+                                                                action="#{grupoMB.buscaManualClasse(2)}"
+                                                                update="classes"/>
                                                 </p:slideMenu>
                                             </div>
                                         </div>
                                     </f:facet>
 
 
-                                    <p:ajax event="rowEdit" update="tipos , growl" listener="#{categoriaMB.editarTipo}"/>
+                                    <p:ajax event="rowEdit" update="classes , growl" listener="#{grupoMB.editarClasse}"/>
 
 
 
                                     <p:column headerText="Sigla" style="text-align: center"
                                               styleClass="ui-sm-2 ui-md-2 ui-lg-2">
                                         <p:cellEditor>
-                                            <f:facet name="output"><p:outputLabel value="#{tipo.sigla}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{tipo.sigla}"
+                                            <f:facet name="output"><p:outputLabel value="#{classe.sigla}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{classe.sigla}"
                                                                                style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
                                     <p:column headerText="Nome" style="text-align: center">
                                         <p:cellEditor>
-                                            <f:facet name="output"><p:outputLabel value="#{tipo.nome}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{tipo.nome}" style="width:100%"/></f:facet>
+                                            <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{classe.nome}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
@@ -219,10 +219,10 @@
 
                                     <p:column style="width:50px;">
                                         <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-sm"
-                                                         title="Excluir" update="tipos"
-                                                         action="#{categoriaMB.atualizaExclusao()}">
-                                            <f:setPropertyActionListener value="#{tipo}"
-                                                                         target="#{categoriaMB.tipo}"/>
+                                                         title="Excluir" update="classes "
+                                                         action="#{grupoMB.atualizaExclusao()}">
+                                            <f:setPropertyActionListener value="#{classe}"
+                                                                         target="#{grupoMB.classe}"/>
                                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
                                                        icon="fa fa-exclamation-triangle"/>
                                         </p:commandButton>
@@ -230,8 +230,8 @@
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                             <p:commandButton value="SIM" styleClass="ui-confirmdialog-yes btn-success"
                                                              icon="fa fa-check">
-                                                <p:ajax event="click" listener="#{categoriaMB.excluirTipo(tipo)}"
-                                                        update="tipos"/>
+                                                <p:ajax event="click" listener="#{grupoMB.excluirClasse(classe)}"
+                                                        update="classes, growl"/>
                                             </p:commandButton>
                                             <p:commandButton value="NÃO" type="button"
                                                              styleClass="ui-confirmdialog-no btn-danger"
@@ -251,25 +251,25 @@
                                 <p:panelGrid columns="3">
 
                                     <f:facet name="header">
-                                        ADICIONAR TIPO
+                                        ADICIONAR CLASSE
 
                                     </f:facet>
 
                                     <p:inputText placeholder="Sigla"
                                                  maxlength="2" styleClass="form-control"
-                                                 value="#{categoriaMB.tipo.sigla}" id="campoSigla"/>
+                                                 value="#{grupoMB.classe.sigla}" id="campoSigla"/>
 
                                     <p:inputText placeholder="Nome" styleClass="form-control"
-                                                 value="#{categoriaMB.tipo.nome}" id="campoNome"
+                                                 value="#{grupoMB.classe.nome}" id="campoNome"
                                     />
 
 
                                     <p:commandButton icon="fa fa-save" style="width: 100%" value="Salvar"
                                                      styleClass="ui-priority-primary btn-success form-control"
-                                                     action="#{categoriaMB.adicionaNovoTipo()}"
-                                                     update="tipos , categorias:0:campoNome , categorias:0:campoSigla">
-                                        <p:resetInput target="categorias:0:campoNome"/>
-                                        <p:resetInput target="categorias:0:campoSigla"/>
+                                                     action="#{grupoMB.adicionaNovaClasse()}"
+                                                     update="classes , grupos:0:campoNome , grupos:0:campoSigla , growl">
+                                        <p:resetInput target="grupos:0:campoNome"/>
+                                        <p:resetInput target="grupos:0:campoSigla"/>
                                     </p:commandButton>
 
                                 </p:panelGrid>
@@ -289,35 +289,35 @@
 
         </h:form>
 
-        <p:dialog header="CADASTRO" widgetVar="dlgCadastroTipo" modal="true" id="DialogCadastroTipo">
+        <p:dialog header="CADASTRO" widgetVar="dlgCadastroClasse" modal="true" id="DialogCadastroClasse">
 
-            <h:form id="formCadastroTipo">
+            <h:form id="formCadastroClasse">
                 <p:panelGrid columns="2">
                     <f:facet name="header">
-                        <p:outputLabel value="TIPO"/>
+                        <p:outputLabel value="CLASSE"/>
                     </f:facet>
 
 
-                    <p:outputLabel value="Categoria: "/>
-                    <p:selectOneMenu height="100" appendTo="@this" id="CategoriasNovoTipo"
-                                     value="#{categoriaMB.categoria}"
+                    <p:outputLabel value="Grupo: "/>
+                    <p:selectOneMenu height="100" appendTo="@this" id="GruposNovoClasse"
+                                     value="#{grupoMB.grupo}"
                                      converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                        <f:selectItems value="#{categoriaMB.categorias}"/>
+                        <f:selectItems value="#{grupoMB.grupos}"/>
                     </p:selectOneMenu>
 
 
                     <p:outputLabel value="Sigla: "/>
                     <p:inputText maxlength="2" styleClass="form-control"
-                                 value="#{categoriaMB.tipo.sigla}"/>
+                                 value="#{grupoMB.classe.sigla}"/>
                     <p:outputLabel value="Descricao: "/>
-                    <p:inputText value="#{categoriaMB.tipo.nome}"/>
+                    <p:inputText value="#{grupoMB.classe.nome}"/>
 
 
                     <f:facet name="footer">
                         <p:commandButton value="SALVAR" style="width: 100%"
-                                         action="#{categoriaMB.salvarTipo()}" styleClass="btn-primary"
-                                         update="@form , formCategorias"/>
+                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-primary"
+                                         update="@form , formGrupos , grupos , growl"/>
                     </f:facet>
 
                 </p:panelGrid>
@@ -325,27 +325,27 @@
         </p:dialog>
 
 
-        <p:dialog header="CADASTRO" widgetVar="dlgCadastroCategoria" modal="true">
-            <h:form id="formCadastroCategoria">
+        <p:dialog header="CADASTRO" widgetVar="dlgCadastroGrupo" modal="true">
+            <h:form id="formCadastroGrupo">
                 <p:panelGrid columns="2">
                     <f:facet name="header">
-                        <p:outputLabel value="CATEGORIA"/>
+                        <p:outputLabel value="GRUPO"/>
                     </f:facet>
 
                     <p:outputLabel value="Sigla: "/>
-                    <p:inputText maxlength="2" value="#{categoriaMB.novaCategoria.sigla}"
+                    <p:inputText maxlength="2" value="#{grupoMB.novoGrupo.sigla}"
                                  styleClass="form-control" required="true"/>
                     <p:outputLabel value="Nome: "/>
-                    <p:inputText value="#{categoriaMB.novaCategoria.nome}"/>
+                    <p:inputText value="#{grupoMB.novoGrupo.nome}"/>
 
                     <p:outputLabel value="Descricao: "/>
-                    <p:inputTextarea styleClass="form-control" value="#{categoriaMB.novaCategoria.descricao}"/>
+                    <p:inputTextarea styleClass="form-control" value="#{grupoMB.novoGrupo.descricao}"/>
 
 
                     <f:facet name="footer">
                         <p:commandButton value="SALVAR" style="width: 100%"
-                                         action="#{categoriaMB.salvarCategoria()}" styleClass="btn-primary"
-                                         update="@form , formCategorias , formCadastroTipo , growl"/>
+                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-primary"
+                                         update="@form , formGrupos , formCadastroClasse , growl"/>
                     </f:facet>
 
                 </p:panelGrid>

@@ -21,7 +21,7 @@
 
         </style>
 
-        <f:event type="preRenderComponent" listener="#{categoriaMB.carregaTodasCategorias()}"/>
+        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
     </ui:define>
 
 
@@ -50,8 +50,8 @@
                                          styleClass="btn-danger">
                         </p:commandButton>
                         <p:spacer width="5"/>
-                        <p:commandButton value="Cadastrar Categorias e Tipos" immediate="true"
-                                         action="categorias?faces-redirect=true"
+                        <p:commandButton value="Cadastrar Grupos e Classes" immediate="true"
+                                         action="grupos?faces-redirect=true"
                                          process="@this" styleClass="btn-info"
                                          icon="fa fa-list-alt" style="float: right"/>
                     </div>
@@ -75,11 +75,11 @@
 
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:selectOneMenu id="grupo" value="#{itemMB.item.tipo.categoria}"
+                            <p:selectOneMenu id="grupo" value="#{itemMB.item.classe.grupo}"
                                              converter="omnifaces.SelectItemsConverter"
                                              filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Selecione a categoria" noSelectionOption="true"/>
-                                <f:selectItems value="#{categoriaMB.categorias}"/>
+                                <f:selectItem itemLabel="Selecione o Grupo" noSelectionOption="true"/>
+                                <f:selectItems value="#{grupoMB.grupos}"/>
                                 <p:ajax event="change" update="classe"/>
                             </p:selectOneMenu>
                         </div>
@@ -88,8 +88,8 @@
                             <p:selectOneMenu id="classe"
                                              filter="true" filterMatchMode="startsWith"
                                              converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemLabel="Selecione o tipo" noSelectionOption="true"/>
-                                <f:selectItems value="#{itemMB.item.tipo.categoria.tipos}"/>
+                                <f:selectItem itemLabel="Selecione a Classe" noSelectionOption="true"/>
+                                <f:selectItems value="#{itemMB.item.classe.grupo.classes}"/>
                             </p:selectOneMenu>
                         </div>
 

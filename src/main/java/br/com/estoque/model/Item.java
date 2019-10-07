@@ -15,7 +15,7 @@ public class Item extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name="tipo_id",  nullable= false)
-    private Tipo tipo = new Tipo();
+    private Classe classe = new Classe();
 
 
     public String getDescricao() {
@@ -42,12 +42,12 @@ public class Item extends AbstractEntity {
         this.especificacao = especificacao;
     }
 
-    public Tipo getTipo() {
-        return tipo;
+    public Classe getClasse() {
+        return classe;
     }
 
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
+    public void setClasse(Classe classe) {
+        this.classe = classe;
     }
 
     public int getQuantidadeMinima() {
