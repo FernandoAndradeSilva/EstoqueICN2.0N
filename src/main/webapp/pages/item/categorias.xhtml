@@ -23,11 +23,13 @@
         <f:metadata>
 
         </f:metadata>
-        <p:growl id="growl" showDetail="true" sticky="true"/>
+        <p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
 
         <h:form id="formCategorias" prependId="false">
             <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
                 <div class="box-header with-border">
+
+
 
 
                     <adm:breadcrumb title="Cadastro Default" link="cadastro-default.xhtml?id="/>
@@ -38,9 +40,8 @@
                     <div id="main-buttons" class="hidden-sm hidden-xs">
 
 
-
                         <p:splitButton value="Cadastrar" type="button"
-                                       icon="fa fa-plus" styleClass="btn-primary" >
+                                       icon="fa fa-plus" styleClass="btn-primary">
 
                             <p:menuitem value="CATEGORIA" onclick="PF('dlgCadastroCategoria').show();"
                                         process="@this"/>
@@ -50,24 +51,26 @@
 
                         </p:splitButton>
                         <p:spacer width="5"/>
-                        <p:commandButton value="Voltar" immediate="true"
+                        <p:commandButton value="Voltar ao cadastro de Itens" immediate="true"
                                          action="cadastro?faces-redirect=true"
                                          process="@this"
-                                         icon="fa fa-close"/>
+                                         icon="fa fa-reply"/>
 
 
                         <div style="float: right">
 
 
-                            <p:inputText value="#{categoriaMB.campoBuscaCategoria}" style="width:150px"
-                                         placeholder="Pesquisar Categoria"/>
                             <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarCategoria"
                                              update="categorias"/>
+                            <p:inputText value="#{categoriaMB.campoBuscaCategoria}" style="width:150px"
+                                         placeholder="Pesquisar Categoria"/>
 
                             <p:slideMenu overlay="true" trigger="buttonPesquisarCategoria" my="left top"
                                          at="left bottom" style="width:100px ; height: 70px">
-                                <p:menuitem value="SIGLA" update="categorias" action="#{categoriaMB.buscaManualCategoria(1)}" />
-                                <p:menuitem value="NOME" update="categorias" action="#{categoriaMB.buscaManualCategoria(2)}"  />
+                                <p:menuitem value="Por Sigla" update="categorias"
+                                            action="#{categoriaMB.buscaManualCategoria(1)}"/>
+                                <p:menuitem value="Por Nome" update="categorias"
+                                            action="#{categoriaMB.buscaManualCategoria(2)}"/>
                             </p:slideMenu>
                         </div>
                     </div>
@@ -81,22 +84,28 @@
 
                                  editable="true">
 
-                        <f:facet name="header">
 
-                        </f:facet>
-
-
-                        <p:ajax event="rowEdit" listener="#{categoriaMB.editarCategoria}"/>
+                        <p:ajax event="rowEdit" listener="#{categoriaMB.editarCategoria}" update="growl"/>
 
                         <p:ajax event="rowToggle" listener="#{categoriaMB.selecionaCategoria(categoria)}"
                                 update="categorias:tipos"/>
 
 
-                        <p:column style="width:50px">
+                        <p:column style="width:35px">
                             <p:rowToggler/>
                         </p:column>
 
-                        <p:column headerText="Nome">
+
+                            <p:column headerText="Sigla" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
+                                <p:cellEditor>
+                                    <f:facet name="output"><p:outputLabel value="#{categoria.sigla}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{categoria.sigla}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
+                        <p:column headerText="Nome" styleClass="ui-sm-3 ui-md-3 ui-lg-3" style="text-align: center">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{categoria.nome}"/></f:facet>
                                 <f:facet name="input"><p:inputText value="#{categoria.nome}"
@@ -104,17 +113,17 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Id">
+                        <p:column headerText="Descrição">
                             <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{categoria.id}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{categoria.id}"
+                                <f:facet name="output"><p:outputLabel value="#{categoria.descricao}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{categoria.descricao}"
                                                                    style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
 
                         <p:column style="width:35px">
-                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar" />
                         </p:column>
 
                         <p:column style="width:50px;">
@@ -138,7 +147,6 @@
                             </p:confirmDialog>
 
 
-
                         </p:column>
 
                         <p:rowExpansion>
@@ -153,43 +161,42 @@
                                              style="margin-bottom:20px">
                                     <f:facet name="header">
                                         <div class="ui-grid-row">
-                                            <p:outputPanel style="float: left ; margin-top: 8px">
-                                                <p:outputLabel
-                                                        value="TIPOS ASSOCIADOS A CATEGORIA #{categoriaMB.categoria.nome}"/>
-                                            </p:outputPanel>
 
-                                            <p:outputPanel id="pnl" style="float: right">
-                                                <p:inputText value="#{categoriaMB.campoBuscaTipo}" style="width:150px"
-                                                             placeholder="Pesquisar Tipo"/>
+                                            <div style="float: left ; margin-top: 8px">
+                                                <p:outputLabel
+                                                        value="TIPOS DA CATEGORIA #{categoriaMB.categoria.nome}"/>
+
+                                            </div>
+
+
+                                            <div style="float: right">
                                                 <p:commandButton icon="fa fa-search" id="buttonPesquisaTipo"
                                                                  type="button"
                                                                  update="tipos"/>
-                                                <p:commandButton icon="fa fa-refresh" update="tipos"
-                                                                 action="#{categoriaMB.recarregarBusca()}"/>
+                                                <p:inputText value="#{categoriaMB.campoBuscaTipo}" style="width:150px"
+                                                             placeholder="Pesquisar Tipo"/>
+
 
                                                 <p:slideMenu overlay="true" trigger="buttonPesquisaTipo" my="left top"
                                                              at="left bottom" style="width:100px ; height: 70px">
-                                                    <p:menuitem value="SIGLA" action="#{categoriaMB.buscaManualTipo(1)}"
+                                                    <p:menuitem value="Por Sigla"
+                                                                action="#{categoriaMB.buscaManualTipo(1)}"
                                                                 update="tipos"/>
-                                                    <p:menuitem value="NOME" action="#{categoriaMB.buscaManualTipo(2)}"
+                                                    <p:menuitem value="Por Nome"
+                                                                action="#{categoriaMB.buscaManualTipo(2)}"
                                                                 update="tipos"/>
                                                 </p:slideMenu>
-                                            </p:outputPanel>
+                                            </div>
                                         </div>
                                     </f:facet>
 
 
-                                    <p:ajax event="rowEdit" update="tipos" listener="#{categoriaMB.editarTipo}"/>
+                                    <p:ajax event="rowEdit" update="tipos , growl" listener="#{categoriaMB.editarTipo}"/>
 
-                                    <p:column headerText="Id">
-                                        <p:cellEditor>
-                                            <f:facet name="output"><p:outputLabel value="#{tipo.id}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{tipo.id}"
-                                                                               style="width:100%"/></f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
 
-                                    <p:column headerText="Sigla">
+
+                                    <p:column headerText="Sigla" style="text-align: center"
+                                              styleClass="ui-sm-2 ui-md-2 ui-lg-2">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:outputLabel value="#{tipo.sigla}"/></f:facet>
                                             <f:facet name="input"><p:inputText value="#{tipo.sigla}"
@@ -197,7 +204,7 @@
                                         </p:cellEditor>
                                     </p:column>
 
-                                    <p:column headerText="Nome">
+                                    <p:column headerText="Nome" style="text-align: center">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:outputLabel value="#{tipo.nome}"/></f:facet>
                                             <f:facet name="input"><p:inputText value="#{tipo.nome}" style="width:100%"/></f:facet>
@@ -328,8 +335,11 @@
                     <p:outputLabel value="Sigla: "/>
                     <p:inputText maxlength="2" value="#{categoriaMB.novaCategoria.sigla}"
                                  styleClass="form-control" required="true"/>
-                    <p:outputLabel value="Descricao: "/>
+                    <p:outputLabel value="Nome: "/>
                     <p:inputText value="#{categoriaMB.novaCategoria.nome}"/>
+
+                    <p:outputLabel value="Descricao: "/>
+                    <p:inputTextarea styleClass="form-control" value="#{categoriaMB.novaCategoria.descricao}"/>
 
 
                     <f:facet name="footer">

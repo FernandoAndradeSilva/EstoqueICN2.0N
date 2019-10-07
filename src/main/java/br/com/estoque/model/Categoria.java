@@ -12,9 +12,8 @@ import java.util.Objects;
 public class Categoria extends AbstractEntity {
 
     private String nome;
-
-
     private String sigla;
+    private String descricao;
 
     @OneToMany(mappedBy="categoria" , fetch = FetchType.EAGER)
     private List<Tipo> tipos = new ArrayList<>();
@@ -41,6 +40,14 @@ public class Categoria extends AbstractEntity {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override

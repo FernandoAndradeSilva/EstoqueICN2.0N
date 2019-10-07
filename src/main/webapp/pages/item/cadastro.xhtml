@@ -20,6 +20,8 @@
 
 
         </style>
+
+        <f:event type="preRenderComponent" listener="#{categoriaMB.carregaTodasCategorias()}"/>
     </ui:define>
 
 
@@ -48,7 +50,7 @@
                                          styleClass="btn-danger">
                         </p:commandButton>
                         <p:spacer width="5"/>
-                        <p:commandButton value="Cadastrar categorias e tipos" immediate="true"
+                        <p:commandButton value="Cadastrar Categorias e Tipos" immediate="true"
                                          action="categorias?faces-redirect=true"
                                          process="@this" styleClass="btn-info"
                                          icon="fa fa-list-alt" style="float: right"/>

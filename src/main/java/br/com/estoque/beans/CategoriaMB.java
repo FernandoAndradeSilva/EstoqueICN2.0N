@@ -5,6 +5,7 @@ import br.com.estoque.model.Categoria;
 import br.com.estoque.model.Tipo;
 import br.com.estoque.service.CategoriaService;
 import br.com.estoque.service.TipoService;
+import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
 import org.primefaces.event.RowEditEvent;
 
@@ -66,9 +67,8 @@ public class CategoriaMB implements Serializable {
 
     @Transacional
     public void editarTipo(RowEditEvent event) {
-        //FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
-        //FacesContext.getCurrentInstance().addMessage(null, msg);
         tipoService.salvar(((Tipo) event.getObject()));
+        MessageUtil.addMessageTicket("Informações alteradas com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
 
     }
 
@@ -76,17 +76,20 @@ public class CategoriaMB implements Serializable {
     public void salvarCategoria() {
         this.categoriaService.salvar(novaCategoria);
         this.novaCategoria = new Categoria();
+        MessageUtil.addMessageTicket("Categoria salva com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
     @Transacional
     public void salvarTipo() {
         this.tipoService.salvar(tipo);
         this.tipo = new Tipo();
+        MessageUtil.addMessageTicket("Tipo salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
     @Transacional
     public void excluirTipo(Tipo tipo) {
         tipoService.excluir(tipo);
+        MessageUtil.addMessageTicket("Tipo excluído com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
     public void atualizaExclusao() {
@@ -102,6 +105,7 @@ public class CategoriaMB implements Serializable {
         Categoria cat = categoriaService.busca(this.getCategoria().getId());
         this.getCategoria().setTipos(cat.getTipos());
         this.tipo = new Tipo();
+        MessageUtil.addMessageTicket("Tipo adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
     public void buscaManualTipo(int tipoCampoPesquisa) {
