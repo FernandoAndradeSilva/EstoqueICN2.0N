@@ -1,8 +1,8 @@
 package br.com.estoque.model;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import br.com.estoque.enums.TipoUsuario;
+
+import javax.persistence.*;
 
 @Entity(name = "item")
 public class Item extends AbstractEntity {
@@ -14,8 +14,9 @@ public class Item extends AbstractEntity {
 
 
     @ManyToOne
-    @JoinColumn(name="tipo_id",  nullable= false)
+    @JoinColumn(name = "classe_id", nullable = false)
     private Classe classe = new Classe();
+
 
 
     public String getDescricao() {

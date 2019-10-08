@@ -1,6 +1,7 @@
 package br.com.estoque.beans;
 
 
+import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.Item;
 import br.com.estoque.service.ItemService;
 
@@ -8,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.EnumSet;
 
 
 @Named
@@ -19,6 +21,8 @@ public class ItemMB implements Serializable {
     @Inject
     private ItemService itemService;
 
+    private boolean quantidadeMinima = false;
+
     private Item item = new Item();
 
     public Item getItem() {
@@ -27,5 +31,13 @@ public class ItemMB implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public boolean isQuantidadeMinima() {
+        return quantidadeMinima;
+    }
+
+    public void setQuantidadeMinima(boolean quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
     }
 }

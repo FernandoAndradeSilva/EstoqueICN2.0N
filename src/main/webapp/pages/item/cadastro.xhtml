@@ -113,7 +113,7 @@
 
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-3">
-                            <p:selectBooleanCheckbox value="#{usuarioMB.quantidadeMinima}" itemLabel="Qtd. mínima"
+                            <p:selectBooleanCheckbox value="#{itemMB.quantidadeMinima}" itemLabel="Qtd. mínima"
                                                      styleClass="form-control"
                                                      title="Marque para exibir uma notifição quando o produto atingir uma quantidade mínima">
                                 <p:ajax event="change" update="campoEstMin"/>
@@ -123,7 +123,7 @@
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-3">
                             <p:spinner placeholder="Quantidade" id="campoEstMin"
-                                       disabled="#{!usuarioMB.quantidadeMinima}"/>
+                                       disabled="#{!itemMB.quantidadeMinima}"/>
                         </div>
 
 

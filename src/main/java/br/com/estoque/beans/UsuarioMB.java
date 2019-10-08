@@ -1,14 +1,19 @@
 package br.com.estoque.beans;
 
+import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.Usuario;
+import br.com.estoque.service.UsuarioService;
+import br.com.estoque.util.Transacional;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 
@@ -18,48 +23,25 @@ public class UsuarioMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Inject
+    private UsuarioService usuarioService;
+
     private Usuario usuario = null;
-    private List<Usuario> users = new ArrayList<>();
-    private boolean teste = false;
-    private String campoPesquisa;
 
-    private boolean quantidadeMinima = false;
+    private Usuario novoUsuario = new Usuario();
 
-    @PostConstruct
-    public void carrega() {
+    private List<Usuario> usuarios = new ArrayList<>();
 
-        System.out.println("Criando users");
-
-        List<Usuario> usuarios = new ArrayList<>();
-
-        Usuario usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
-        users.add(usuario);
-        usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
-        users.add(usuario);
-        usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
-        users.add(usuario);
-        usuario = new Usuario("Fernando" , "fernando@bol.com" , "1234" , 1 , true);
-        users.add(usuario);
-
-
+    @Transacional
+    public void cadastrarUsuario() {
+        usuarioService.salvar(novoUsuario);
+        this.novoUsuario = new Usuario();
     }
 
-//
-//    public void pesquisa() {
-//
-//        List<Grupo> categoriasTemp = new ArrayList<>();
-//
-//        for(Grupo categoria : this.categorias) {
-//            if(categoria.getNome().equals(this.campoPesquisa)) {
-//                categoriasTemp.add(categoria);
-//                break;
-//            }
-//        }
-//
-//        categorias = categoriasTemp;
-//    }
-
-
+    @PostConstruct
+    public void carregaUsuarios() {
+        this.usuarios = usuarioService.listarTodos();
+    }
 
 
 
@@ -69,13 +51,15 @@ public class UsuarioMB implements Serializable {
         usuario.setNome("Fernando");
         usuario.setEmail("fernando@bol.com");
         usuario.setSenha("12345");
+        usuario.setUsuario("nando");
+        usuario.setTipoUsuario(TipoUsuario.MASTER);
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         externalContext.getSessionMap().put("usuario", usuario);
 
         String pagina = (String) externalContext.getSessionMap().get("pagina");
-        System.out.println(pagina);
+
 
         if (pagina != null) {
             return pagina;
@@ -85,14 +69,25 @@ public class UsuarioMB implements Serializable {
 
     }
 
-    public String getCampoPesquisa() {
-        return campoPesquisa;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setCampoPesquisa(String campoPesquisa) {
-        this.campoPesquisa = campoPesquisa;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
+    public EnumSet<TipoUsuario> tiposUsuario() {
+        return EnumSet.allOf(TipoUsuario.class);
+    }
+
+    public Usuario getNovoUsuario() {
+        return novoUsuario;
+    }
+
+    public void setNovoUsuario(Usuario novoUsuario) {
+        this.novoUsuario = novoUsuario;
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -103,28 +98,5 @@ public class UsuarioMB implements Serializable {
     }
 
 
-    public boolean isTeste() {
-        return teste;
-    }
 
-    public void setTeste(boolean teste) {
-        this.teste = teste;
-    }
-
-
-    public List<Usuario> getUsers() {
-        return users;
-    }
-
-    public boolean isQuantidadeMinima() {
-        return quantidadeMinima;
-    }
-
-    public void setQuantidadeMinima(boolean quantidadeMinima) {
-        this.quantidadeMinima = quantidadeMinima;
-    }
-
-    public void setUsers(List<Usuario> users) {
-        this.users = users;
-    }
 }

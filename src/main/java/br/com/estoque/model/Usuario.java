@@ -1,16 +1,14 @@
 package br.com.estoque.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Objects;
+import br.com.estoque.enums.TipoUsuario;
 
-public class Usuario implements Serializable {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity(name = "usuario")
+public class Usuario extends AbstractEntity {
 
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +23,27 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private String senha;
 
+    @Column(nullable = false)
+    private String usuario;
+
     private boolean ativo = false;
+
+    @Enumerated(EnumType.STRING)
+    private TipoUsuario tipoUsuario;
+
+
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, int nivelDeAcesso, boolean ativo) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.ativo = ativo;
 
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public long getId() {
@@ -80,16 +88,13 @@ public class Usuario implements Serializable {
         this.ativo = ativo;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return id == usuario.id;
+    public String getUsuario() {
+        return usuario;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
+
+
 }

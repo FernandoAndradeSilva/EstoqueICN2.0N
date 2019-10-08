@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w2.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
@@ -6,76 +6,189 @@
                 xmlns:adm="http://github.com/adminfaces"
                 template="/WEB-INF/templates/template.xhtml">
 
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
+
     <ui:define name="title">
         USUÁRIOS
     </ui:define>
 
 
+
+
     <ui:define name="body">
-        <adm:breadcrumb title="Pesquisa Default"/>
-
-        <h:form id="frm">
-            <div class="box box-primary">
-                <div class="box-header with-border">
 
 
-                    <p:dataTable id="usuarios" var="user" value="#{usuarioMB.users}" editable="true"
-                                 style="margin-bottom:20px">
-                        <f:facet name="header">
-                            Row Editing
-                        </f:facet>
+        <h:form id="frm" prependId="false">
+        <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+            <div class="box-header with-border">
 
 
-                        <p:ajax event="rowEdit" update="frm:usuarios"/>
+                <adm:breadcrumb title="Pesquisa Default"/>
 
 
-                        <p:column headerText="Nome">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{user.nome}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{user.nome}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:commandButton value="Salvar" update="@form" action="#{usuarioMB.cadastrarUsuario()}"
+                                         icon="fa fa-check" styleClass="btn-primary"/>
+                        <p:spacer width="5"/>
 
-                        <p:column headerText="Email">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{user.email}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{user.email}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                        <p:commandButton value="Excluir" process="@this" rendered="false"
+                                         icon="fa fa-trash"
+                                         styleClass="btn-danger">
+                        </p:commandButton>
+                        <p:spacer width="5"/>
 
-                        <p:column headerText="Senha">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{user.senha}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{user.senha}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                    </div>
 
-                        <p:column headerText="Ativo" style="text-align: center ; width: 10%" >
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{user.ativo == true ? 'SIM' : 'NÃO'}"
-                                                  styleClass="#{user.ativo ? 'btn-success' : 'btn-danger'}"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <div align="center">
-                                        <p:selectBooleanButton onLabel="Desativar" offLabel="Ativar"
-                                                               value="#{user.ativo}"
-                                                               style="width:80%; text-align: center"/>
-                                    </div>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                    <p:splitButton value="Salvar" update="@form"
+                                   icon="fa fa-check"
+                                   styleClass="hidden-md hidden-lg btn-primary">
+                        <p:menuitem value="Excluir"
+                                    process="@this"
+                                    icon="fa fa-trash"/>
+                        <p:separator/>
+                        <p:menuitem value="Voltar" process="@this"
+                                    icon="fa fa-close"/>
+                    </p:splitButton>
 
-                        <p:column style="width:35px">
-                            <p:rowEditor/>
-                        </p:column>
+                    <p:separator/>
+
+                    <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-12">
+                        <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true">
 
 
-                    </p:dataTable>
-                </div>
+
+                            <p:ajax event="rowEdit" update="usuarios"/>
+
+
+                            <p:column headerText="Nome">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.nome}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{usuario.nome}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Usuário">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.usuario}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{usuario.usuario}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Email">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.email}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{usuario.email}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Senha">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.senha}"/></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{usuario.senha}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Ativo" style="text-align: center ; width: 10%">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{usuario.ativo == true ? 'SIM' : 'NÃO'}"
+                                                      styleClass="#{usuario.ativo ? 'btn-success' : 'btn-danger'}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <div align="center">
+                                            <p:selectBooleanButton onLabel="Desativar" offLabel="Ativar"
+                                                                   value="#{usuario.ativo}"
+                                                                   style="width:80%; text-align: center"/>
+                                        </div>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Senha">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.tipoUsuario}"/></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{usuario.tipoUsuario}"
+                                                         style="width:100% ; background-color: white">
+                                            <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                                           itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
+                            <p:column style="width:35px">
+                                <p:rowEditor/>
+                            </p:column>
+
+
+                        </p:dataTable>
+
+                        <div class="ui-sm-6 ui-md-6 ui-lg-6">
+                            <p:panel id="toggleable" header="ADICIONAR USUÁRIO" toggleable="true" closable="false"
+                                     collapsed="true"
+                                     toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+
+                                <p:ajax event="close"/>
+                                <p:ajax event="toggle"/>
+
+                                <p:panelGrid columns="4">
+                                    <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
+                                    <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
+                                    <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
+                                    <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
+                                    <p:selectOneMenu style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                                        <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
+                                        <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                                       itemValue="#{tipo}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:selectOneMenu style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                                        <f:selectItem itemLabel="Categorias" noSelectionOption="true"/>
+                                        <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                                       itemValue="#{tipo}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:selectBooleanButton id="value1" value="#{usuarioMB.novoUsuario.ativo}"
+                                                           onLabel="ATIVO"
+                                                           offLabel="INATIVO" style="width:100%"/>
+
+                                    <p:commandButton value="Salvar" styleClass="btn-success form-control"/>
+
+
+                                </p:panelGrid>
+
+
+                            </p:panel>
+                        </div>
+                    </div>
+
+
             </div>
-        </h:form>
 
+
+        </div>
+        </h:form>
 
     </ui:define>
 
