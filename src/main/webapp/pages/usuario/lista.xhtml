@@ -7,20 +7,7 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="head-end">
-        <style type="text/css">
-            .ui-grid-row .ui-grid-col-2,
-            .ui-grid-row .ui-grid-col-10 {
-                padding: 0.5em 0;
-                margin-left: 10px;
-            }
-            .ui-orderlist .ui-orderlist-list {
-                height: auto;
-            }
-            .ui-orderlist .ui-grid-row .ui-grid-col-2,
-            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
-                padding: 0;
-            }
-        </style>
+
     </ui:define>
 
     <ui:define name="title">
@@ -68,7 +55,11 @@
                     <p:separator/>
 
                     <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-12">
-                        <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true">
+                        <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true"  paginator="true"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                     currentPageReportTemplate=""
+                                     rowsPerPageTemplate="5,10,15,20,30">
 
 
 
@@ -144,6 +135,9 @@
 
                         </p:dataTable>
 
+                        <div class="ui-sm-3 ui-md-3 ui-lg-3">
+                        </div>
+
                         <div class="ui-sm-6 ui-md-6 ui-lg-6">
                             <p:panel id="toggleable" header="ADICIONAR USUÁRIO" toggleable="true" closable="false"
                                      collapsed="true"
@@ -152,7 +146,8 @@
                                 <p:ajax event="close"/>
                                 <p:ajax event="toggle"/>
 
-                                <p:panelGrid columns="4">
+                                <div align="center">
+                                <p:panelGrid columns="4" >
                                     <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
                                     <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
                                     <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
@@ -177,7 +172,7 @@
 
 
                                 </p:panelGrid>
-
+                                </div>
 
                             </p:panel>
                         </div>
