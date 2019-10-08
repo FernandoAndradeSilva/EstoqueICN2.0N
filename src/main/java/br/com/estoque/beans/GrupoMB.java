@@ -170,6 +170,17 @@ public class GrupoMB implements Serializable {
         grupos = grupoService.listarTodos();
     }
 
+    public void carregaClassesPorGrupo() {
+
+        Grupo grupo1 = grupoService.busca(1l);
+        List<Classe> classes = classeService.listarPorGrupo(grupo1);
+
+        System.out.println(classes);
+
+
+
+    }
+
     public List<Grupo> getGrupos() {
         return grupos;
     }

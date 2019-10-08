@@ -14,7 +14,7 @@ public class Item extends AbstractEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "classe_id", nullable = false)
+    @JoinColumn(name = "classe", nullable = false)
     private Classe classe = new Classe();
 
 

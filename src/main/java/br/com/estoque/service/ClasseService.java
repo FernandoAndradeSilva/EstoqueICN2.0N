@@ -36,8 +36,7 @@ public class ClasseService implements Serializable {
         return classeDao.saveReturn(classe);
     }
 
-    public List<Classe> listarPorCategoria(Grupo grupo) {
-
-        return classeDao.listarPorCategoria(grupo);
+    public List<Classe> listarPorGrupo(Grupo grupo) {
+        return classeDao.listarPorGrupo(grupo);
     }
 }

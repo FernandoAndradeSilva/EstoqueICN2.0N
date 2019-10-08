@@ -14,7 +14,7 @@ public class Classe extends AbstractEntity {
     private String sigla;
 
     @ManyToOne
-    @JoinColumn(name="grupo_id",  nullable= false)
+    @JoinColumn(name="grupo",  nullable= false)
     private Grupo grupo = new Grupo();
 
     public String getNome() {

@@ -285,6 +285,7 @@
                 </div>
             </div>
 
+            <p:commandButton value="TESTE" action="#{grupoMB.carregaClassesPorGrupo()}"/>
 
         </h:form>
 
@@ -314,9 +315,11 @@
 
 
                     <f:facet name="footer">
-                        <p:commandButton value="SALVAR" style="width: 100%"
-                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-primary"
+                        <div align="center">
+                        <p:commandButton value="SALVAR" style="width: 50%"
+                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-success"
                                          update="@form , formGrupos , grupos , growl"/>
+                        </div>
                     </f:facet>
 
                 </p:panelGrid>
@@ -342,15 +345,21 @@
 
 
                     <f:facet name="footer">
-                        <p:commandButton value="SALVAR" style="width: 100%"
-                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-primary"
+                        <div align="center">
+                        <p:commandButton value="SALVAR" style="width: 50%"
+                                         action="#{grupoMB.salvarGrupo()}" styleClass="btn-success"
                                          update="@form , formGrupos , formCadastroClasse , growl"/>
+                        </div>
                     </f:facet>
 
                 </p:panelGrid>
 
+
+
             </h:form>
         </p:dialog>
+
+
 
 
         <h:outputScript library="js" name="script.js"/>

@@ -36,6 +36,7 @@ public class UsuarioMB implements Serializable {
     public void cadastrarUsuario() {
         usuarioService.salvar(novoUsuario);
         this.novoUsuario = new Usuario();
+        this.carregaUsuarios();
     }
 
     @PostConstruct

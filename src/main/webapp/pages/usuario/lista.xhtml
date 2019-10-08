@@ -15,20 +15,24 @@
     </ui:define>
 
 
-
-
     <ui:define name="body">
 
 
         <h:form id="frm" prependId="false">
-        <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
-            <div class="box-header with-border">
+            <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+                <div class="box-header with-border">
 
 
-                <adm:breadcrumb title="Pesquisa Default"/>
+                    <adm:breadcrumb title="Pesquisa Default"/>
 
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
+
+
+                        <p:commandButton value="Cadastrar Usuário" onclick="PF('dlgCadastroUsuario').show();"
+                                         process="@this"/>
+                        <p:spacer width="5"/>
+
                         <p:commandButton value="Salvar" update="@form" action="#{usuarioMB.cadastrarUsuario()}"
                                          icon="fa fa-check" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
@@ -55,12 +59,12 @@
                     <p:separator/>
 
                     <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-12">
-                        <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true"  paginator="true"
+                        <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true"
+                                     paginator="true"
                                      paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
                                      currentPageReportTemplate=""
                                      rowsPerPageTemplate="5,10,15,20,30">
-
 
 
                             <p:ajax event="rowEdit" update="usuarios"/>
@@ -90,13 +94,7 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Senha">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{usuario.senha}"/></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{usuario.senha}"
-                                                                       style="width:100%"/></f:facet>
-                                </p:cellEditor>
-                            </p:column>
+
 
                             <p:column headerText="Ativo" style="text-align: center ; width: 10%">
                                 <p:cellEditor>
@@ -139,7 +137,7 @@
                         </div>
 
                         <div class="ui-sm-6 ui-md-6 ui-lg-6">
-                            <p:panel id="toggleable" header="ADICIONAR USUÁRIO" toggleable="true" closable="false"
+<!--                            <p:panel id="toggleable" header="ADICIONAR USUÁRIO" toggleable="true" closable="false"
                                      collapsed="true"
                                      toggleSpeed="500" closeSpeed="500" widgetVar="panel">
 
@@ -147,42 +145,90 @@
                                 <p:ajax event="toggle"/>
 
                                 <div align="center">
-                                <p:panelGrid columns="4" >
-                                    <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
-                                    <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
-                                    <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
-                                    <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
-                                    <p:selectOneMenu style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
-                                        <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
-                                        <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
-                                                       itemValue="#{tipo}"/>
-                                    </p:selectOneMenu>
+                                    <p:panelGrid columns="4">
+                                        <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
+                                        <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
+                                        <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
+                                        <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
+                                        <p:selectOneMenu style="width: 100%"
+                                                         value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                                            <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
+                                            <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                                           itemValue="#{tipo}"/>
+                                        </p:selectOneMenu>
 
-                                    <p:selectOneMenu style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
-                                        <f:selectItem itemLabel="Categorias" noSelectionOption="true"/>
-                                        <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
-                                                       itemValue="#{tipo}"/>
-                                    </p:selectOneMenu>
+                                        <p:selectOneMenu style="width: 100%"
+                                                         value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                                            <f:selectItem itemLabel="Categorias" noSelectionOption="true"/>
+                                            <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                                           itemValue="#{tipo}"/>
+                                        </p:selectOneMenu>
 
-                                    <p:selectBooleanButton id="value1" value="#{usuarioMB.novoUsuario.ativo}"
-                                                           onLabel="ATIVO"
-                                                           offLabel="INATIVO" style="width:100%"/>
+                                        <p:selectBooleanButton id="value1" value="#{usuarioMB.novoUsuario.ativo}"
+                                                               onLabel="ATIVO"
+                                                               offLabel="INATIVO" style="width:100%"/>
 
-                                    <p:commandButton value="Salvar" styleClass="btn-success form-control"/>
+                                        <p:commandButton value="Salvar" styleClass="btn-success form-control"/>
 
 
-                                </p:panelGrid>
+                                    </p:panelGrid>
                                 </div>
 
-                            </p:panel>
+                            </p:panel>-->
                         </div>
                     </div>
+
+
+                </div>
 
 
             </div>
 
 
-        </div>
+            <p:dialog header="CADASTRO" widgetVar="dlgCadastroUsuario" modal="true">
+                <h:form id="formCadastroUsuario">
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <p:outputLabel value="USUÁRIO"/>
+                        </f:facet>
+
+                        <p:panelGrid columns="2">
+
+                            <p:selectOneMenu appendTo="@this" style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                                <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
+                                <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
+                                               itemValue="#{tipo}"/>
+                            </p:selectOneMenu>
+
+                            <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
+                            <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
+                            <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
+                            <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
+
+
+                            <p:selectBooleanButton value="#{usuarioMB.novoUsuario.ativo}"
+                                                   onLabel="ATIVO"
+                                                   offLabel="INATIVO" style="width:100%"/>
+
+
+                        </p:panelGrid>
+
+
+                        <f:facet name="footer">
+
+                            <div align="center">
+                            <p:commandButton value="SALVAR" style="width: 50%" update="usuarios"
+                                             styleClass="btn-success" action="#{usuarioMB.cadastrarUsuario()}"
+                            />
+
+                            </div>
+                        </f:facet>
+
+                    </p:panelGrid>
+
+                </h:form>
+            </p:dialog>
+
         </h:form>
 
     </ui:define>

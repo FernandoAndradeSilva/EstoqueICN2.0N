@@ -9,10 +9,13 @@ import java.util.List;
 public class ClasseDao extends AbstractDao<Classe, Long> {
 
 
-    public List<Classe> listarPorCategoria(Grupo grupo) {
+    public List<Classe> listarPorGrupo(Grupo grupo) {
 
-        List<Classe> lista = manager.createQuery("Select e from " + Classe.class.getName() + " e " +
-                "where e.categoria_id = :param").setParameter("param" , grupo.getId()).getResultList();
+        List<Classe> lista = manager.createQuery
+                ("Select c.nome from " + Classe.class.getName() + " " +
+                        "c where c.grupo = " + grupo.getId()).getResultList();
+        System.out.println(lista);
+
         return lista;
 
     }
