@@ -9,6 +9,7 @@
     <ui:define name="head-end">
 
 
+        <f:event type="preRenderComponent" listener="#{usuarioMB.carregaUsuarios()}"/>
         <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
 
     </ui:define>
@@ -70,7 +71,7 @@
                                      rowsPerPageTemplate="5,10,15,20,30">
 
 
-                            <p:ajax event="rowEdit" listener="#{grupoMB.carregaGrupos()}"/>
+                            <p:ajax event="rowEdit"/>
 
 
                             <p:column headerText="Nome">
@@ -128,19 +129,37 @@
                             </p:column>
 
 
-                            <p:column headerText="Categorias">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="Categorias"/></f:facet>
-                                    <f:facet name="input">
-                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"
-                                                              label="Clique para visualizar" style=" background-color: white ;
-                                                              height: 32px" styleClass="form-control"
-                                                              value="#{usuario.grupos}">
-                                            <f:selectItems var="categoria" value="#{grupoMB.grupos}"/>
-                                        </p:selectCheckboxMenu>
+                            <!--                            <p:column headerText="Grupos">-->
+                            <!--                                <p:cellEditor>-->
+                            <!--                                    <f:facet name="output"><h:outputText value="Grupos"/></f:facet>-->
+                            <!--                                    <f:facet name="input">-->
+                            <!--                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"-->
+                            <!--                                                              label="Clique para visualizar" style=" background-color: white ;-->
+                            <!--                                                              height: 32px" styleClass="form-control"-->
+                            <!--                                                              value="#{usuario.grupos}">-->
+                            <!--                                            <f:selectItems value="#{grupoMB.grupos}"/>-->
+                            <!--                                        </p:selectCheckboxMenu>-->
 
-                                    </f:facet>
-                                </p:cellEditor>
+                            <!--                                    </f:facet>-->
+                            <!--                                </p:cellEditor>-->
+                            <!--                            </p:column>-->
+
+
+                            <p:column headerText="Grupos">
+                                <p:selectOneMenu
+                                        converter="omnifaces.SelectItemsConverter"
+                                        filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>
+                                    <f:selectItems value="#{usuario.grupos}"/>
+                                </p:selectOneMenu>
+
+
+                                <p:commandButton value="Edit"  update="@form" oncomplete="PF('dlgGrupos').show();">
+                                    <f:setPropertyActionListener value="#{usuario.grupos}"
+                                                                 target="#{usuarioMB.gruposEdicao}"/>
+                                </p:commandButton>
+
+
                             </p:column>
 
 
@@ -158,6 +177,19 @@
 
 
             </div>
+
+            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false">
+                <p:outputLabel for="advanced" value="Advanced:" />
+                <p:selectManyMenu appendTo="@this" id="advanced" value="#{usuarioMB.gruposEdicao}" converter="omnifaces.SelectItemsConverter"
+                                  var="t" showCheckbox="true">
+                    <f:selectItems value="#{grupoMB.grupos}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+
+
+                    <p:column style="background-color: white">
+                        <h:outputText value="#{t.nome}" />
+                    </p:column>
+                </p:selectManyMenu>
+            </p:dialog>
 
 
             <p:dialog header="CADASTRO" widgetVar="dlgCadastroUsuario" modal="true">
@@ -210,3 +242,29 @@
     </ui:define>
 
 </ui:composition>
+
+
+
+        <!--                            <p:column headerText="Grupos">-->
+        <!--                                <p:cellEditor>-->
+        <!--                                    <f:facet name="output"><h:outputText value="Grupos"/></f:facet>-->
+        <!--                                    <f:facet name="input">-->
+        <!--                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"-->
+        <!--                                                              label="Clique para visualizar" style=" background-color: white ;-->
+        <!--                                                              height: 32px" styleClass="form-control"-->
+        <!--                                                              value="#{usuario.grupos}">-->
+        <!--                                            <f:selectItems value="#{grupoMB.grupos}"/>-->
+        <!--                                        </p:selectCheckboxMenu>-->
+
+        <!--                                    </f:facet>-->
+        <!--                                </p:cellEditor>-->
+        <!--                            </p:column>-->
+
+
+
+<!--<p:selectOneMenu-->
+<!--converter="omnifaces.SelectItemsConverter"-->
+<!--filter="true" filterMatchMode="startsWith">-->
+<!--<f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>-->
+<!--<f:selectItems value="#{usuario.grupos}"/>-->
+<!--</p:selectOneMenu>-->
