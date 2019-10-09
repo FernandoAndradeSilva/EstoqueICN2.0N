@@ -14,6 +14,9 @@ public class Grupo extends AbstractEntity {
     @OneToMany(mappedBy="grupo" , fetch = FetchType.EAGER)
     private List<Classe> classes = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "grupos")
+    private List<Usuario> usuarios;
+
     public String getNome() {
         return nome;
     }
@@ -44,6 +47,14 @@ public class Grupo extends AbstractEntity {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override

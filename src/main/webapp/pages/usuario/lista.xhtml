@@ -8,6 +8,9 @@
 
     <ui:define name="head-end">
 
+
+        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+
     </ui:define>
 
     <ui:define name="title">
@@ -67,7 +70,7 @@
                                      rowsPerPageTemplate="5,10,15,20,30">
 
 
-                            <p:ajax event="rowEdit" update="usuarios"/>
+                            <p:ajax event="rowEdit" listener="#{grupoMB.carregaGrupos()}"/>
 
 
                             <p:column headerText="Nome">
@@ -95,7 +98,6 @@
                             </p:column>
 
 
-
                             <p:column headerText="Ativo" style="text-align: center ; width: 10%">
                                 <p:cellEditor>
                                     <f:facet name="output">
@@ -112,7 +114,7 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Senha">
+                            <p:column headerText="Tipo de Usuário">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{usuario.tipoUsuario}"/></f:facet>
                                     <f:facet name="input">
@@ -126,6 +128,22 @@
                             </p:column>
 
 
+                            <p:column headerText="Categorias">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="Categorias"/></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"
+                                                              label="Clique para visualizar" style=" background-color: white ;
+                                                              height: 32px" styleClass="form-control"
+                                                              value="#{usuario.grupos}">
+                                            <f:selectItems var="categoria" value="#{grupoMB.grupos}"/>
+                                        </p:selectCheckboxMenu>
+
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
                             <p:column style="width:35px">
                                 <p:rowEditor/>
                             </p:column>
@@ -133,49 +151,6 @@
 
                         </p:dataTable>
 
-                        <div class="ui-sm-3 ui-md-3 ui-lg-3">
-                        </div>
-
-                        <div class="ui-sm-6 ui-md-6 ui-lg-6">
-<!--                            <p:panel id="toggleable" header="ADICIONAR USUÁRIO" toggleable="true" closable="false"
-                                     collapsed="true"
-                                     toggleSpeed="500" closeSpeed="500" widgetVar="panel">
-
-                                <p:ajax event="close"/>
-                                <p:ajax event="toggle"/>
-
-                                <div align="center">
-                                    <p:panelGrid columns="4">
-                                        <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
-                                        <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
-                                        <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
-                                        <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
-                                        <p:selectOneMenu style="width: 100%"
-                                                         value="#{usuarioMB.novoUsuario.tipoUsuario}">
-                                            <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
-                                            <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
-                                                           itemValue="#{tipo}"/>
-                                        </p:selectOneMenu>
-
-                                        <p:selectOneMenu style="width: 100%"
-                                                         value="#{usuarioMB.novoUsuario.tipoUsuario}">
-                                            <f:selectItem itemLabel="Categorias" noSelectionOption="true"/>
-                                            <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
-                                                           itemValue="#{tipo}"/>
-                                        </p:selectOneMenu>
-
-                                        <p:selectBooleanButton id="value1" value="#{usuarioMB.novoUsuario.ativo}"
-                                                               onLabel="ATIVO"
-                                                               offLabel="INATIVO" style="width:100%"/>
-
-                                        <p:commandButton value="Salvar" styleClass="btn-success form-control"/>
-
-
-                                    </p:panelGrid>
-                                </div>
-
-                            </p:panel>-->
-                        </div>
                     </div>
 
 
@@ -194,7 +169,8 @@
 
                         <p:panelGrid columns="2">
 
-                            <p:selectOneMenu appendTo="@this" style="width: 100%" value="#{usuarioMB.novoUsuario.tipoUsuario}">
+                            <p:selectOneMenu appendTo="@this" style="width: 100%"
+                                             value="#{usuarioMB.novoUsuario.tipoUsuario}">
                                 <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
                                 <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
                                                itemValue="#{tipo}"/>
@@ -217,9 +193,9 @@
                         <f:facet name="footer">
 
                             <div align="center">
-                            <p:commandButton value="SALVAR" style="width: 50%" update="usuarios"
-                                             styleClass="btn-success" action="#{usuarioMB.cadastrarUsuario()}"
-                            />
+                                <p:commandButton value="SALVAR" style="width: 50%" update="usuarios"
+                                                 styleClass="btn-success" action="#{usuarioMB.cadastrarUsuario()}"
+                                />
 
                             </div>
                         </f:facet>
