@@ -146,25 +146,17 @@
 
 
                             <p:column headerText="Grupos">
-                                <p:selectOneMenu
-                                        converter="omnifaces.SelectItemsConverter"
-                                        filter="true" filterMatchMode="startsWith">
-                                    <f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>
-                                    <f:selectItems value="#{usuario.grupos}"/>
-                                </p:selectOneMenu>
-
-
-                                <p:commandButton value="Edit"  update="@form" oncomplete="PF('dlgGrupos').show();">
-                                    <f:setPropertyActionListener value="#{usuario.grupos}"
-                                                                 target="#{usuarioMB.gruposEdicao}"/>
-                                </p:commandButton>
-
-
+                                <p:selectCheckboxMenu  converter="omnifaces.SelectItemsConverter"
+                                                      label="Clique para visualizar"
+                                                      styleClass="form-control"
+                                                      value="#{usuario.grupos}">
+                                    <f:selectItems value="#{grupoMB.grupos}"/>
+                                </p:selectCheckboxMenu>
                             </p:column>
 
 
                             <p:column style="width:35px">
-                                <p:rowEditor/>
+                                <p:rowEditor id="teste"/>
                             </p:column>
 
 
@@ -179,14 +171,16 @@
             </div>
 
             <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false">
-                <p:outputLabel for="advanced" value="Advanced:" />
-                <p:selectManyMenu appendTo="@this" id="advanced" value="#{usuarioMB.gruposEdicao}" converter="omnifaces.SelectItemsConverter"
+                <p:outputLabel for="advanced" value="Advanced:"/>
+                <p:selectManyMenu appendTo="@this" id="advanced" value="#{usuarioMB.gruposEdicao}"
+                                  converter="omnifaces.SelectItemsConverter"
                                   var="t" showCheckbox="true">
-                    <f:selectItems value="#{grupoMB.grupos}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+                    <f:selectItems value="#{grupoMB.grupos}" var="grupo" itemLabel="#{grupo.nome}"
+                                   itemValue="#{grupo}"/>
 
 
                     <p:column style="background-color: white">
-                        <h:outputText value="#{t.nome}" />
+                        <h:outputText value="#{t.nome}"/>
                     </p:column>
                 </p:selectManyMenu>
             </p:dialog>
@@ -237,12 +231,23 @@
                 </h:form>
             </p:dialog>
 
+
+
+            <script>
+                 jQuery("#usuarios\\:0\\:teste").click(function () {
+                     alert('Clicadop');
+                 });
+            </script>
+
+
         </h:form>
+
+
+
 
     </ui:define>
 
 </ui:composition>
-
 
 
         <!--                            <p:column headerText="Grupos">-->
@@ -261,10 +266,9 @@
         <!--                            </p:column>-->
 
 
-
-<!--<p:selectOneMenu-->
-<!--converter="omnifaces.SelectItemsConverter"-->
-<!--filter="true" filterMatchMode="startsWith">-->
-<!--<f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>-->
-<!--<f:selectItems value="#{usuario.grupos}"/>-->
-<!--</p:selectOneMenu>-->
+        <!--<p:selectOneMenu-->
+        <!--converter="omnifaces.SelectItemsConverter"-->
+        <!--filter="true" filterMatchMode="startsWith">-->
+        <!--<f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>-->
+        <!--<f:selectItems value="#{usuario.grupos}"/>-->
+        <!--</p:selectOneMenu>-->
