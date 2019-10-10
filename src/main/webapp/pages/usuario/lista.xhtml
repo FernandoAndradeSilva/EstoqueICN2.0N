@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:adm="http://github.com/adminfaces"
+                xmlns:adm="http://github.com/adminfaces" xmlns:P="http://java.sun.com/jsf/html"
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="head-end">
@@ -129,29 +129,10 @@
                             </p:column>
 
 
-                            <!--                            <p:column headerText="Grupos">-->
-                            <!--                                <p:cellEditor>-->
-                            <!--                                    <f:facet name="output"><h:outputText value="Grupos"/></f:facet>-->
-                            <!--                                    <f:facet name="input">-->
-                            <!--                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"-->
-                            <!--                                                              label="Clique para visualizar" style=" background-color: white ;-->
-                            <!--                                                              height: 32px" styleClass="form-control"-->
-                            <!--                                                              value="#{usuario.grupos}">-->
-                            <!--                                            <f:selectItems value="#{grupoMB.grupos}"/>-->
-                            <!--                                        </p:selectCheckboxMenu>-->
-
-                            <!--                                    </f:facet>-->
-                            <!--                                </p:cellEditor>-->
-                            <!--                            </p:column>-->
 
 
-                            <p:column headerText="Grupos">
-                                <p:selectCheckboxMenu  converter="omnifaces.SelectItemsConverter"
-                                                      label="Clique para visualizar"
-                                                      styleClass="form-control"
-                                                      value="#{usuario.grupos}">
-                                    <f:selectItems value="#{grupoMB.grupos}"/>
-                                </p:selectCheckboxMenu>
+                            <p:column headerText="Grupos" style="text-align: center ; width: 150px">
+                                <p:commandLink value="Exibir Grupos"  oncomplete="PF('dlgGrupos').show();" />
                             </p:column>
 
 
@@ -171,18 +152,27 @@
             </div>
 
             <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false">
-                <p:outputLabel for="advanced" value="Advanced:"/>
-                <p:selectManyMenu appendTo="@this" id="advanced" value="#{usuarioMB.gruposEdicao}"
-                                  converter="omnifaces.SelectItemsConverter"
-                                  var="t" showCheckbox="true">
-                    <f:selectItems value="#{grupoMB.grupos}" var="grupo" itemLabel="#{grupo.nome}"
-                                   itemValue="#{grupo}"/>
+
+                    <f:facet name="header">
+                        Grupos
+                    </f:facet>
 
 
-                    <p:column style="background-color: white">
-                        <h:outputText value="#{t.nome}"/>
-                    </p:column>
-                </p:selectManyMenu>
+                    <p:pickList id="pickList" value="#{usuarioMB.grupos}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}"
+                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" showCheckbox="true">
+
+                        <f:facet name="sourceCaption">Grupos disponíves</f:facet>
+                        <f:facet name="targetCaption">Grupos do Usuário</f:facet>
+
+
+                        <p:column style="width:85%;">
+                            <h:outputText value="#{grupo.nome}" />
+                        </p:column>
+
+
+                    </p:pickList>
+
+
             </p:dialog>
 
 
@@ -191,6 +181,8 @@
                     <p:panelGrid columns="2">
                         <f:facet name="header">
                             <p:outputLabel value="USUÁRIO"/>
+
+
                         </f:facet>
 
                         <p:panelGrid columns="2">
@@ -234,9 +226,9 @@
 
 
             <script>
-                 jQuery("#usuarios\\:0\\:teste").click(function () {
-                     alert('Clicadop');
-                 });
+                 // jQuery("#usuarios\\:0\\:teste").click(function () {
+                 //     alert('Clicadop');
+                 // });
             </script>
 
 
