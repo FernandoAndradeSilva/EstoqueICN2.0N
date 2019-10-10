@@ -31,25 +31,16 @@ public class UsuarioMB implements Serializable {
     @Inject
     private GrupoService grupoService;
 
-    private DualListModel<Grupo> grupos;
+    private DualListModel<Grupo> grupos = new DualListModel<>();
 
     private Usuario novoUsuario = new Usuario();
 
-    private List<Grupo> gruposEdicao = new ArrayList<>();
-
     private List<Usuario> usuarios = new ArrayList<>();
 
-    @PostConstruct
-    public void init() {
-        List<Grupo> citiesSource = new ArrayList<Grupo>();
-        List<Grupo> citiesTarget = new ArrayList<Grupo>();
 
-        citiesSource = grupoService.listarTodos();
-        citiesTarget.add (grupoService.busca(2l));
-
-
-        grupos = new DualListModel<Grupo>(citiesSource , citiesTarget);
-
+    public void carregaGruposUsuario(List<Grupo> gruposUsuario) {
+        List<Grupo> todosGrupos = grupoService.listarTodos();
+        grupos = new DualListModel<Grupo>(todosGrupos , gruposUsuario);
 
     }
 
@@ -67,9 +58,7 @@ public class UsuarioMB implements Serializable {
     }
 
 
-    public void imprimeTemp() {
-        System.out.println(this.gruposEdicao);
-    }
+
 
 
 
@@ -102,11 +91,5 @@ public class UsuarioMB implements Serializable {
         this.grupos = grupos;
     }
 
-    public List<Grupo> getGruposEdicao() {
-        return gruposEdicao;
-    }
 
-    public void setGruposEdicao(List<Grupo> gruposEdicao) {
-        this.gruposEdicao = gruposEdicao;
-    }
 }

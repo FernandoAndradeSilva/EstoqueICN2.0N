@@ -132,12 +132,15 @@
 
 
                             <p:column headerText="Grupos" style="text-align: center ; width: 150px">
-                                <p:commandLink value="Exibir Grupos"  oncomplete="PF('dlgGrupos').show();" />
+                                <p:commandLink value="Exibir Grupos" action="#{usuarioMB.carregaGruposUsuario(usuario.grupos)}"
+                                               oncomplete="PF('dlgGrupos').show();" update="dialogGrupos">
+
+                                </p:commandLink>
                             </p:column>
 
 
                             <p:column style="width:35px">
-                                <p:rowEditor id="teste"/>
+                                <p:rowEditor />
                             </p:column>
 
 
@@ -151,8 +154,9 @@
 
             </div>
 
-            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false">
+            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false" id="dialogGrupos">
 
+                <h:form id="formGrupos">
                     <f:facet name="header">
                         Grupos
                     </f:facet>
@@ -171,7 +175,7 @@
 
 
                     </p:pickList>
-
+                </h:form>
 
             </p:dialog>
 
