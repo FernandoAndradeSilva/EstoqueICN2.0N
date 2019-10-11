@@ -1,16 +1,17 @@
-<ui:composition xmlns="http://www.w2.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:adm="http://github.com/adminfaces" xmlns:P="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="head-end">
 
 
         <f:event type="preRenderComponent" listener="#{usuarioMB.carregaUsuarios()}"/>
-        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+        <!--        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>-->
 
     </ui:define>
 
@@ -128,19 +129,23 @@
                                 </p:cellEditor>
                             </p:column>
 
-
-
+                            <p:column>
+                                <p:commandButton value="teste" action="#{usuarioMB.teste01(usuario.id)}"/>
+                            </p:column>
 
                             <p:column headerText="Grupos" style="text-align: center ; width: 150px">
-                                <p:commandLink value="Exibir Grupos" action="#{usuarioMB.carregaGruposUsuario(usuario.grupos)}"
+                                <p:commandLink value="Exibir Grupos"
+                                               action="#{usuarioMB.carregaGruposUsuario()}"
                                                oncomplete="PF('dlgGrupos').show();" update="dialogGrupos">
+                                                <f:setPropertyActionListener value="#{usuario}"
+                                                                        target="#{usuarioMB.usuarioSelecionado}"/>
 
                                 </p:commandLink>
                             </p:column>
 
 
                             <p:column style="width:35px">
-                                <p:rowEditor />
+                                <p:rowEditor/>
                             </p:column>
 
 
@@ -154,27 +159,45 @@
 
             </div>
 
-            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false" id="dialogGrupos">
+            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false"
+                      id="dialogGrupos">
 
                 <h:form id="formGrupos">
                     <f:facet name="header">
                         Grupos
                     </f:facet>
 
+                    <p:panel>
+                        <p:pickList id="pickList" value="#{usuarioMB.grupos}" var="grupo" itemLabel="#{grupo.nome}"
+                                    itemValue="#{grupo}"
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                    showCheckbox="true">
 
-                    <p:pickList id="pickList" value="#{usuarioMB.grupos}" var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}"
-                                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" showCheckbox="true">
-
-                        <f:facet name="sourceCaption">Grupos disponíves</f:facet>
-                        <f:facet name="targetCaption">Grupos do Usuário</f:facet>
-
-
-                        <p:column style="width:85%;">
-                            <h:outputText value="#{grupo.nome}" />
-                        </p:column>
+                            <f:facet name="sourceCaption">Grupos disponíves</f:facet>
+                            <f:facet name="targetCaption">Grupos do Usuário</f:facet>
 
 
-                    </p:pickList>
+                            <p:ajax event="transfer" listener="#{usuarioMB.onTransfer}"/>
+
+                            <p:column style="width:85%;">
+                                <h:outputText value="#{grupo.nome}"/>
+                            </p:column>
+
+
+                        </p:pickList>
+
+
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="SALVAR" style="width: 60%" styleClass="btn-success"
+                                                 action="#{usuarioMB.atualizaGrupos()}"  process="@this"/>
+
+                            </div>
+                        </f:facet>
+
+                    </p:panel>
+
+
                 </h:form>
 
             </p:dialog>
@@ -228,17 +251,7 @@
             </p:dialog>
 
 
-
-            <script>
-                 // jQuery("#usuarios\\:0\\:teste").click(function () {
-                 //     alert('Clicadop');
-                 // });
-            </script>
-
-
         </h:form>
-
-
 
 
     </ui:define>

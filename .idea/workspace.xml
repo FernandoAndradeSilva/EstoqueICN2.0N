@@ -10,6 +10,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/GrupoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/GrupoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,40 +32,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>rowEdit</find>
-      <find>gro</find>
-      <find>cate</find>
-      <find>novaGrupo</find>
-      <find>NovaGrupo</find>
-      <find>categoria</find>
-      <find>carregaTodasGrupos</find>
-      <find>novoClasse</find>
-      <find>tipo</find>
-      <find>Todas</find>
-      <find>classe</find>
-      <find>Cadastrar</find>
-      <find>adicionaNovoClasse</find>
-      <find>CATEGORIA</find>
-      <find>Categoria</find>
-      <find>TIPO</find>
-      <find>Tipo</find>
-      <find>Excluir</find>
-      <find>grupos</find>
-      <find>Item</find>
-      <find>item</find>
-      <find>user</find>
-      <find>3</find>
-      <find>frm</find>
-      <find>pagin</find>
-      <find>value1</find>
-      <find>carrega</find>
-      <find>gruposE</find>
-      <find>ap</find>
-      <find>PF</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -119,6 +89,7 @@
       <command value="git add ." />
       <command value="git commit -m &quot;corrigind cadastro grupos usuarios&quot;" />
       <command value="git push origin master" />
+      <command value="git checkout ." />
     </option>
   </component>
   <component name="RunDashboard">

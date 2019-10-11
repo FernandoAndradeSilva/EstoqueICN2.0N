@@ -32,4 +32,9 @@ public class UsuarioService implements Serializable {
     public Usuario salvaRetorna(Usuario usuario) {
         return usuarioDao.saveReturn(usuario);
     }
+
+    public Usuario buscar(Long id){
+        return usuarioDao.findById(id);
+    }
+
 }

@@ -9,8 +9,6 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario extends AbstractEntity {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,10 +30,8 @@ public class Usuario extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name= "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-    private List<Grupo> grupos = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id.grupo")
+    private List<GrupoUsuario> grupos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -82,11 +78,11 @@ public class Usuario extends AbstractEntity {
         this.senha = senha;
     }
 
-    public List<Grupo> getGrupos() {
+    public List<GrupoUsuario> getGrupos() {
         return grupos;
     }
 
-    public void setGrupos(List<Grupo> grupos) {
+    public void setGrupos(List<GrupoUsuario> grupos) {
         this.grupos = grupos;
     }
 

@@ -5,8 +5,10 @@ import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.Grupo;
 import br.com.estoque.model.Usuario;
 import br.com.estoque.service.GrupoService;
+import br.com.estoque.service.GrupoUsuarioService;
 import br.com.estoque.service.UsuarioService;
 import br.com.estoque.util.Transacional;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
@@ -29,7 +31,9 @@ public class UsuarioMB implements Serializable {
     private UsuarioService usuarioService;
 
     @Inject
-    private GrupoService grupoService;
+    private GrupoUsuarioService grupoUsuarioService;
+
+    private Usuario usuarioSelecionado = new Usuario();
 
     private DualListModel<Grupo> grupos = new DualListModel<>();
 
@@ -38,9 +42,41 @@ public class UsuarioMB implements Serializable {
     private List<Usuario> usuarios = new ArrayList<>();
 
 
-    public void carregaGruposUsuario(List<Grupo> gruposUsuario) {
-        List<Grupo> todosGrupos = grupoService.listarTodos();
-        grupos = new DualListModel<Grupo>(todosGrupos , gruposUsuario);
+    public void carregaGruposUsuario() {
+
+
+        grupos = new DualListModel<Grupo>(grupoUsuarioService.gruposNaoAssociados(this.usuarioSelecionado.getId()),
+                grupoUsuarioService.gruposAssociados(this.usuarioSelecionado.getId()));
+
+
+
+    }
+
+
+    public void atualizaGrupos() {
+
+        System.out.println("Entrando no método");
+
+        List<Grupo> gruposDoUsuario = grupoUsuarioService.gruposAssociados(usuarioSelecionado.getId());
+        List<Grupo> gruposFinais = grupos.getTarget();
+
+        for (Grupo grupo : gruposFinais) {
+
+            if(!gruposDoUsuario.contains(grupo)) {
+                System.out.println("Não conteem" + grupo);
+            }
+
+
+        }
+
+
+    }
+
+
+    public void onTransfer(TransferEvent event) {
+        System.out.println(event.getItems());
+        System.out.println(event.getSource());
+        System.out.println(event.isAdd());
 
     }
 
@@ -56,10 +92,6 @@ public class UsuarioMB implements Serializable {
     public void carregaUsuarios() {
         this.usuarios = usuarioService.listarTodos();
     }
-
-
-
-
 
 
     public List<Usuario> getUsuarios() {
@@ -91,5 +123,11 @@ public class UsuarioMB implements Serializable {
         this.grupos = grupos;
     }
 
+    public Usuario getUsuarioSelecionado() {
+        return usuarioSelecionado;
+    }
 
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
+    }
 }
