@@ -21,6 +21,10 @@ public class GrupoUsuarioService implements Serializable {
             grupoUsuarioDao.save(grupoUsuario);
     }
 
+    public void excluir(GrupoUsuario grupoUsuario) {
+        grupoUsuarioDao.delete(grupoUsuario , grupoUsuario.getId());
+    }
+
     public List<GrupoUsuario> listarTodas() {
         return grupoUsuarioDao.listar(GrupoUsuario.class);
     }
@@ -33,8 +37,6 @@ public class GrupoUsuarioService implements Serializable {
         return grupoUsuarioDao.gruposAssociados(id);
     }
 
-//    public List<GrupoUsuario> listaPorUsuario(Long id) {
-//        return grupoUsuarioDao.listaPorUsuario(id);
-//    }
+
 
 }

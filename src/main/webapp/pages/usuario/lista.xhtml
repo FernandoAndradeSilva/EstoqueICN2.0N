@@ -9,9 +9,7 @@
 
     <ui:define name="head-end">
 
-
         <f:event type="preRenderComponent" listener="#{usuarioMB.carregaUsuarios()}"/>
-        <!--        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>-->
 
     </ui:define>
 
@@ -21,7 +19,7 @@
 
 
     <ui:define name="body">
-
+        <p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
 
         <h:form id="frm" prependId="false">
             <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
@@ -34,12 +32,8 @@
                     <div id="main-buttons" class="hidden-sm hidden-xs">
 
 
-                        <p:commandButton value="Cadastrar Usuário" onclick="PF('dlgCadastroUsuario').show();"
-                                         process="@this"/>
-                        <p:spacer width="5"/>
-
-                        <p:commandButton value="Salvar" update="@form" action="#{usuarioMB.cadastrarUsuario()}"
-                                         icon="fa fa-check" styleClass="btn-primary"/>
+                        <p:commandButton value="Cadastrar" onclick="PF('dlgCadastroUsuario').show();"
+                                         process="@this" styleClass="btn-primary" icon="fa fa-plus"/>
                         <p:spacer width="5"/>
 
                         <p:commandButton value="Excluir" process="@this" rendered="false"
@@ -47,6 +41,25 @@
                                          styleClass="btn-danger">
                         </p:commandButton>
                         <p:spacer width="5"/>
+
+                        <div style="float: right">
+                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"
+                                             />
+                            <p:inputText value="#{grupoMB.campoBuscaGrupo}" style="width:150px"
+                                         placeholder="Pesquisar Grupo"/>
+
+                            <p:slideMenu overlay="true" trigger="buttonPesquisarGrupo" my="left top"
+                                         at="left bottom" style="width:100px ; height: 95px">
+                                <p:menuitem value="Por Nome"
+                                            />
+                                <p:menuitem value="Por Usuário"
+                                            />
+
+                                <p:menuitem value="Por Email"
+                                />
+                            </p:slideMenu>
+                        </div>
+
 
                     </div>
 
@@ -72,7 +85,8 @@
                                      rowsPerPageTemplate="5,10,15,20,30">
 
 
-                            <p:ajax event="rowEdit"/>
+                            <p:ajax event="rowEdit" listener="#{usuarioMB.editarUsuario}" update="growl"/>
+
 
 
                             <p:column headerText="Nome">
@@ -100,7 +114,7 @@
                             </p:column>
 
 
-                            <p:column headerText="Ativo" style="text-align: center ; width: 10%">
+                            <p:column headerText="Ativo" style="text-align: center" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{usuario.ativo == true ? 'SIM' : 'NÃO'}"
@@ -116,7 +130,7 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Tipo de Usuário">
+                            <p:column headerText="Tipo de Usuário" style="text-align: center" styleClass="ui-sm-2 ui-md-2 ui-lg-2">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{usuario.tipoUsuario}"/></f:facet>
                                     <f:facet name="input">
@@ -129,12 +143,9 @@
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column>
-                                <p:commandButton value="teste" action="#{usuarioMB.teste01(usuario.id)}"/>
-                            </p:column>
 
                             <p:column headerText="Grupos" style="text-align: center ; width: 150px">
-                                <p:commandLink value="Exibir Grupos"
+                                <p:commandLink value="Editar Grupos"
                                                action="#{usuarioMB.carregaGruposUsuario()}"
                                                oncomplete="PF('dlgGrupos').show();" update="dialogGrupos">
                                                 <f:setPropertyActionListener value="#{usuario}"
@@ -145,7 +156,26 @@
 
 
                             <p:column style="width:35px">
-                                <p:rowEditor/>
+                                <p:rowEditor editTitle="Editar" cancelTitle="Cancelar" saveTitle="Salvar"/>
+                            </p:column>
+
+
+
+                            <p:column style="width:50px;">
+                                <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
+                                                 title="Excluir">
+                                    <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
+                                               icon="fa fa-exclamation-triangle"/>
+
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="SIM" styleClass="ui-confirmdialog-yes btn-success"
+                                                     icon="fa fa-check">
+                                    </p:commandButton>
+                                    <p:commandButton value="NÃO" type="button"
+                                                     styleClass="ui-confirmdialog-no btn-danger"
+                                                     icon="fa fa-times"/>
+                                </p:confirmDialog>
                             </p:column>
 
 
@@ -159,17 +189,19 @@
 
             </div>
 
-            <p:dialog header="GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false"
+            <p:dialog header="EDIÇÃO DE GRUPOS" modal="true" showEffect="fade" widgetVar="dlgGrupos" resizable="false"
                       id="dialogGrupos">
 
                 <h:form id="formGrupos">
-                    <f:facet name="header">
-                        Grupos
-                    </f:facet>
 
                     <p:panel>
+
+                        <f:facet name="header">
+                            Usuário - #{usuarioMB.usuarioSelecionado.nome}
+                        </f:facet>
+
                         <p:pickList id="pickList" value="#{usuarioMB.grupos}" var="grupo" itemLabel="#{grupo.nome}"
-                                    itemValue="#{grupo}"
+                                    itemValue="#{grupo}" converter="GrupoConverter"
                                     showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
                                     showCheckbox="true">
 
@@ -177,7 +209,7 @@
                             <f:facet name="targetCaption">Grupos do Usuário</f:facet>
 
 
-                            <p:ajax event="transfer" listener="#{usuarioMB.onTransfer}"/>
+                            <p:ajax event="transfer" update="@this"/>
 
                             <p:column style="width:85%;">
                                 <h:outputText value="#{grupo.nome}"/>
@@ -189,7 +221,7 @@
 
                         <f:facet name="footer">
                             <div align="center">
-                                <p:commandButton value="SALVAR" style="width: 60%" styleClass="btn-success"
+                                <p:commandButton value="FINALIZAR" style="width: 60%" styleClass="btn-success"
                                                  action="#{usuarioMB.atualizaGrupos()}"  process="@this"/>
 
                             </div>
@@ -238,7 +270,7 @@
                         <f:facet name="footer">
 
                             <div align="center">
-                                <p:commandButton value="SALVAR" style="width: 50%" update="usuarios"
+                                <p:commandButton value="SALVAR" style="width: 50%" update="usuarios" process="formCadastroUsuario"
                                                  styleClass="btn-success" action="#{usuarioMB.cadastrarUsuario()}"
                                 />
 

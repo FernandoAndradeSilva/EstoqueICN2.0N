@@ -51,6 +51,7 @@ public class GrupoMB implements Serializable {
         this.grupo = grupo;
         if(this.campoBuscaClasse != "") {
             this.campoBuscaClasse = "";
+            this.carregaGrupos();
         }
     }
 
@@ -115,11 +116,11 @@ public class GrupoMB implements Serializable {
         for (Classe classe : this.getGrupo().getClasses()) {
 
             if(tipoCampoPesquisa == 1) {
-                if(classe.getSigla().equalsIgnoreCase(this.campoBuscaClasse)) {
+                if(classe.getSigla().contains(campoBuscaClasse.toUpperCase())) {
                     listResult.add(classe);
                 }
             } else if(tipoCampoPesquisa == 2) {
-                if(classe.getNome().equalsIgnoreCase(this.campoBuscaClasse)) {
+                if(classe.getNome().contains(this.campoBuscaClasse.toUpperCase())) {
                     listResult.add(classe);
                 }
             }
@@ -143,11 +144,11 @@ public class GrupoMB implements Serializable {
         for (Grupo grupo : this.grupos) {
 
             if(tipoCampoPesquisa == 1) {
-                if(grupo.getSigla().equalsIgnoreCase(this.campoBuscaGrupo)) {
+                if(grupo.getSigla().contains(this.campoBuscaGrupo.toUpperCase())) {
                     listResult.add(grupo);
                 }
             } else if(tipoCampoPesquisa == 2) {
-                if(grupo.getNome().equalsIgnoreCase(this.campoBuscaGrupo)) {
+                if(grupo.getNome().contains(this.campoBuscaGrupo.toUpperCase())) {
                     listResult.add(grupo);
                 }
             }
@@ -169,21 +170,15 @@ public class GrupoMB implements Serializable {
     public void carregaGrupos() {
         grupos = grupoService.listarTodos();
     }
-    public void carregaClassesPorGrupo() {
-        Grupo grupo1 = grupoService.busca(1l);
-        List<Classe> classes = classeService.listarPorGrupo(grupo1);
-        System.out.println(classes);
 
 
 
-    }
+
+
 
     public List<Grupo> getGrupos() {
         return grupos;
     }
-
-
-
 
     public void setGrupos(List<Grupo> grupos) {
         this.grupos = grupos;
@@ -239,36 +234,5 @@ public class GrupoMB implements Serializable {
         this.campoBuscaGrupo = campoBuscaGrupo;
     }
 
-    //    public void pesquisarGrupos() {
-//
-//        this.carregaGrupos();
-//        List<Grupo> grupuPesquisada = new ArrayList<>();
-//
-//        for (Grupo grupo : this.grupos) {
-//            if(grupo.getNome().equalsIgnoreCase(campoPesquisaGrupo)) {
-//                grupuPesquisada.add(grupo);
-//                break;
-//            }
-//        }
-//        if(grupuPesquisada.size() == 1) {
-//            this.grupos = grupuPesquisada;
-//        }
-//    }
-//
-//
-//    public void pesquisarClasses() {
-//
-//        this.atualizaPesquisaClasse();
-//        List<Classe> tipoPesquisado = new ArrayList<>();
-//
-//        for (Classe classe : this.grupuSelecionada.getClasses()) {
-//            if(classe.getNome().equalsIgnoreCase(campoPesquisaClasse)) {
-//                tipoPesquisado.add(classe);
-//                break;
-//            }
-//        }
-//        if(tipoPesquisado.size() == 1) {
-//            this.grupuSelecionada.setClasses(tipoPesquisado);
-//        }
-//    }
+
 }

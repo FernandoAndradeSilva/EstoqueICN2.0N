@@ -84,7 +84,12 @@
 
                     <p:dataTable var="grupo" value="#{grupoMB.grupos}" id="grupos"
                                  rowExpandMode="single" widgetVar="grupos"
-                                 editable="true">
+                                 editable="true"  paginator="true"
+                                 paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 currentPageReportTemplate=""
+                                 rowsPerPageTemplate="5,10,15,20,30">
 
 
                         <p:ajax event="rowEdit" listener="#{grupoMB.editarGrupo}" update="growl"/>

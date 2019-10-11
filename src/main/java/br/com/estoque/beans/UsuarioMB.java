@@ -3,11 +3,14 @@ package br.com.estoque.beans;
 import br.com.estoque.enums.TipoUsuario;
 
 import br.com.estoque.model.Grupo;
+import br.com.estoque.model.GrupoUsuario;
 import br.com.estoque.model.Usuario;
 import br.com.estoque.service.GrupoService;
 import br.com.estoque.service.GrupoUsuarioService;
 import br.com.estoque.service.UsuarioService;
+import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
@@ -15,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -44,42 +48,42 @@ public class UsuarioMB implements Serializable {
 
     public void carregaGruposUsuario() {
 
-
         grupos = new DualListModel<Grupo>(grupoUsuarioService.gruposNaoAssociados(this.usuarioSelecionado.getId()),
                 grupoUsuarioService.gruposAssociados(this.usuarioSelecionado.getId()));
 
+    }
 
+    @Transacional
+    public void editarUsuario(RowEditEvent event) {
+        usuarioService.salvar(((Usuario) event.getObject()));
+        MessageUtil.addMessageTicket("Informações alteradas com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
 
     }
 
 
+    @Transacional
     public void atualizaGrupos() {
-
-        System.out.println("Entrando no método");
-
         List<Grupo> gruposDoUsuario = grupoUsuarioService.gruposAssociados(usuarioSelecionado.getId());
         List<Grupo> gruposFinais = grupos.getTarget();
 
-        for (Grupo grupo : gruposFinais) {
-
+        for (Grupo grupo : gruposFinais) { // ADICIONA AS QUE USUÁRIO NÃO TEM
             if(!gruposDoUsuario.contains(grupo)) {
-                System.out.println("Não conteem" + grupo);
+                GrupoUsuario gp = new GrupoUsuario();
+                gp.getId().setUsuario(this.usuarioSelecionado);
+                gp.getId().setGrupo(grupo);
+                grupoUsuarioService.salvar(gp);
             }
-
-
         }
 
-
+        for (Grupo grupo : gruposDoUsuario) { // REMOVE OS QUE FORAM TIRADOS
+            if(!gruposFinais.contains(grupo)) {
+                GrupoUsuario gp = new GrupoUsuario();
+                gp.getId().setUsuario(this.usuarioSelecionado);
+                gp.getId().setGrupo(grupo);
+                grupoUsuarioService.excluir(gp);
+            }
+        }
     }
-
-
-    public void onTransfer(TransferEvent event) {
-        System.out.println(event.getItems());
-        System.out.println(event.getSource());
-        System.out.println(event.isAdd());
-
-    }
-
 
     @Transacional
     public void cadastrarUsuario() {

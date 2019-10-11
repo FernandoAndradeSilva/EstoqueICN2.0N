@@ -23,6 +23,14 @@
                 padding: 0;
             }
         </style>
+
+
+
+
+		<f:event type="preRenderComponent" listener="#{usuarioMB.carregaUsuarios()}"/>
+
+
+
     </ui:define>
 
     <ui:define name="title">
@@ -53,17 +61,15 @@
 	                    <p:separator/>
 	                    
 	                    
-	                    <p:dataTable id="defaultTable" widgetVar="defaultTable" rows="10"	                    			 
-	                                 paginator="true" 	                                 
+	                    <p:dataTable id="tableItens" widgetVar="tableItens" rows="10"
+	                                 paginator="true"
 	                                 paginatorPosition="bottom"	                                 
-	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+	                                 {PageLinks} {NextPageLink} {LastPageLink} "
 	                                 currentPageReportTemplate=""
 	                                 rowsPerPageTemplate="5,10,15,20,30">
 	
-	                        <p:ajax event="rowSelectCheckbox" update="@(.ui-button)"/>
-	                        <p:ajax event="rowUnselectCheckbox" update="@(.ui-button)"/>
-	                        <p:ajax event="rowSelect" update="@(.ui-button)"/>
-	                        <p:ajax event="rowUnselect" update="@(.ui-button)"/>
+
 	
 	
 	                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>	                        
@@ -74,13 +80,7 @@
 	            </div>
         	</h:form>
         	
-        	<p:dialog header="Default Selecionadas" widgetVar="defaultSelecionadas" height="250"
-                  	  width="400" responsive="true" styleClass="box-success">
-	            <p:dataList id="listaDefaultSelecionadas" value="" var="default"
-	                        type="definition">
 
-	            </p:dataList>
-			</p:dialog>
 
         
     </ui:define>

@@ -55,12 +55,17 @@
             <div class="box-header with-border" align="center">
 
 
-
-
                 <div class="ui-sm-6 ui-md-6 ui-lg-12">
-                    <p:commandButton value="ITENS" styleClass="btn-info" icon="fa fa-bar-chart" />
+
+
+                    <p:commandButton value="ITENS" id="dynaButton" type="button" styleClass="btn-info"
+                                     icon="fa fa-bar-chart">
+                        <p:tieredMenu model="#{menuConstrutor.model}" overlay="true" trigger="dynaButton" my="left top"
+                                      at="left bottom"/>
+                    </p:commandButton>
                     <p:commandButton value="MOVIMENTAÇÕES" styleClass="btn-primary" icon="fa fa-th-list"/>
-                    <p:commandButton value="USUÁRIOS" styleClass="btn-warning" icon="fa fa-user" action="usuario/lista?faces-redirect=true"/>
+                    <p:commandButton value="USUÁRIOS" styleClass="btn-warning" icon="fa fa-user"
+                                     action="usuario/lista?faces-redirect=true"/>
                     <p:commandButton value="SETORES" styleClass="btn-danger" icon="fa fa-building-o"/>
                     <p:commandButton value="CONFIGURAÇÕES" styleClass="btn-success" icon="fa fa-gears"/>
                 </div>
@@ -71,12 +76,14 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
 
-                    <p:panel id="panelGrafico" header="Gráfico Aual de Movimentações" toggleable="true" closable="true" toggleSpeed="500"
+                    <p:panel id="panelGrafico" header="Gráfico Aual de Movimentações" toggleable="true" closable="true"
+                             toggleSpeed="500"
                              closeSpeed="500" widgetVar="panelGrafico" style="margin-bottom:20px">
 
-                    <div style="overflow: auto">
-                        <p:chart type="bar" model="#{charts.animatedModel2}" style="width: 100% ; text-align: left"/>
-                    </div>
+                        <div style="overflow: auto">
+                            <p:chart type="bar" model="#{charts.animatedModel2}"
+                                     style="width: 100% ; text-align: left"/>
+                        </div>
 
                     </p:panel>
                 </div>
@@ -86,7 +93,8 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
 
-                    <p:panel id="toggleable" header="Produtos mais consumidos" toggleable="true" closable="true" toggleSpeed="500"
+                    <p:panel id="toggleable" header="Produtos mais consumidos" toggleable="true" closable="true"
+                             toggleSpeed="500"
                              closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
 
                         <p:dataTable var="car">
@@ -113,8 +121,6 @@
                 </div>
             </div>
 
-
-            <p:commandButton value="SALVAR TESTE" action="#{usuarioMB.imprimeCatgs()}"/>
 
         </h:form>
     </ui:define>
