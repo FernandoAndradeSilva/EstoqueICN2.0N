@@ -1,6 +1,7 @@
 package br.com.estoque.model;
 
 import br.com.estoque.enums.TipoUsuario;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,13 +10,10 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
     @Column(nullable = false)
     private String nome;
-
+    
     @Column(unique=true)
     private String email;
 
@@ -30,13 +28,23 @@ public class Usuario extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipoUsuario;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id.grupo")
+    @ManyToOne
+    @JoinColumn(name = "setor" , nullable = false)
+    private Setor setor = new Setor();
+
+    @OneToMany(mappedBy = "id.grupo", fetch = FetchType.EAGER)
     private List<GrupoUsuario> grupos = new ArrayList<>();
 
     public Usuario() {
     }
 
+    public Setor getSetor() {
+        return setor;
+    }
 
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
 
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
@@ -46,13 +54,7 @@ public class Usuario extends AbstractEntity {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;

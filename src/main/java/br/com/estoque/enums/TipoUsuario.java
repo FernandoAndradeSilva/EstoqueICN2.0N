@@ -2,11 +2,11 @@ package br.com.estoque.enums;
 
 public enum TipoUsuario {
 
-    MASTER( "Master"),
     ADMIN( "Admin"),
     COLABORADOR( "Colaborador"),
-    VISITANTE( "Visitante"),
-    DIRETORIA( "Diretoria");
+    DIRETORIA( "Diretoria"),
+    MASTER( "Master"),
+    VISITANTE( "Visitante");
 
 
     private String descricao;

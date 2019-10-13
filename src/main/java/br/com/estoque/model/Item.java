@@ -3,6 +3,8 @@ package br.com.estoque.model;
 import br.com.estoque.enums.TipoUsuario;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "item")
 public class Item extends AbstractEntity {
@@ -11,13 +13,23 @@ public class Item extends AbstractEntity {
     private String descricao;
     private String especificacao;
     private int quantidadeMinima;
+    private String observacoes;
 
 
     @ManyToOne
     @JoinColumn(name = "classe", nullable = false)
     private Classe classe = new Classe();
 
+    @OneToMany(mappedBy = "id.item", fetch = FetchType.EAGER)
+    private List<Estoque> estoques = new ArrayList<>();
 
+    public List<Estoque> getEstoques() {
+        return estoques;
+    }
+
+    public void setEstoques(List<Estoque> estoques) {
+        this.estoques = estoques;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -59,5 +71,11 @@ public class Item extends AbstractEntity {
         this.quantidadeMinima = quantidadeMinima;
     }
 
+    public String getObservacoes() {
+        return observacoes;
+    }
 
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
 }

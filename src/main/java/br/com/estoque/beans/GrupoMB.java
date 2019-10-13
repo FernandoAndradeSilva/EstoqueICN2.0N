@@ -81,6 +81,7 @@ public class GrupoMB implements Serializable {
     public void salvarClasse() {
         this.classeService.salvar(classe);
         this.classe = new Classe();
+        this.carregaGrupos();
         MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
@@ -127,6 +128,9 @@ public class GrupoMB implements Serializable {
         }
         if(listResult.size() >0) {
             this.getGrupo().setClasses(listResult);
+        } else {
+            MessageUtil.addMessageTicket("A pesquisa não encontrou resultados" , MessageUtil.WARN , MessageUtil.NOREDIRECT);
+            this.getGrupo().setClasses(new ArrayList<>());
         }
 
 
@@ -155,6 +159,10 @@ public class GrupoMB implements Serializable {
         }
         if(listResult.size() >0) {
             this.setGrupos(listResult);
+        } else {
+            MessageUtil.addMessageTicket("A pesquisa não encontrou resultados" , MessageUtil.WARN , MessageUtil.NOREDIRECT);
+            this.setGrupos(new ArrayList<>());
+            this.campoBuscaGrupo = "";
         }
 
 
@@ -165,10 +173,12 @@ public class GrupoMB implements Serializable {
             Grupo cat = grupoService.busca(this.getGrupo().getId());
             this.getGrupo().setClasses(cat.getClasses());
             this.classe = new Classe();
+            this.campoBuscaClasse = "";
     }
 
     public void carregaGrupos() {
         grupos = grupoService.listarTodos();
+        this.campoBuscaGrupo = "";
     }
 
 

@@ -27,12 +27,9 @@ public class LogonMB implements Serializable {
 
     public String logar() {
 
-        usuarioLogado.setNome("Fernando");
-        usuarioLogado.setEmail("fernando@bol.com");
-        usuarioLogado.setSenha("12345");
-        usuarioLogado.setUsuario("nando");
-        usuarioLogado.setTipoUsuario(TipoUsuario.MASTER);
 
+
+        usuarioLogado = usuarioService.buscar(1l);
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();

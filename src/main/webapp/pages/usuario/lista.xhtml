@@ -43,20 +43,29 @@
                         <p:spacer width="5"/>
 
                         <div style="float: right">
-                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"
-                                             />
-                            <p:inputText value="#{grupoMB.campoBuscaGrupo}" style="width:150px"
-                                         placeholder="Pesquisar Grupo"/>
 
-                            <p:slideMenu overlay="true" trigger="buttonPesquisarGrupo" my="left top"
+
+                            <p:inputText styleClass="btn-group" value="#{usuarioMB.campoBuscaUsuario}"
+                                         style="width:150px" id="campoBuscaUsuario"
+                                         placeholder="Buscar Usuário"/>
+
+                            <p:commandButton icon="fa fa-search" type="button" title="Buscar" id="buttonPesquisaUsuário"
+                                             update="usuarios"/>
+
+                            <p:commandButton icon="fa fa-refresh" title="Recarregar" action="#{usuarioMB.carregaUsuarios()}"
+                                             update="usuarios, campoBuscaUsuario"/>
+
+                            <p:slideMenu overlay="true" trigger="buttonPesquisaUsuário" my="left top"
                                          at="left bottom" style="width:100px ; height: 95px">
                                 <p:menuitem value="Por Nome"
-                                            />
+                                            action="#{usuarioMB.buscaManualUsuario(1)}"
+                                            update="usuarios , growl"/>
                                 <p:menuitem value="Por Usuário"
-                                            />
-
+                                            action="#{usuarioMB.buscaManualUsuario(2)}"
+                                            update="usuarios , growl"/>
                                 <p:menuitem value="Por Email"
-                                />
+                                            action="#{usuarioMB.buscaManualUsuario(3)}"
+                                            update="usuarios , growl"/>
                             </p:slideMenu>
                         </div>
 
@@ -78,7 +87,7 @@
 
                     <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-12">
                         <p:dataTable id="usuarios" var="usuario" value="#{usuarioMB.usuarios}" editable="true"
-                                     paginator="true"
+                                     paginator="true" widgetVar="usuarios"
                                      paginatorPosition="bottom"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
                                      currentPageReportTemplate=""
@@ -86,7 +95,6 @@
 
 
                             <p:ajax event="rowEdit" listener="#{usuarioMB.editarUsuario}" update="growl"/>
-
 
 
                             <p:column headerText="Nome">
@@ -114,23 +122,57 @@
                             </p:column>
 
 
-                            <p:column headerText="Ativo" style="text-align: center" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:column headerText="Status" style="text-align: center" filterBy="#{usuario.ativo}"
+                                      filterMatchMode="equals"
+                                      styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+
+
+                                <f:facet name="filter">
+                                    <p:selectOneButton style="text-align: center" onchange="PF('usuarios').filter()"
+                                                       styleClass="custom-filter">
+                                        <f:converter converterId="javax.faces.Boolean"/>
+                                        <f:selectItem itemLabel="A" itemValue="true" itemDescription="Mostrar Usuários Ativos"/>
+                                        <f:selectItem itemLabel="I" itemValue="false"
+                                                      itemDescription="Mostrar Usuários Inativos"/>
+                                        <f:selectItem itemLabel="T" itemValue="" itemDescription="Mostrar Todos Usuários"/>
+                                    </p:selectOneButton>
+                                </f:facet>
+
+
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{usuario.ativo == true ? 'SIM' : 'NÃO'}"
+                                        <h:outputText value="#{usuario.ativo == true ? 'ATIVO' : 'INATIVO'}"
                                                       styleClass="#{usuario.ativo ? 'btn-success' : 'btn-danger'}"/>
                                     </f:facet>
                                     <f:facet name="input">
                                         <div align="center">
-                                            <p:selectBooleanButton onLabel="Desativar" offLabel="Ativar"
-                                                                   value="#{usuario.ativo}"
-                                                                   style="width:80%; text-align: center"/>
+                                            <p:selectBooleanButton onLabel="ATIVO" offLabel="INATIVO"
+                                                                   onIcon="fa fa-power-off" offIcon="fa fa-circle-o"
+                                                                   value="#{usuario.ativo}" id="btnStatus"
+                                                                   title="#{usuario.ativo == true ? 'Clique para desativar o Usuário' : 'Clique para ativar Usuário'}"
+                                                                   style="width:80%; text-align: center">
+
+
+                                                <p:ajax event="change" update="usuarios:btnStatus"/>
+                                            </p:selectBooleanButton>
                                         </div>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="Tipo de Usuário" style="text-align: center" styleClass="ui-sm-2 ui-md-2 ui-lg-2">
+                            <p:column headerText="Tipo de Usuário" style="text-align: center"
+                                      styleClass="ui-sm-2 ui-md-2 ui-lg-2" filterBy="#{usuario.tipoUsuario}"
+                                      sortBy="#{usuario.tipoUsuario}"
+                                      filterMatchMode="exact">
+
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarios').filter()" styleClass="custom-filter">
+                                        <f:selectItem itemLabel="Filtrar por Tipo" itemValue="#{null}"
+                                                      noSelectionOption="true"/>
+                                        <f:selectItems value="#{usuarioMB.tiposUsuario()}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{usuario.tipoUsuario}"/></f:facet>
                                     <f:facet name="input">
@@ -144,21 +186,46 @@
                             </p:column>
 
 
+                            <p:column headerText="Setor" style="text-align: center" filterBy="#{usuario.setor}"
+                                      sortBy="#{usuario.setor.nome}"
+                                      styleClass="ui-sm-2 ui-md-2 ui-lg-2">
+
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('usuarios').filter()" styleClass="custom-filter">
+                                        <f:selectItem itemLabel="Filtrar por Setor" itemValue="#{null}"
+                                                      noSelectionOption="true"/>
+                                        <f:selectItems value="#{usuario.setor.unidade.setores}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{usuario.setor.nome}"/></f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{usuario.setor}"
+                                                         style="width:100% ; background-color: white"
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItems value="#{usuario.setor.unidade.setores}"/>
+                                        </p:selectOneMenu>
+
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+
                             <p:column headerText="Grupos" style="text-align: center ; width: 150px">
                                 <p:commandLink value="Editar Grupos"
                                                action="#{usuarioMB.carregaGruposUsuario()}"
                                                oncomplete="PF('dlgGrupos').show();" update="dialogGrupos">
-                                                <f:setPropertyActionListener value="#{usuario}"
-                                                                        target="#{usuarioMB.usuarioSelecionado}"/>
+                                    <f:setPropertyActionListener value="#{usuario}"
+                                                                 target="#{usuarioMB.usuarioSelecionado}"/>
 
                                 </p:commandLink>
                             </p:column>
 
 
-                            <p:column style="width:35px">
+                            <p:column style="width:60px">
                                 <p:rowEditor editTitle="Editar" cancelTitle="Cancelar" saveTitle="Salvar"/>
                             </p:column>
-
 
 
                             <p:column style="width:50px;">
@@ -222,7 +289,7 @@
                         <f:facet name="footer">
                             <div align="center">
                                 <p:commandButton value="FINALIZAR" style="width: 60%" styleClass="btn-success"
-                                                 action="#{usuarioMB.atualizaGrupos()}"  process="@this"/>
+                                                 action="#{usuarioMB.atualizaGrupos()}" process="@this"/>
 
                             </div>
                         </f:facet>
@@ -246,22 +313,45 @@
 
                         <p:panelGrid columns="2">
 
+                            <p:outputLabel value="Setor: "/>
+                            <p:selectOneMenu value="#{usuarioMB.novoUsuario.setor}" appendTo="@this"
+                                             converter="omnifaces.SelectItemsConverter" required="true"
+                                             requiredMessage="Preencha o campo 'Setor'">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                                <f:selectItems value="#{logonMB.usuarioLogado.setor.unidade.setores}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Tipo Do Usuário: "/>
                             <p:selectOneMenu appendTo="@this" style="width: 100%"
-                                             value="#{usuarioMB.novoUsuario.tipoUsuario}">
-                                <f:selectItem itemLabel="Tipo de Usuário" noSelectionOption="true"/>
+                                             value="#{usuarioMB.novoUsuario.tipoUsuario}" required="true"
+                                             requiredMessage="Preencha o campo 'Tipo do Usuário'">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
                                 <f:selectItems value="#{usuarioMB.tiposUsuario()}" var="tipo"
                                                itemValue="#{tipo}"/>
                             </p:selectOneMenu>
+                            <p:outputLabel value="Nome: "/>
+                            <p:inputText placeholder="Nome" required="true"
+                                         requiredMessage="Preencha o campo 'Setor'"
+                                         value="#{usuarioMB.novoUsuario.nome}"/>
 
-                            <p:inputText placeholder="Nome" value="#{usuarioMB.novoUsuario.nome}"/>
-                            <p:inputText placeholder="Usuario" value="#{usuarioMB.novoUsuario.usuario}"/>
-                            <p:inputText placeholder="Email" value="#{usuarioMB.novoUsuario.email}"/>
-                            <p:password placeholder="Senha" value="#{usuarioMB.novoUsuario.senha}"/>
+                            <p:outputLabel value="Usuário: "/>
+                            <p:inputText placeholder="Usuario" required="true"
+                                         requiredMessage="Preencha o campo 'Usuário'"
+                                         value="#{usuarioMB.novoUsuario.usuario}"/>
 
+                            <p:outputLabel value="Email: "/>
+                            <p:inputText placeholder="Email" required="true" validator="#{validadores.validaEmail}"
+                                         requiredMessage="Preencha o campo 'Email'"
+                                         value="#{usuarioMB.novoUsuario.email}"/>
 
-                            <p:selectBooleanButton value="#{usuarioMB.novoUsuario.ativo}"
-                                                   onLabel="ATIVO"
-                                                   offLabel="INATIVO" style="width:100%"/>
+                            <p:outputLabel value="Senha: "/>
+                            <p:password placeholder="Senha" required="true"
+                                        requiredMessage="Preencha o campo 'Senha'"
+                                        value="#{usuarioMB.novoUsuario.senha}"/>
+
+                            <p:outputLabel value="Status: "/>
+                            <p:inputSwitch style="text-align: center" value="#{usuarioMB.novoUsuario.ativo}"
+                                           offLabel="INATIVO" onLabel="ATIVO"/>
 
 
                         </p:panelGrid>
@@ -270,7 +360,9 @@
                         <f:facet name="footer">
 
                             <div align="center">
-                                <p:commandButton value="SALVAR" style="width: 50%" update="usuarios" process="formCadastroUsuario"
+                                <p:commandButton value="SALVAR" style="width: 50%"
+                                                 update="usuarios , formCadastroUsuario , growl"
+                                                 process="formCadastroUsuario"
                                                  styleClass="btn-success" action="#{usuarioMB.cadastrarUsuario()}"
                                 />
 
@@ -290,26 +382,3 @@
 
 </ui:composition>
 
-
-        <!--                            <p:column headerText="Grupos">-->
-        <!--                                <p:cellEditor>-->
-        <!--                                    <f:facet name="output"><h:outputText value="Grupos"/></f:facet>-->
-        <!--                                    <f:facet name="input">-->
-        <!--                                        <p:selectCheckboxMenu converter="omnifaces.SelectItemsConverter"-->
-        <!--                                                              label="Clique para visualizar" style=" background-color: white ;-->
-        <!--                                                              height: 32px" styleClass="form-control"-->
-        <!--                                                              value="#{usuario.grupos}">-->
-        <!--                                            <f:selectItems value="#{grupoMB.grupos}"/>-->
-        <!--                                        </p:selectCheckboxMenu>-->
-
-        <!--                                    </f:facet>-->
-        <!--                                </p:cellEditor>-->
-        <!--                            </p:column>-->
-
-
-        <!--<p:selectOneMenu-->
-        <!--converter="omnifaces.SelectItemsConverter"-->
-        <!--filter="true" filterMatchMode="startsWith">-->
-        <!--<f:selectItem itemLabel="VER GRUPOS" noSelectionOption="true"/>-->
-        <!--<f:selectItems value="#{usuario.grupos}"/>-->
-        <!--</p:selectOneMenu>-->

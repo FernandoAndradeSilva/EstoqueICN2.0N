@@ -42,6 +42,7 @@
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
                         <p:commandButton value="Salvar" update="@form"
+                                         action="#{itemMB.salvar()}"
                                          icon="fa fa-check" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
 
@@ -85,7 +86,7 @@
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:selectOneMenu id="classe"
+                            <p:selectOneMenu id="classe" value="#{itemMB.item.classe}"
                                              filter="true" filterMatchMode="startsWith"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Selecione a Classe" noSelectionOption="true"/>
@@ -94,21 +95,22 @@
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:inputText id="descricao" placeholder="Descricao"/>
+                            <p:inputText id="descricao" value="#{itemMB.item.descricao}" placeholder="Descricao"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:inputText id="especificacao" placeholder="Especificação"/>
+                            <p:inputText id="especificacao" value="#{itemMB.item.especificacao}"
+                                         placeholder="Especificação"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-4 ui-lg-4">
-                            <p:selectOneMenu id="unMedida">
-                                <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
-                            </p:selectOneMenu>
+<!--                            <p:selectOneMenu id="unMedida">-->
+<!--                                <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>-->
+<!--                            </p:selectOneMenu>-->
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
-                            <p:inputText id="codigo" placeholder="Codigo"/>
+                            <p:inputText id="codigo" value="#{itemMB.item.codigo}" placeholder="Codigo"/>
                         </div>
 
 
@@ -122,13 +124,14 @@
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-3">
-                            <p:spinner placeholder="Quantidade" id="campoEstMin"
+                            <p:spinner placeholder="Quantidade" id="campoEstMin" value="#{itemMB.item.quantidadeMinima}"
                                        disabled="#{!itemMB.quantidadeMinima}"/>
                         </div>
 
 
                         <div class="ui-sm-12 ui-md-6 ui-lg-12">
-                            <p:inputTextarea id="observacoes" placeholder="Preencha com as observações"/>
+                            <p:inputTextarea id="observacoes" value="#{itemMB.item.observacoes}"
+                                             placeholder="Preencha com as observações"/>
                         </div>
 
 
@@ -140,9 +143,6 @@
 
 
         </div>
-
-
-
 
 
         <h:outputScript library="js" name="script.js"/>
