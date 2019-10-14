@@ -16,7 +16,7 @@ public class Estoque implements Serializable {
     @EmbeddedId
     private EstoquePK id = new EstoquePK();
 
-    private int entradas = 50;
+    private int entradas;
     private int saidas;
     private int saldo;
     private float custo;

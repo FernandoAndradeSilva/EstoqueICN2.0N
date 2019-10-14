@@ -2,7 +2,9 @@ package br.com.estoque.util;
 
 import br.com.estoque.model.Classe;
 import br.com.estoque.model.Grupo;
+import br.com.estoque.model.Unidade;
 import br.com.estoque.service.GrupoService;
+import br.com.estoque.service.UnidadeService;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
@@ -25,13 +27,39 @@ public class MenuConstrutor implements Serializable {
     @Inject
     private GrupoService grupoService;
 
-    private MenuModel model;
+    @Inject
+    private UnidadeService unidadeService;
+
+    private MenuModel menuItens;
+
+    private MenuModel menuMovimentacoes;
+
+    private MenuModel menuUnidades;
+
 
     @PostConstruct
     public void construir() {
 
-        model = new DefaultMenuModel();
+       this.construirMenuItens();
+       this.construirMenuMovimentacoes();
+       this.construirMenuUnidades();
+    }
 
+
+    public void construirMenuMovimentacoes() {
+
+        menuMovimentacoes = new DefaultMenuModel();
+
+        menuMovimentacoes.addElement(new DefaultMenuItem("ENTRADAS"));
+        menuMovimentacoes.addElement(new DefaultMenuItem("SAÍDAS"));
+        menuMovimentacoes.addElement(new DefaultMenuItem("ESTORNOS"));
+        menuMovimentacoes.addElement(new DefaultMenuItem("TRANSFERÊNCIAS"));
+
+
+    }
+
+    public void construirMenuItens() {
+        menuItens = new DefaultMenuModel();
         List<Grupo> grupos = grupoService.listarTodos();
 
         for(Grupo grupo : grupos) {
@@ -41,18 +69,52 @@ public class MenuConstrutor implements Serializable {
                 DefaultMenuItem item = new DefaultMenuItem(classe.getNome());
                 submenu.addElement(item);
             }
-
-            model.addElement(submenu);
+            menuItens.addElement(submenu);
         }
 
+        DefaultMenuItem item = new DefaultMenuItem("CADASTRAR ITEM");
+        item.setIcon("fa fa-plus");
+        item.setUrl("item/cadastro.xhtml");
+
+        menuItens.addElement(item);
+    }
+
+
+    public void construirMenuUnidades() {
+
+        menuUnidades = new DefaultMenuModel();
+        List<Unidade> unidades = unidadeService.listarTodos();
+
+        for(Unidade unidade : unidades) {
+            DefaultMenuItem item = new DefaultMenuItem("UNIDADE "+unidade.getNome());
+            menuUnidades.addElement(item);
+        }
+
+        menuUnidades.addElement(new DefaultMenuItem("TODAS UNIDADES"));
 
     }
 
-    public MenuModel getModel() {
-        return model;
+    public MenuModel getMenuUnidades() {
+        return menuUnidades;
     }
 
-    public void setModel(MenuModel model) {
-        this.model = model;
+    public void setMenuUnidades(MenuModel menuUnidades) {
+        this.menuUnidades = menuUnidades;
+    }
+
+    public MenuModel getMenuMovimentacoes() {
+        return menuMovimentacoes;
+    }
+
+    public void setMenuMovimentacoes(MenuModel menuMovimentacoes) {
+        this.menuMovimentacoes = menuMovimentacoes;
+    }
+
+    public MenuModel getMenuItens() {
+        return menuItens;
+    }
+
+    public void setMenuItens(MenuModel menuItens) {
+        this.menuItens = menuItens;
     }
 }

@@ -58,15 +58,32 @@
                 <div class="ui-sm-6 ui-md-6 ui-lg-12">
 
 
-                    <p:commandButton value="ITENS" id="dynaButton" type="button" styleClass="btn-info"
+                    <p:commandButton value="ITENS" id="buttonItens" type="button" styleClass="btn-info"
                                      icon="fa fa-bar-chart">
-                        <p:tieredMenu model="#{menuConstrutor.model}" overlay="true" trigger="dynaButton" my="left top"
+                        <p:tieredMenu model="#{menuConstrutor.menuItens}" overlay="true" trigger="buttonItens"
+                                      my="left top"
                                       at="left bottom"/>
                     </p:commandButton>
-                    <p:commandButton value="MOVIMENTAÇÕES" styleClass="btn-primary" icon="fa fa-th-list"/>
+
+                    <p:commandButton value="MOVIMENTAÇÕES" id="buttonMovimentacoes" type="button"
+                                     styleClass="btn-primary" icon="fa fa-th-list">
+                        <p:tieredMenu model="#{menuConstrutor.menuMovimentacoes}" overlay="true"
+                                      trigger="buttonMovimentacoes" my="left top"
+                                      at="left bottom"/>
+                    </p:commandButton>
+
                     <p:commandButton value="USUÁRIOS" styleClass="btn-warning" icon="fa fa-user"
                                      action="usuario/lista?faces-redirect=true"/>
-                    <p:commandButton value="SETORES" styleClass="btn-danger" icon="fa fa-building-o"/>
+
+                    <p:commandButton value="SETORES" styleClass="btn-danger" type="button"
+                                     icon="fa fa-building-o" id="buttonSetores">
+                        <p:tieredMenu model="#{menuConstrutor.menuUnidades}" overlay="true"
+                                      trigger="buttonSetores" my="left top"
+                                      at="left bottom"/>
+
+                    </p:commandButton>
+
+
                     <p:commandButton value="CONFIGURAÇÕES" styleClass="btn-success" icon="fa fa-gears"/>
                 </div>
             </div>
