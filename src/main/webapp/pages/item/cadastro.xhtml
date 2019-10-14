@@ -22,6 +22,9 @@
         </style>
 
         <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+        <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
+
+
     </ui:define>
 
 
@@ -46,15 +49,19 @@
                                          icon="fa fa-check" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
 
+
                         <p:commandButton value="Excluir" process="@this" rendered="false"
                                          icon="fa fa-trash"
                                          styleClass="btn-danger">
                         </p:commandButton>
                         <p:spacer width="5"/>
+
                         <p:commandButton value="Cadastrar Grupos e Classes" immediate="true"
                                          action="grupos?faces-redirect=true"
                                          process="@this" styleClass="btn-info"
                                          icon="fa fa-list-alt" style="float: right"/>
+                        <p:spacer width="5"/>
+
                     </div>
 
                     <p:splitButton value="Salvar" update="@form"
@@ -104,10 +111,13 @@
                         </div>
 
                         <div class="ui-sm-12 ui-md-4 ui-lg-4">
-<!--                            <p:selectOneMenu id="unMedida">-->
-<!--                                <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>-->
-<!--                            </p:selectOneMenu>-->
+                            <p:inputText value="Unidade De Medida" readonly="true" type="button"
+                                         onclick="PF('dlgCadastroUnidadeDeMedida').show();"
+                                         style="background-color: white ; text-align: left">
+                                <p:ajax event="click"/>
+                            </p:inputText>
                         </div>
+
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
                             <p:inputText id="codigo" value="#{itemMB.item.codigo}" placeholder="Codigo"/>
@@ -143,6 +153,91 @@
 
 
         </div>
+
+
+        <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
+                  id="DialogCadastroUnidadeDeMedida" width="40%" resizable="true" responsive="true">
+
+
+            <h:form id="formCadastroUnidadeDeMedida">
+
+                <div class="ui-sm-12 ui-md-12 ui-lg-12">
+
+                    <p:dataTable var="unidadeDeMedida" value="#{unidadeDeMedidaMB.unidadesDeMedida}"
+                                 id="unidadesDeMedida"
+                                 widgetVar="unidadesDeMedida"
+                                 editable="true">
+
+
+                        <p:column style="width:5px ; text-align: center" headerText="Selecionar">
+                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"/>
+                        </p:column>
+
+
+                        <p:column headerText="Sigla" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.sigla}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.sigla}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Nome" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.nome}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.nome}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+
+                        <p:column style="width:5px ; text-align: center" headerText="Editar">
+                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+
+                        </p:column>
+
+                        <p:column style="width:5px ; text-align: center" headerText="Excluir">
+                            <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"/>
+
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    <p:separator/>
+
+                    <div align="center">
+
+                        <p:panelGrid columns="4" style="width: 80%">
+
+                            <f:facet name="header">
+                                <p:outputLabel value="Adicionar Unidade De Medida"/>
+                            </f:facet>
+
+
+                            <p:outputLabel value="Sigla"/>
+                            <p:inputText styleClass="form-control"/>
+
+                            <p:outputLabel value="Nome"/>
+                            <p:inputText styleClass="form-control"/>
+
+
+                            <f:facet name="footer">
+                                <div align="center">
+                                    <p:commandButton style="width: 50%" value="Salvar" styleClass="btn btn-success"/>
+
+                                </div>
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </div>
+                </div>
+
+
+            </h:form>
+
+
+        </p:dialog>
 
 
         <h:outputScript library="js" name="script.js"/>

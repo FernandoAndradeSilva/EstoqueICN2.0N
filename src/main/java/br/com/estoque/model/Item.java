@@ -23,6 +23,10 @@ public class Item extends AbstractEntity {
     @OneToMany(mappedBy = "id.item", fetch = FetchType.EAGER)
     private List<Estoque> estoques = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "unidadeMedida" , nullable = false)
+    private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
+
     public List<Estoque> getEstoques() {
         return estoques;
     }
@@ -77,5 +81,13 @@ public class Item extends AbstractEntity {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public UnidadeDeMedida getUnidadeDeMedida() {
+        return unidadeDeMedida;
+    }
+
+    public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
+        this.unidadeDeMedida = unidadeDeMedida;
     }
 }

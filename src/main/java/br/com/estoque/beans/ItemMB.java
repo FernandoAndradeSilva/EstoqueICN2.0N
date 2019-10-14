@@ -2,15 +2,15 @@ package br.com.estoque.beans;
 
 
 import br.com.estoque.enums.TipoUsuario;
-import br.com.estoque.model.Estoque;
-import br.com.estoque.model.Grupo;
-import br.com.estoque.model.Item;
-import br.com.estoque.model.Usuario;
+import br.com.estoque.model.*;
 import br.com.estoque.service.EstoqueService;
 import br.com.estoque.service.ItemService;
+import br.com.estoque.service.UnidadeDeMedidaService;
 import br.com.estoque.util.Transacional;
+import org.primefaces.component.inputtext.InputText;
 
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,12 +24,16 @@ public class ItemMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private SelectItem si = new SelectItem();
+
+
     @Inject
     private ItemService itemService;
 
-
     @Inject
     private EstoqueService estoqueService;
+
+
 
     private Grupo grupoCadastro = new Grupo();
 
@@ -53,6 +57,14 @@ public class ItemMB implements Serializable {
         //estoqueService.salvar(new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade()));
     }
 
+
+    public void setandoSi() {
+        si.setLabel("Nova Unidade");
+
+        UnidadeDeMedida uni = new UnidadeDeMedida();
+        uni.setNome("TESTANDO");
+        si.setValue(uni);
+    }
 
     public Item getItem() {
         return item;
@@ -80,5 +92,13 @@ public class ItemMB implements Serializable {
 
     public Usuario retornaUsuarioDaSessao() {
         return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+    }
+
+    public SelectItem getSi() {
+        return si;
+    }
+
+    public void setSi(SelectItem si) {
+        this.si = si;
     }
 }

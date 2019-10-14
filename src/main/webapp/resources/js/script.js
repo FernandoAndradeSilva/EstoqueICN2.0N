@@ -22,4 +22,10 @@
 
 
 
+ jQuery("#unMedida_items").click(function () {
+     var element = jQuery("select[name='unMedida_input'] option:selected").val();
+     alert(element);
 
+
+
+ });

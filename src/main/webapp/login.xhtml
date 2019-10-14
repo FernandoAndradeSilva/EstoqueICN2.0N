@@ -16,13 +16,19 @@
 
 
 <h:body styleClass="flat-blue login-page">
-	
+
+
+
 	<div id="top-header">
 		<ui:insert name="top-header">
 			<p:growl id="msg" sticky="false" life="4000" />
+
 		</ui:insert>
 	</div>
 
+
+
+	<f:event type="preRenderView" listener="#{logonMB.redireciona()}"/>
 	<div class="container">
 
 		<div class="login-box">
@@ -55,7 +61,6 @@
 
 							<div id="content">
 								<h:form id="frm">
-
 
 									<div class="control">
 										<p:inputText styleClass="form-control" placeholder="E-mail"

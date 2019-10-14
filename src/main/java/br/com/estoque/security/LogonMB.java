@@ -9,6 +9,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,11 @@ public class LogonMB implements Serializable {
     @Inject
     private UsuarioService usuarioService;
 
-    private Usuario usuarioLogado = new Usuario();
+    private Usuario usuarioLogado = null;
 
 
     public String logar() {
-
-
-
-        usuarioLogado = usuarioService.buscar(1l);
+       usuarioLogado = usuarioService.buscar(1l);
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -37,11 +35,27 @@ public class LogonMB implements Serializable {
 
         String pagina = (String) externalContext.getSessionMap().get("pagina");
 
-
         if (pagina != null) {
             return pagina;
         } else
             return "pages/index.xhtml?faces-redirect=true";
+
+
+    }
+
+
+    public void redireciona() {
+
+        if(this.usuarioLogado != null) {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .redirect("http://localhost:8080/ProjetoEstoque_2_0_war_exploded/pages/index.xhtml");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
 
     }
