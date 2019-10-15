@@ -27,6 +27,7 @@ public class ItemMB implements Serializable {
     private SelectItem si = new SelectItem();
 
 
+
     @Inject
     private ItemService itemService;
 
@@ -40,6 +41,16 @@ public class ItemMB implements Serializable {
     private boolean quantidadeMinima = false;
 
     private Item item = new Item();
+
+
+    public void limparClasse() {
+        this.item.setClasse(new Classe());
+    }
+
+
+    public void porUltimo() {
+        System.out.println("Ultimo");
+    }
 
     @Transacional
     public void salvar() {
@@ -58,13 +69,7 @@ public class ItemMB implements Serializable {
     }
 
 
-    public void setandoSi() {
-        si.setLabel("Nova Unidade");
 
-        UnidadeDeMedida uni = new UnidadeDeMedida();
-        uni.setNome("TESTANDO");
-        si.setValue(uni);
-    }
 
     public Item getItem() {
         return item;
@@ -101,4 +106,6 @@ public class ItemMB implements Serializable {
     public void setSi(SelectItem si) {
         this.si = si;
     }
+
+
 }

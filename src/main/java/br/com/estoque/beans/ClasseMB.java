@@ -22,19 +22,11 @@ public class ClasseMB implements Serializable {
     private Classe novaClasse = new Classe();
 
 
-
-    private boolean editandoClasse = false;
-    private boolean cadastrandoClasse = false;
-
     public void salvarNovoClasse() {
         classeService.salvar(novaClasse);
 
     }
 
-
-    public void cadastroClasse() {
-        this.cadastrandoClasse = true;
-    }
 
     public Classe getNovoClasse() {
         return novaClasse;
@@ -43,20 +35,5 @@ public class ClasseMB implements Serializable {
     public void setNovoClasse(Classe novaClasse) {
         this.novaClasse = novaClasse;
     }
-
-    public boolean isEditandoClasse() {
-        return editandoClasse;
-    }
-
-    public void setEditandoClasse(boolean editandoClasse) {
-        this.editandoClasse = editandoClasse;
-    }
-
-    public boolean isCadastrandoClasse() {
-        return cadastrandoClasse;
-    }
-
-    public void setCadastrandoClasse(boolean cadastrandoClasse) {
-        this.cadastrandoClasse = cadastrandoClasse;
-    }
 }
+

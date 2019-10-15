@@ -7,16 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="785cec35-8e19-4578-8157-2dac03d2b521" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/util/FilterLogin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/script.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,41 +23,45 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="DockManager">
-    <window id="4">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1998">
-                    <caret line="141" column="80" lean-forward="true" selection-start-line="141" selection-start-column="80" selection-end-line="141" selection-end-column="80" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="87" column="46" selection-start-line="87" selection-start-column="46" selection-end-line="87" selection-end-column="46" />
+            <state relative-caret-position="400">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
+              <folding>
+                <element signature="e#1107#1108#0" expanded="true" />
+                <element signature="e#1156#1157#0" expanded="true" />
+                <element signature="e#1129#1130#0" expanded="true" />
+                <element signature="e#1165#1166#0" expanded="true" />
+                <element signature="e#1726#1727#0" expanded="true" />
+                <element signature="e#1796#1797#0" expanded="true" />
+                <element signature="e#1878#1879#0" expanded="true" />
+                <element signature="e#1999#2000#0" expanded="true" />
+                <element signature="e#2074#2075#0" expanded="true" />
+                <element signature="e#2181#2182#0" expanded="true" />
+                <element signature="e#2404#2405#0" expanded="true" />
+                <element signature="e#2472#2473#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/script.js">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
+            <state relative-caret-position="476">
+              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-450">
+              <caret line="233" column="92" selection-start-line="233" selection-start-column="92" selection-end-line="233" selection-end-column="92" />
             </state>
           </provider>
         </entry>
@@ -69,29 +69,68 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+            <state relative-caret-position="697">
+              <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
               <folding>
-                <element signature="e#1939#1940#0" expanded="true" />
-                <element signature="e#1977#1978#0" expanded="true" />
-                <element signature="e#2048#2049#0" expanded="true" />
-                <element signature="e#2102#2103#0" expanded="true" />
+                <element signature="e#1435#1436#0" expanded="true" />
+                <element signature="e#1464#1465#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2062#2063#0" expanded="true" />
+                <element signature="e#2089#2090#0" expanded="true" />
+                <element signature="e#2132#2133#0" expanded="true" />
+                <element signature="e#2164#2165#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="63" column="52" selection-start-line="63" selection-start-column="52" selection-end-line="63" selection-end-column="52" />
+            <state>
+              <caret column="31" selection-start-column="30" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="366">
+              <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
               <folding>
-                <element signature="e#2216#2217#0" expanded="true" />
-                <element signature="e#2241#2242#0" expanded="true" />
-                <element signature="e#2281#2282#0" expanded="true" />
-                <element signature="e#2309#2310#0" expanded="true" />
+                <element signature="e#526#527#0" expanded="true" />
+                <element signature="e#554#555#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="114" column="88" selection-start-line="114" selection-start-column="88" selection-end-line="114" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -108,22 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Tra</find>
-      <find>onTr</find>
-      <find>adici</find>
-      <find>event</find>
-      <find>GRUPOS</find>
-      <find>carrega</find>
-      <find>busca</find>
-      <find>Grupo</find>
-      <find>grupo</find>
-      <find>Setor</find>
-      <find>SIM</find>
-      <find>gro</find>
-      <find>Pesquisar Cl</find>
-      <find>Pesquisar</find>
-      <find>ATIVO</find>
-      <find>Busca</find>
       <find>Buscar</find>
       <find>Mostrar</find>
       <find>dialog</find>
@@ -136,6 +159,24 @@
       <find>unidade</find>
       <find>Gru</find>
       <find>Excl</find>
+      <find>grow</find>
+      <find>gro</find>
+      <find>set</find>
+      <find>Unidade De</find>
+      <find>?</find>
+      <find>requi</find>
+      <find>imme</find>
+      <find>descr</find>
+      <find>formCadastroUnidadeDeMedida</find>
+      <find>overf</find>
+      <find>Confirm</find>
+      <find>confir</find>
+      <find>classe</find>
+      <find>Excluir</find>
+      <find>Selecionar</find>
+      <find>uni</find>
+      <find>Uni</find>
+      <find>test</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -177,13 +218,17 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/UnidadeDeMedidaDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeDeMedidaService.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/UnidadeDeMedida.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/script.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/pages/usuario/cadastro.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" />
       </list>
     </option>
   </component>
@@ -202,10 +247,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="176" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="x" value="1634" />
+    <option name="y" value="172" />
+    <option name="width" value="1218" />
+    <option name="height" value="724" />
   </component>
   <component name="ProjectId" id="1RZu4ju8E6PgHuarhE3JMnAzY8j" />
   <component name="ProjectLevelVcsManager">
@@ -217,34 +262,35 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -252,7 +298,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -261,7 +307,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -270,7 +316,16 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="estoque" type="462c0819:PsiDirectoryNode" />
+              <item name="enums" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -279,7 +334,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -288,7 +343,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -297,7 +352,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -306,14 +361,14 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
@@ -321,14 +376,14 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
@@ -336,7 +391,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
@@ -344,7 +399,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
@@ -353,7 +408,16 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="movimentacoes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
@@ -362,7 +426,7 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
@@ -370,35 +434,17 @@
             </path>
             <path>
               <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
+              <item name="ProjetoEstoque2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -432,13 +478,13 @@
       <command value="git commit -m &quot;finalizando tela categorias&quot;" />
       <command value="git commit -m &quot;antes da modificacao classe grupo&quot;" />
       <command value="git commit -m &quot;terminando tela de cadastro de usuários&quot;" />
-      <command value="git pull origin master" />
       <command value="git commit -m &quot;corrigindo UsuarioMB e criando Logon&quot;" />
       <command value="git commit -m &quot;corrigind cadastro grupos usuarios&quot;" />
       <command value="git checkout ." />
       <command value="git add ." />
       <command value="git commit -m &quot;finalizando criacao de itens&quot;" />
       <command value="git push origin master" />
+      <command value="git pull origin master" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -454,7 +500,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 9.0.17" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.17" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 9.0.26" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.26" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="ProjetoEstoque-2.0:war exploded">
@@ -561,13 +607,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74226000" />
+    <option name="totallyTimeSpent" value="86930000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
+    <frame x="1592" y="172" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.260745" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2196162" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -578,8 +623,8 @@
       <window_info id="Persistence" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.34724092" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.3997833" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.36403033" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -641,46 +686,19 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/SetorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/ClasTeste.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/Validadores.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/enums/TipoUsuario.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding>
-            <element signature="e#260#261#0" expanded="true" />
-            <element signature="e#302#303#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Setor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/MessageUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -737,16 +755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/dao/AbstractDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#28#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/dao/EstoqueDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -784,24 +792,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Estoque.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="272">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/index.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="78" column="37" selection-start-line="78" selection-start-column="37" selection-end-line="78" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/cadastro.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-508" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java">
@@ -857,8 +853,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/MenuConstrutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="88" column="63" selection-start-line="88" selection-start-column="63" selection-end-line="88" selection-end-column="63" />
+        <state relative-caret-position="328">
+          <caret line="82" column="41" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -866,8 +862,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/faces-config.xml">
-      <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider" />
       <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -879,20 +875,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/FilterVazio.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/FilterLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/FilterVazio.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/FilterLogin.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -911,20 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -949,13 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeDeMedidaService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="45" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -973,10 +936,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="20" column="44" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="44" />
+        <state relative-caret-position="230">
+          <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/index.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="75" column="59" selection-start-line="75" selection-start-column="58" selection-end-line="75" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/lista.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="49" column="58" selection-start-line="49" selection-start-column="57" selection-end-line="49" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/estornos.xhtml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/movimentacoes.xhtml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/saidas.xhtml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/entradas.xhtml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/cadastro.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1623">
+          <caret column="37" selection-start-column="36" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/dao/AbstractDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#1110#1111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeDeMedidaService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -994,76 +1014,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="24" column="39" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="39" />
+        <state relative-caret-position="195">
+          <caret line="44" column="40" lean-forward="true" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-            <element signature="e#696#697#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#681#682#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#554#555#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="27" column="67" selection-start-line="27" selection-start-column="67" selection-end-line="27" selection-end-column="67" />
+        <state relative-caret-position="697">
+          <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
           <folding>
-            <element signature="e#1939#1940#0" expanded="true" />
-            <element signature="e#1977#1978#0" expanded="true" />
-            <element signature="e#2048#2049#0" expanded="true" />
-            <element signature="e#2102#2103#0" expanded="true" />
+            <element signature="e#1435#1436#0" expanded="true" />
+            <element signature="e#1464#1465#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="25" column="81" selection-start-line="25" selection-start-column="81" selection-end-line="25" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/lista.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-42" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="63" column="52" selection-start-line="63" selection-start-column="52" selection-end-line="63" selection-end-column="52" />
-          <folding>
-            <element signature="e#2216#2217#0" expanded="true" />
-            <element signature="e#2241#2242#0" expanded="true" />
-            <element signature="e#2281#2282#0" expanded="true" />
-            <element signature="e#2309#2310#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1998">
-          <caret line="141" column="80" lean-forward="true" selection-start-line="141" selection-start-column="80" selection-end-line="141" selection-end-column="80" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="87" column="46" selection-start-line="87" selection-start-column="46" selection-end-line="87" selection-end-column="46" />
+        <state relative-caret-position="-450">
+          <caret line="233" column="92" selection-start-line="233" selection-start-column="92" selection-end-line="233" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+          <folding>
+            <element signature="e#1107#1108#0" expanded="true" />
+            <element signature="e#1156#1157#0" expanded="true" />
+            <element signature="e#1129#1130#0" expanded="true" />
+            <element signature="e#1165#1166#0" expanded="true" />
+            <element signature="e#1726#1727#0" expanded="true" />
+            <element signature="e#1796#1797#0" expanded="true" />
+            <element signature="e#1878#1879#0" expanded="true" />
+            <element signature="e#1999#2000#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="true" />
+            <element signature="e#2404#2405#0" expanded="true" />
+            <element signature="e#2472#2473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="31" selection-start-column="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="114" column="88" selection-start-line="114" selection-start-column="88" selection-end-line="114" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2062#2063#0" expanded="true" />
+            <element signature="e#2089#2090#0" expanded="true" />
+            <element signature="e#2132#2133#0" expanded="true" />
+            <element signature="e#2164#2165#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

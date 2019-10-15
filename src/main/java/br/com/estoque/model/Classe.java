@@ -44,6 +44,6 @@ public class Classe extends AbstractEntity {
 
     @Override
     public String toString() {
-        return nome + " - " + sigla;
+        return sigla + " - " + nome;
     }
 }
