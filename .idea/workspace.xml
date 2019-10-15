@@ -7,11 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="785cec35-8e19-4578-8157-2dac03d2b521" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,40 +25,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="109" selection-start-line="109" selection-end-line="109" />
+            <state relative-caret-position="178">
+              <caret line="79" column="44" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
               <folding>
-                <element signature="e#1107#1108#0" expanded="true" />
-                <element signature="e#1156#1157#0" expanded="true" />
-                <element signature="e#1129#1130#0" expanded="true" />
-                <element signature="e#1165#1166#0" expanded="true" />
-                <element signature="e#1726#1727#0" expanded="true" />
-                <element signature="e#1796#1797#0" expanded="true" />
-                <element signature="e#1878#1879#0" expanded="true" />
-                <element signature="e#1999#2000#0" expanded="true" />
-                <element signature="e#2074#2075#0" expanded="true" />
-                <element signature="e#2181#2182#0" expanded="true" />
-                <element signature="e#2404#2405#0" expanded="true" />
-                <element signature="e#2472#2473#0" expanded="true" />
+                <element signature="e#2249#2250#0" expanded="true" />
+                <element signature="e#2319#2320#0" expanded="true" />
+                <element signature="e#2401#2402#0" expanded="true" />
+                <element signature="e#2522#2523#0" expanded="true" />
+                <element signature="e#2597#2598#0" expanded="true" />
+                <element signature="e#2704#2705#0" expanded="true" />
+                <element signature="e#2927#2928#0" expanded="true" />
+                <element signature="e#2995#2996#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+            <state relative-caret-position="204">
+              <caret line="89" column="67" selection-start-line="89" selection-start-column="67" selection-end-line="89" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-450">
-              <caret line="233" column="92" selection-start-line="233" selection-start-column="92" selection-end-line="233" selection-end-column="92" />
+            <state relative-caret-position="169">
+              <caret line="179" column="14" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5762#5763#0" expanded="true" />
+                <element signature="e#5791#5792#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,58 +77,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+            <state relative-caret-position="203">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2062#2063#0" expanded="true" />
-                <element signature="e#2089#2090#0" expanded="true" />
-                <element signature="e#2132#2133#0" expanded="true" />
-                <element signature="e#2164#2165#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="31" selection-start-column="30" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
-              <folding>
-                <element signature="e#526#527#0" expanded="true" />
-                <element signature="e#554#555#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="114" column="88" selection-start-line="114" selection-start-column="88" selection-end-line="114" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -226,9 +180,9 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" />
       </list>
     </option>
   </component>
@@ -262,7 +216,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -445,6 +398,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -481,10 +435,11 @@
       <command value="git commit -m &quot;corrigindo UsuarioMB e criando Logon&quot;" />
       <command value="git commit -m &quot;corrigind cadastro grupos usuarios&quot;" />
       <command value="git checkout ." />
-      <command value="git add ." />
       <command value="git commit -m &quot;finalizando criacao de itens&quot;" />
-      <command value="git push origin master" />
       <command value="git pull origin master" />
+      <command value="git add ." />
+      <command value="git commit -m &quot;concluindo exclusao de und de med&quot;" />
+      <command value="git push origin master" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -603,16 +558,17 @@
       <workItem from="1570717258430" duration="263000" />
       <workItem from="1570975785471" duration="19509000" />
       <workItem from="1571022064327" duration="2976000" />
+      <workItem from="1571111307107" duration="2334000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86930000" />
+    <option name="totallyTimeSpent" value="89621000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1592" y="172" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2196162" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2217484" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -623,8 +579,8 @@
       <window_info id="Persistence" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.36403033" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.3997833" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.36403033" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -685,18 +641,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java</url>
-          <line>57</line>
-          <properties />
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/util/MessageUtil.java">
@@ -976,13 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/dao/AbstractDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1014,24 +951,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="44" column="40" lean-forward="true" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret column="31" selection-start-column="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Grupo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="63" column="1" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/model/Classe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
+        <state relative-caret-position="374">
           <caret line="28" column="17" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
           <folding>
             <element signature="e#526#527#0" expanded="true" />
             <element signature="e#554#555#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-646">
+          <caret line="233" column="92" selection-start-line="233" selection-start-column="92" selection-end-line="233" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -1046,66 +1001,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-450">
-          <caret line="233" column="92" selection-start-line="233" selection-start-column="92" selection-end-line="233" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        <state relative-caret-position="203">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="109" selection-start-line="109" selection-end-line="109" />
+        <state relative-caret-position="178">
+          <caret line="79" column="44" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
           <folding>
-            <element signature="e#1107#1108#0" expanded="true" />
-            <element signature="e#1156#1157#0" expanded="true" />
-            <element signature="e#1129#1130#0" expanded="true" />
-            <element signature="e#1165#1166#0" expanded="true" />
-            <element signature="e#1726#1727#0" expanded="true" />
-            <element signature="e#1796#1797#0" expanded="true" />
-            <element signature="e#1878#1879#0" expanded="true" />
-            <element signature="e#1999#2000#0" expanded="true" />
-            <element signature="e#2074#2075#0" expanded="true" />
-            <element signature="e#2181#2182#0" expanded="true" />
-            <element signature="e#2404#2405#0" expanded="true" />
-            <element signature="e#2472#2473#0" expanded="true" />
+            <element signature="e#2249#2250#0" expanded="true" />
+            <element signature="e#2319#2320#0" expanded="true" />
+            <element signature="e#2401#2402#0" expanded="true" />
+            <element signature="e#2522#2523#0" expanded="true" />
+            <element signature="e#2597#2598#0" expanded="true" />
+            <element signature="e#2704#2705#0" expanded="true" />
+            <element signature="e#2927#2928#0" expanded="true" />
+            <element signature="e#2995#2996#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="31" selection-start-column="30" selection-end-column="31" />
+        <state relative-caret-position="169">
+          <caret line="179" column="14" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5762#5763#0" expanded="true" />
+            <element signature="e#5791#5792#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="114" column="88" selection-start-line="114" selection-start-column="88" selection-end-line="114" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2062#2063#0" expanded="true" />
-            <element signature="e#2089#2090#0" expanded="true" />
-            <element signature="e#2132#2133#0" expanded="true" />
-            <element signature="e#2164#2165#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="89" column="67" selection-start-line="89" selection-start-column="67" selection-end-line="89" selection-end-column="67" />
         </state>
       </provider>
     </entry>

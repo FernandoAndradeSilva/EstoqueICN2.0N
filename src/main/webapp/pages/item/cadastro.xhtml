@@ -112,7 +112,7 @@
 
                         <div class="ui-sm-12 ui-md-4 ui-lg-4">
                             <p:inputText id="campoUnidadeDeMedida" value="#{itemMB.item.unidadeDeMedida.id == 0 ? 'Unidade De Medida'  :
-                            (itemMB.item.unidadeDeMedida)}" binding="#{unidadeDeMedidaMB.test}" readonly="true" type="button"
+                            (itemMB.item.unidadeDeMedida)}"  readonly="true" type="button"
                                          onclick="PF('dlgCadastroUnidadeDeMedida').show();"
                                          style="background-color: white ; text-align: left">
                                 <p:ajax event="click"/>
@@ -159,7 +159,8 @@
         <p:dialog header="SELECIONE A UNIDADE DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
                   id="DialogCadastroUnidadeDeMedida" width="40%" resizable="true" responsive="true" hideEffect="">
 
-            <p:ajax event="close" resetValues="true" update="formUnidadesDeMedida , formCadastroUnidadeDeMedida"/>
+            <p:ajax  update="formUnidadesDeMedida , formCadastroUnidadeDeMedida , campoUnidadeDeMedida , formCadastroItem"
+                    listener="#{itemMB.verificaUnidadeExistente()}" event="close" resetValues="true"/>
 
             <h:form id="formUnidadesDeMedida">
 
@@ -210,7 +211,8 @@
 
                         <p:column style="width:5px ; text-align: center" headerText="Excluir">
                             <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger" action="#{unidadeDeMedidaMB.excluir()}"
-                                             update="formUnidadesDeMedida:unidadesDeMedida , formUnidadesDeMedida , formCadastroItem" >
+                                             update="formUnidadesDeMedida:unidadesDeMedida , formUnidadesDeMedida"
+                                             actionListener="#{itemMB.verificaGrupoPreenchido()}">
                                 <f:setPropertyActionListener value="#{unidadeDeMedida}"
                                                              target="#{unidadeDeMedidaMB.unidadeDeMedida}"/>
                                 <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
@@ -219,7 +221,6 @@
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                 <p:commandButton value="SIM" styleClass="ui-confirmdialog-yes btn-success"
                                                  icon="fa fa-check">
-                                    <p:ajax event="click" listener="#{itemMB.limparClasse()}"/>
                                 </p:commandButton>
                                 <p:commandButton value="NÃO" type="button"
                                                  styleClass="ui-confirmdialog-no btn-danger"

@@ -34,7 +34,8 @@ public class ItemMB implements Serializable {
     @Inject
     private EstoqueService estoqueService;
 
-
+    @Inject
+    private UnidadeDeMedidaService unidadeDeMedidaService;
 
     private Grupo grupoCadastro = new Grupo();
 
@@ -47,10 +48,17 @@ public class ItemMB implements Serializable {
         this.item.setClasse(new Classe());
     }
 
+    public void verificaGrupoPreenchido() {
+        if(item.getClasse() == null ) {
+            this.item.setClasse(new Classe());
+        } else {
+            System.out.println(this.item.getClasse().getId());
+        }
 
-    public void porUltimo() {
-        System.out.println("Ultimo");
+
+
     }
+
 
     @Transacional
     public void salvar() {
@@ -68,6 +76,15 @@ public class ItemMB implements Serializable {
         //estoqueService.salvar(new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade()));
     }
 
+
+    public void verificaUnidadeExistente() {
+
+        UnidadeDeMedida und = unidadeDeMedidaService.busca(item.getUnidadeDeMedida().getId());
+        if(und == null) {
+            System.out.println("Unidade Nula");
+            this.item.setUnidadeDeMedida(new UnidadeDeMedida());
+        }
+    }
 
 
 
