@@ -6,10 +6,9 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class AbstractDao<E, PK> implements Serializable {
+public class AbstractDao<E, PK> implements Serializable {
 
-    private final Class<E> entityClass =
-            (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
 
     private static final long serialVersionUID = 1L;
 
@@ -17,27 +16,24 @@ public abstract class AbstractDao<E, PK> implements Serializable {
     EntityManager manager;
 
     public void save(E entidade) {
-
         manager.persist(entidade);
     }
 
     public void update(E entidade) {
-
         manager.merge(entidade);
     }
 
     public E saveReturn(E entidade) {
-
         return manager.merge(entidade);
     }
 
     public E findById(PK id) {
-
+        final Class<E> entityClass =
+                (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return manager.find(entityClass, id);
     }
 
     public List<E> listar(Class<E> entidade) {
-
         List<E> lista = manager.createQuery("Select e from " + entidade.getName() + " e").getResultList();
         return lista;
 

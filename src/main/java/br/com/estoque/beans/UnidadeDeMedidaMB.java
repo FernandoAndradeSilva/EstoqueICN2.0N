@@ -20,7 +20,6 @@ public class UnidadeDeMedidaMB implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    private InputText test;
 
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
@@ -46,8 +45,6 @@ public class UnidadeDeMedidaMB implements Serializable {
 
     @Transacional
     public void excluir() {
-
-
         unidadeDeMedidaService.excluir(unidadeDeMedida);
         this.carregaUnidadesDeMedida();
         this.unidadeDeMedida = new UnidadeDeMedida();
@@ -73,11 +70,5 @@ public class UnidadeDeMedidaMB implements Serializable {
         this.unidadeDeMedida = unidadeDeMedida;
     }
 
-    public InputText getTest() {
-        return test;
-    }
 
-    public void setTest(InputText test) {
-        this.test = test;
-    }
 }

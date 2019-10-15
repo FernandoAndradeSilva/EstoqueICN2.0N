@@ -4,6 +4,8 @@ package br.com.estoque.beans;
 import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.*;
 import br.com.estoque.service.EstoqueService;
+
+import br.com.estoque.service.GenericService;
 import br.com.estoque.service.ItemService;
 import br.com.estoque.service.UnidadeDeMedidaService;
 import br.com.estoque.util.Transacional;
@@ -24,39 +26,55 @@ public class ItemMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private SelectItem si = new SelectItem();
-
-
 
     @Inject
     private ItemService itemService;
-
     @Inject
     private EstoqueService estoqueService;
-
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
 
-    private Grupo grupoCadastro = new Grupo();
+    @Inject
+    private GenericService genericService;
+
+    public void salvaTeste() {
+        Grupo gr = new Grupo();
+        gr.setNome("Teste");
+        gr.setDescricao("Teste");
+        gr.setSigla("TS");
+        genericService.saveTeste(gr);
+
+
+        Classe cl = new Classe();
+        cl.setNome("TES");
+        cl.setSigla("AA");
+        cl.setGrupo(gr);
+        genericService.saveTeste(cl);
+
+
+
+
+    }
+
+
 
     private boolean quantidadeMinima = false;
-
     private Item item = new Item();
 
 
     public void limparClasse() {
         this.item.setClasse(new Classe());
     }
-
     public void verificaGrupoPreenchido() {
+
+
+
         if(item.getClasse() == null ) {
+            System.out.println("Classse Nula");
             this.item.setClasse(new Classe());
         } else {
             System.out.println(this.item.getClasse().getId());
         }
-
-
-
     }
 
 
@@ -65,12 +83,9 @@ public class ItemMB implements Serializable {
 
         itemService.salvar(item);
         System.out.println(retornaUsuarioDaSessao().getSetor().getUnidade());
-
         Estoque estoque = new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade());
         System.out.println(estoque.getEntradas());
-
         estoque.atualizaSaldo(500 , Estoque.ENTRADA);
-
         estoqueService.salvar(estoque);
 
         //estoqueService.salvar(new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade()));
@@ -78,10 +93,8 @@ public class ItemMB implements Serializable {
 
 
     public void verificaUnidadeExistente() {
-
         UnidadeDeMedida und = unidadeDeMedidaService.busca(item.getUnidadeDeMedida().getId());
         if(und == null) {
-            System.out.println("Unidade Nula");
             this.item.setUnidadeDeMedida(new UnidadeDeMedida());
         }
     }
@@ -104,25 +117,12 @@ public class ItemMB implements Serializable {
         this.quantidadeMinima = quantidadeMinima;
     }
 
-    public Grupo getGrupoCadastro() {
-        return grupoCadastro;
-    }
 
-    public void setGrupoCadastro(Grupo grupoCadastro) {
-        this.grupoCadastro = grupoCadastro;
-    }
 
     public Usuario retornaUsuarioDaSessao() {
         return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
     }
 
-    public SelectItem getSi() {
-        return si;
-    }
-
-    public void setSi(SelectItem si) {
-        this.si = si;
-    }
 
 
 }

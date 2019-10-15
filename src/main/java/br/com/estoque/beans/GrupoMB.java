@@ -182,7 +182,11 @@ public class GrupoMB implements Serializable {
     }
 
 
+    public static List<Grupo> grupos() {
+        GrupoService gp = new GrupoService();
+        return gp.listarTodos();
 
+    }
 
 
 

@@ -159,7 +159,7 @@
         <p:dialog header="SELECIONE A UNIDADE DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
                   id="DialogCadastroUnidadeDeMedida" width="40%" resizable="true" responsive="true" hideEffect="">
 
-            <p:ajax  update="formUnidadesDeMedida , formCadastroUnidadeDeMedida , campoUnidadeDeMedida , formCadastroItem"
+            <p:ajax  update="formUnidadesDeMedida , formCadastroUnidadeDeMedida , campoUnidadeDeMedida"
                     listener="#{itemMB.verificaUnidadeExistente()}" event="close" resetValues="true"/>
 
             <h:form id="formUnidadesDeMedida">

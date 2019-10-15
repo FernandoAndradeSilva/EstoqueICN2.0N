@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
-public class EstoqueService implements Serializable {
+public class EstoqueService implements Serializable  {
 
     @Inject
     private EstoqueDao estoqueDao;

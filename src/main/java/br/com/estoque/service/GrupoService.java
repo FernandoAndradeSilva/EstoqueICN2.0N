@@ -25,8 +25,6 @@ public class GrupoService implements Serializable {
         return grupoDao.listar(Grupo.class);
     }
 
-
-
     public void excluir(Grupo grupo) {
         grupoDao.delete(grupo,  grupo.getId());
     }
