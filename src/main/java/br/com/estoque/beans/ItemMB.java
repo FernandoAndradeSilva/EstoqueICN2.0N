@@ -20,95 +20,43 @@ public class ItemMB implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    //-----Injects-----//
+    //----------INJECTS---------------//
     @Inject
     private ItemService itemService;
     @Inject
-    private EstoqueService estoqueService;
-    @Inject
-    private UnidadeDeMedidaService unidadeDeMedidaService;
-    @Inject
-    private GrupoService grupoService;
-    @Inject
-    private ClasseService classeService;
-      //---------------//
+    //---------FIM INJECTS-----------//
 
 
-    //-----Models-----//
+    //----------MODELS---------------//
     private Item item = new Item();
-    private List<Item> itens = new ArrayList<>();
-
-    private Estoque estoque;
-
     private Grupo grupo = new Grupo();
-    private List<Grupo> grupos = new ArrayList<>();
-
     private Classe classe = new Classe();
-    private List<Grupo> classes = new ArrayList<>();
+    //---------FIM MODELS-----------//
 
-    private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
-    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<>();
-    //----------------//
 
-    //-----Outros-----//
+    //-----------OUTROS-------------//
     private boolean quantidadeMinima = false;
-    //----------------//
-
-    //-----Grupo-----//
-
-    public void carregaGrupos() {
-        this.grupos = grupoService.listarTodos();
-    }
-    //----------------//
+    //-----------FIM OUTROS---------//
 
 
-    //-----Classe-----//
-
-    //----------------//
-
-
-    //-----Item-------//
+    //-----------MÉTODOS TRANSCIONAIS -----------//
     @Transacional
     public void salvaItem() {
         this.itemService.salvar(this.item);
+        this.item = new Item();
     }
-    //----------------//
+    //----------FIMMÉTODOS TRANSCIONAIS----------//
 
 
-    //-----Un De Medida-------//
-    public void carregaUnidadesDeMedida() {
-        this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
-    }
 
-    @Transacional
-    public void adicionarUnDeMedida() {
-        this.unidadeDeMedidaService.salvar(unidadeDeMedida);
-        MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.unidadeDeMedida = new UnidadeDeMedida();
-        this.carregaUnidadesDeMedida();
 
-    }
 
-    @Transacional
-    public String excluirUnDeMedida() {
 
-        System.out.println(this.item.getClasse());
+    public void testeImpressao() {
 
-        this.unidadeDeMedidaService.excluir(unidadeDeMedida);
-//        RequestContext context = RequestContext.getCurrentInstance();
+        //        RequestContext context = RequestContext.getCurrentInstance();
 //        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
-        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.unidadeDeMedida = new UnidadeDeMedida();
-
-        return "";
-
-
     }
-
-
-    //-----------------------//
-
-
 
     public Grupo getGrupo() {
         return grupo;
@@ -116,14 +64,6 @@ public class ItemMB implements Serializable {
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
-    }
-
-    public List<Grupo> getGrupos() {
-        return grupos;
-    }
-
-    public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
     }
 
     public Classe getClasse() {
@@ -134,28 +74,12 @@ public class ItemMB implements Serializable {
         this.classe = classe;
     }
 
-    public List<Grupo> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(List<Grupo> classes) {
-        this.classes = classes;
-    }
-
     public Item getItem() {
         return item;
     }
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public UnidadeDeMedida getUnidadeDeMedida() {
-        return unidadeDeMedida;
-    }
-
-    public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
-        this.unidadeDeMedida = unidadeDeMedida;
     }
 
     public boolean isQuantidadeMinima() {
@@ -166,11 +90,5 @@ public class ItemMB implements Serializable {
         this.quantidadeMinima = quantidadeMinima;
     }
 
-    public List<UnidadeDeMedida> getUnidadesDeMedida() {
-        return unidadesDeMedida;
-    }
 
-    public void setUnidadesDeMedida(List<UnidadeDeMedida> unidadesDeMedida) {
-        this.unidadesDeMedida = unidadesDeMedida;
-    }
 }

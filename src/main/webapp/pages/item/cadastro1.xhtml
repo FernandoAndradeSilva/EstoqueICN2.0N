@@ -21,7 +21,7 @@
 
         </style>
 
-        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+        <f:event type="preRenderComponent" listener="#{grupoMB1.carregaGrupos()}"/>
         <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
 
 
@@ -87,7 +87,7 @@
                                              converter="omnifaces.SelectItemsConverter"
                                              filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="Selecione o Grupo" noSelectionOption="true"/>
-                                <f:selectItems value="#{grupoMB.grupos}"/>
+                                <f:selectItems value="#{grupoMB1.grupos}"/>
                                 <p:ajax event="change" update="classe"/>
                             </p:selectOneMenu>
                         </div>
