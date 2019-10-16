@@ -1,24 +1,15 @@
 package br.com.estoque.beans;
 
-
-import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.*;
-import br.com.estoque.service.EstoqueService;
-
-import br.com.estoque.service.GenericService;
-import br.com.estoque.service.ItemService;
-import br.com.estoque.service.UnidadeDeMedidaService;
+import br.com.estoque.service.*;
 import br.com.estoque.util.Transacional;
-import org.primefaces.component.inputtext.InputText;
 
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.EnumSet;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -27,79 +18,97 @@ public class ItemMB implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
+    //-----Injects-----//
     @Inject
     private ItemService itemService;
     @Inject
     private EstoqueService estoqueService;
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
-
     @Inject
-    private GenericService genericService;
-
-    public void salvaTeste() {
-        Grupo gr = new Grupo();
-        gr.setNome("Teste");
-        gr.setDescricao("Teste");
-        gr.setSigla("TS");
-        genericService.saveTeste(gr);
+    private GrupoService grupoService;
+    @Inject
+    private ClasseService classeService;
+      //---------------//
 
 
-        Classe cl = new Classe();
-        cl.setNome("TES");
-        cl.setSigla("AA");
-        cl.setGrupo(gr);
-        genericService.saveTeste(cl);
-
-
-
-
-    }
-
-
-
-    private boolean quantidadeMinima = false;
+    //-----Models-----//
     private Item item = new Item();
+    private List<Item> itens = new ArrayList<>();
 
+    private Estoque estoque;
 
-    public void limparClasse() {
-        this.item.setClasse(new Classe());
+    private Grupo grupo = new Grupo();
+    private List<Grupo> grupos = new ArrayList<>();
+
+    private Classe classe = new Classe();
+    private List<Grupo> classes = new ArrayList<>();
+
+    private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
+    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<>();
+    //----------------//
+
+    //-----Outros-----//
+    private boolean quantidadeMinima = false;
+    //----------------//
+
+    //-----Grupo-----//
+    public void salvaGrupo() {
+        this.grupoService.salvar(this.grupo);
     }
-    public void verificaGrupoPreenchido() {
 
-
-
-        if(item.getClasse() == null ) {
-            System.out.println("Classse Nula");
-            this.item.setClasse(new Classe());
-        } else {
-            System.out.println(this.item.getClasse().getId());
-        }
+    public void carregaGrupos() {
+        this.grupos = grupoService.listarTodos();
     }
+    //----------------//
 
 
+    //-----Classe-----//
+    public void salvarClasse() {
+        this.classeService.salvar(this.classe);
+    }
+    //----------------//
+
+
+    //-----Item-------//
     @Transacional
-    public void salvar() {
+    public void salvaItem() {
+        this.itemService.salvar(this.item);
+    }
+    //----------------//
 
-        itemService.salvar(item);
-        System.out.println(retornaUsuarioDaSessao().getSetor().getUnidade());
-        Estoque estoque = new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade());
-        System.out.println(estoque.getEntradas());
-        estoque.atualizaSaldo(500 , Estoque.ENTRADA);
-        estoqueService.salvar(estoque);
 
-        //estoqueService.salvar(new Estoque(this.item , this.retornaUsuarioDaSessao().getSetor().getUnidade()));
+    public Grupo getGrupo() {
+        return grupo;
     }
 
-
-    public void verificaUnidadeExistente() {
-        UnidadeDeMedida und = unidadeDeMedidaService.busca(item.getUnidadeDeMedida().getId());
-        if(und == null) {
-            this.item.setUnidadeDeMedida(new UnidadeDeMedida());
-        }
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
 
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    public Classe getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+    }
+
+    public List<Grupo> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Grupo> classes) {
+        this.classes = classes;
+    }
 
     public Item getItem() {
         return item;
@@ -116,13 +125,4 @@ public class ItemMB implements Serializable {
     public void setQuantidadeMinima(boolean quantidadeMinima) {
         this.quantidadeMinima = quantidadeMinima;
     }
-
-
-
-    public Usuario retornaUsuarioDaSessao() {
-        return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-    }
-
-
-
 }

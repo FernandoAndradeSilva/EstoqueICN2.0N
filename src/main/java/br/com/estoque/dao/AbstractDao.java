@@ -6,9 +6,10 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class AbstractDao<E, PK> implements Serializable {
+public abstract class AbstractDao<E, PK> implements Serializable {
 
-
+    final Class<E> entityClass =
+            (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     private static final long serialVersionUID = 1L;
 
@@ -28,8 +29,7 @@ public class AbstractDao<E, PK> implements Serializable {
     }
 
     public E findById(PK id) {
-        final Class<E> entityClass =
-                (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
         return manager.find(entityClass, id);
     }
 
