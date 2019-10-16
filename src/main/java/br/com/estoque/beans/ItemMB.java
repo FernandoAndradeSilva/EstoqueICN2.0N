@@ -2,7 +2,9 @@ package br.com.estoque.beans;
 
 import br.com.estoque.model.*;
 import br.com.estoque.service.*;
+import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
+import org.primefaces.context.RequestContext;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -53,9 +55,6 @@ public class ItemMB implements Serializable {
     //----------------//
 
     //-----Grupo-----//
-    public void salvaGrupo() {
-        this.grupoService.salvar(this.grupo);
-    }
 
     public void carregaGrupos() {
         this.grupos = grupoService.listarTodos();
@@ -64,9 +63,7 @@ public class ItemMB implements Serializable {
 
 
     //-----Classe-----//
-    public void salvarClasse() {
-        this.classeService.salvar(this.classe);
-    }
+
     //----------------//
 
 
@@ -76,6 +73,41 @@ public class ItemMB implements Serializable {
         this.itemService.salvar(this.item);
     }
     //----------------//
+
+
+    //-----Un De Medida-------//
+    public void carregaUnidadesDeMedida() {
+        this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
+    }
+
+    @Transacional
+    public void adicionarUnDeMedida() {
+        this.unidadeDeMedidaService.salvar(unidadeDeMedida);
+        MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.unidadeDeMedida = new UnidadeDeMedida();
+        this.carregaUnidadesDeMedida();
+
+    }
+
+    @Transacional
+    public String excluirUnDeMedida() {
+
+        System.out.println(this.item.getClasse());
+
+        this.unidadeDeMedidaService.excluir(unidadeDeMedida);
+//        RequestContext context = RequestContext.getCurrentInstance();
+//        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
+        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.unidadeDeMedida = new UnidadeDeMedida();
+
+        return "";
+
+
+    }
+
+
+    //-----------------------//
+
 
 
     public Grupo getGrupo() {
@@ -118,11 +150,27 @@ public class ItemMB implements Serializable {
         this.item = item;
     }
 
+    public UnidadeDeMedida getUnidadeDeMedida() {
+        return unidadeDeMedida;
+    }
+
+    public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
+        this.unidadeDeMedida = unidadeDeMedida;
+    }
+
     public boolean isQuantidadeMinima() {
         return quantidadeMinima;
     }
 
     public void setQuantidadeMinima(boolean quantidadeMinima) {
         this.quantidadeMinima = quantidadeMinima;
+    }
+
+    public List<UnidadeDeMedida> getUnidadesDeMedida() {
+        return unidadesDeMedida;
+    }
+
+    public void setUnidadesDeMedida(List<UnidadeDeMedida> unidadesDeMedida) {
+        this.unidadesDeMedida = unidadesDeMedida;
     }
 }

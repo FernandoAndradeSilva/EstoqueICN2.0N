@@ -22,6 +22,10 @@
         </style>
 
         <f:event type="preRenderComponent" listener="#{itemMB.carregaGrupos()}"/>
+
+
+
+
     </ui:define>
 
 
@@ -107,6 +111,14 @@
                                          placeholder="Especificação"/>
                         </div>
 
+                        <div class="ui-sm-12 ui-md-4 ui-lg-4">
+                            <p:inputText id="campoUnidadeDeMedida" value="#{itemMB.item.unidadeDeMedida.id == 0 ? 'Unidade De Medida'  :
+                            (itemMB.item.unidadeDeMedida)}"  readonly="true" type="button"
+                                         onclick="PF('dlgCadastroUnidadeDeMedida').show();"
+                                         style="background-color: white ; text-align: left">
+                                <p:ajax event="click"/>
+                            </p:inputText>
+                        </div>
 
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
@@ -136,21 +148,117 @@
 
 
                     </div>
-
-
                 </h:form>
-
-
-
-
             </div>
-
-
-
         </div>
 
+        <p:dialog header="SELECIONE A UNIDADE DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
+                  id="DialogCadastroUnidadeDeMedida" width="40%" resizable="true" responsive="true" >
+
+            <h:form id="formUnidadesDeMedida">
+                <f:event type="preRenderComponent" listener="#{itemMB.carregaUnidadesDeMedida()}"/>
+
+                <div class="ui-sm-12 ui-md-12 ui-lg-12" style="max-height: 300px ; overflow: auto">
+
+                    <p:dataTable var="unidadeDeMedida" value="#{itemMB.unidadesDeMedida}"
+                                 id="unidadesDeMedida"
+                                 widgetVar="unidadesDeMedida"
+                                 editable="true" paginator="true"
+                                 paginatorPosition="bottom" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                                 currentPageReportTemplate=""
+                                 rowsPerPageTemplate="5,10,15,20,30">
 
 
+                        <p:column style="width:5px ; text-align: center" headerText="Selecionar">
+                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                             oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
+                                <f:setPropertyActionListener value="#{unidadeDeMedida}"
+                                                             target="#{itemMB.item.unidadeDeMedida}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column headerText="Sigla" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.sigla}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.sigla}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Nome" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.nome}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.nome}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:5px ; text-align: center" headerText="Editar">
+                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+
+                        </p:column>
+
+                        <p:column style="width:5px ; text-align: center" headerText="Excluir">
+                            <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
+                                             action="#{itemMB.excluirUnDeMedida()}"
+                                             update="growl , formUnidadesDeMedida:unidadesDeMedida">
+                                <f:setPropertyActionListener value="#{unidadeDeMedida}"
+                                                             target="#{itemMB.unidadeDeMedida}"/>
+                                <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="SIM" styleClass="ui-confirmdialog-yes btn-success"
+                                                 icon="fa fa-check">
+                                </p:commandButton>
+                                <p:commandButton value="NÃO" type="button"
+                                                 styleClass="ui-confirmdialog-no btn-danger"
+                                                 icon="fa fa-times"/>
+                            </p:confirmDialog>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator/>
+                </div>
+            </h:form>
+
+
+            <h:form id="formCadastroUnidadeDeMedida">
+
+                <div align="center">
+                    <p:panelGrid columns="4" style="width: 80%">
+
+                        <f:facet name="header">
+                            <p:outputLabel value="Adicionar nova Unidade De Medida"/>
+                        </f:facet>
+
+                        <p:outputLabel value="Sigla"/>
+                        <p:inputText styleClass="form-control" required="true"
+                                     requiredMessage="Preencha o campo 'Sigla'"
+                                     value="#{itemMB.unidadeDeMedida.sigla}"/>
+
+                        <p:outputLabel value="Nome"/>
+                        <p:inputText styleClass="form-control" required="true" requiredMessage="Preencha o campo 'Nome'"
+                                     value="#{itemMB.unidadeDeMedida.nome}"/>
+
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton style="width: 50%" value="Salvar" action="#{itemMB.adicionarUnDeMedida()}"
+                                                 styleClass="btn btn-success"
+                                                 update="growl , formUnidadesDeMedida:unidadesDeMedida , formCadastroUnidadeDeMedida"/>
+
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </div>
+
+            </h:form>
+
+
+        </p:dialog>
 
 
         <h:outputScript library="js" name="script.js"/>
