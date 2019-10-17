@@ -58,16 +58,24 @@
 
                     </div>
 
-                    <p:splitButton value="Salvar" update="@form"
-                                   icon="fa fa-check"
-                                   styleClass="hidden-md hidden-lg btn-primary">
-                        <p:menuitem value="Excluir"
-                                    process="@this"
-                                    icon="fa fa-trash"/>
-                        <p:separator/>
-                        <p:menuitem value="Voltar" action="lista-default?faces-redirect=true" process="@this"
-                                    icon="fa fa-close"/>
-                    </p:splitButton>
+                    <div align="center" class="hidden-md hidden-lg">
+                        <p:splitButton value="Salvar" update="@form"
+                                       icon="fa fa-check"
+                                       styleClass=" btn-primary">
+                            <p:menuitem value="Excluir"
+                                        process="@this"
+                                        icon="fa fa-trash"/>
+                            <p:separator/>
+                            <p:menuitem value="Voltar" action="lista-default?faces-redirect=true" process="@this"
+                                        icon="fa fa-close"/>
+                        </p:splitButton>
+
+                        <p:commandButton value="Gerenciar Grupos e Classes" immediate="true"
+                                         action="grupos?faces-redirect=true"
+                                         process="@this" styleClass="btn-info"
+                                         icon="fa fa-list-alt"/>
+
+                    </div>
 
 
                     <p:separator/>
@@ -76,7 +84,7 @@
                     <div class="ui-g ui-fluid ui-sm-12 ui-md-12 ui-lg-6">
 
 
-                        <div class="ui-sm-12 ui-md-12 ui-lg-5">
+                        <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectGrupos" value="#{itemMB.item.classe.grupo}"
                                              converter="omnifaces.SelectItemsConverter"
                                              filter="true" filterMatchMode="startsWith">
@@ -91,13 +99,11 @@
                                              onclick="PF('dlgCadastroGrupo').show();"/>
                         </div>
 
-
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
                             <p:inputText id="descricao" value="#{itemMB.item.descricao}" placeholder="Descricao"/>
                         </div>
 
-
-                        <div class="ui-sm-12 ui-md-12 ui-lg-5">
+                        <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectClasses" value="#{itemMB.item.classe}"
                                              filter="true" filterMatchMode="startsWith"
                                              converter="omnifaces.SelectItemsConverter">
@@ -115,7 +121,7 @@
                                          placeholder="Especificação"/>
                         </div>
 
-                        <div class="ui-sm-12 ui-md-4 ui-lg-5">
+                        <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectUnDeMedida" value="#{itemMB.item.unidadeDeMedida}"
                                              filter="true" filterMatchMode="startsWith"
                                              converter="omnifaces.SelectItemsConverter">
@@ -286,46 +292,40 @@
 
 
 
-        <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="40%"
+        <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="50%"
                   id="DialogCadastroGrupo" resizable="true" responsive="true">
 
             <h:form id="formGrupo">
-                <p:panelGrid style="width: 100%" >
-                    <p:row >
-                        <p:column style="width: 10%">
-                            <p:inputText maxlength="2" size="2" placeholder="Sigla"
-                                         required="true" requiredMessage="Preencha o campo 'Sigla'"
-                                         value="#{grupoMB.grupo.sigla}"/>
-                        </p:column>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <div align="left">
+                            <p:outputLabel value="Novo Grupo"/>
+                        </div>
+                    </f:facet>
+                    <p:inputText placeholder="nome"
+                                 required="true" requiredMessage="Preencha o campo 'Nome'"
+                                 value="#{grupoMB.grupo.nome}"/>
+                    <p:inputText maxlength="2" size="2" placeholder="sigla"
+                                 required="true" requiredMessage="Preencha o campo 'Sigla'"
+                                 value="#{grupoMB.grupo.sigla}"/>
+                    <p:inputText placeholder="descricao"
+                                 required="true" requiredMessage="Preencha o campo 'Nome'"
+                                 value="#{grupoMB.grupo.descricao}"/>
+                    <p:commandButton icon="fa fa-plus" title="Adicionar Grupo"
+                                     style="width: 53px" action="#{grupoMB.adicionar()}"
+                                     styleClass="btn btn-primary btn-sm"
+                                     process="@this , @form"
+                                     update="growl , grupos, @form">
 
-                        <p:column style="width: 25%" >
-                            <p:inputText placeholder="Nome"
-                                         required="true" requiredMessage="Preencha o campo 'Nome'"
-                                         value="#{grupoMB.grupo.nome}"/>
-
-                        </p:column>
-                        <p:column style="width: 50%">
-                            <p:inputText placeholder="Descricao" styleClass="form-control"
-                                         required="true" requiredMessage="Preencha o campo 'Nome'"
-                                         value="#{grupoMB.grupo.descricao}"/>
-                        </p:column>
-                        <p:column style="width: 15%">
-                            <p:commandButton value="Adicionar" action="#{grupoMB.adicionar()}"
-                                             styleClass="btn btn-success form-control "
-                                             process="@this , @form"
-                                             update="growl , grupos, @form"/>
-                        </p:column>
-                    </p:row>
+                    </p:commandButton>
                 </p:panelGrid>
+
+                <p:commandButton value="A" action="#{grupoMB.carregaGrupos()}"
+                                 update="grupos" id="btRefresh" ajax="true"/>
+
 
                 <p:separator/>
 
-                <div>
-                    <p:inputText styleClass="btn-group" placeholder="Buscar"/>
-                    <p:commandButton icon="fa fa-search"/>
-                </div>
-
-                <br/>
 
                     <p:dataTable var="grupo" value="#{grupoMB.grupos}"
                                  id="grupos" widgetVar="grupos" scrollable="true" scrollHeight="200"
@@ -336,11 +336,22 @@
                                  currentPageReportTemplate=""
                                  rowsPerPageTemplate="5,10,15,20,30">
 
+                        <f:facet name="header">
+                            <div align="right">
+                                <p:inputText id="globalFilter" style="width:150px" styleClass="btn-group"
+                                             placeholder="Pesquisar"/>
+                                <p:commandButton icon="fa fa-search"/>
+
+                            </div>
+                        </f:facet>
+
+
                         <p:ajax event="rowEdit" update="grupos , growl" listener="#{grupoMB.editarRow}"/>
 
 
                         <p:column style="text-align: center ; width: 7%" >
-                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success" title="Clique para selecionar o Grupo"
+                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                             title="Clique para selecionar o Grupo"
                                              update="selectGrupos , selectClasses" process="@this"
                                              oncomplete="PF('dlgCadastroGrupo').hide();">
                                 <f:setPropertyActionListener value="#{grupo}"
@@ -348,7 +359,7 @@
                             </p:commandButton>
                         </p:column>
 
-                        <p:column headerText="Sigla"  style="text-align: center ; width: 8%">
+                        <p:column headerText="Sigla" style="text-align: center ; width: 12%" sortBy="#{grupo.sigla}">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.sigla}"/></f:facet>
                                 <f:facet name="input"><p:inputText value="#{grupo.sigla}" /></f:facet>
@@ -357,14 +368,14 @@
 
 
 
-                        <p:column headerText="Nome"  style="text-align: center ; width: 20%">
+                        <p:column headerText="Nome" style="text-align: center ; width: 20%" sortBy="#{grupo.nome}">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.nome}"/></f:facet>
                                 <f:facet name="input"><p:inputText value="#{grupo.nome}"  /></f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Descricao"  style="text-align: left ; width: 49%">
+                        <p:column headerText="Descricao"  style="text-align: left ; width: 45%">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.descricao}"/></f:facet>
                                 <f:facet name="input"><p:inputText value="#{grupo.descricao}" style="width: 100%" /></f:facet>
@@ -372,19 +383,18 @@
                         </p:column>
 
 
-
-
-                        <p:column style="text-align: center ; width: 8%" headerText="Editar">
+                        <p:column style="text-align: center ; width: 8%" >
                             <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                         </p:column>
 
-                        <p:column style="text-align: center ; width: 7%" headerText="Excluir">
+                        <p:column style="text-align: center ; width: 7%">
                             <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
                                              action="#{grupoMB.excluir()}" process="@this"
                                              update="growl , grupos , selectGrupos">
                                 <f:setPropertyActionListener value="#{grupo}"
                                                              target="#{grupoMB.grupo}"/>
                                 <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+
                             </p:commandButton>
 
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -398,11 +408,13 @@
                             </p:confirmDialog>
                         </p:column>
                     </p:dataTable>
+
+                <h:outputScript library="js" name="script.js"/>
             </h:form>
         </p:dialog>
 
 
-        <h:outputScript library="js" name="script.js"/>
+
 
     </ui:define>
 
