@@ -63,16 +63,15 @@ public class UnidadeDeMedidaMB implements Serializable {
         MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.carregaUnidadesDeMedida();
     }
-
-    //----------FIM MÉTODOS TRANSCIONAIS----------//
-
-
-
+    //--------FIM MÉTODOS TRANSCIONAIS--------//
     //---------------------------------------//
     ////////////////// OUTROS /////////////////
     public void carregaUnidadesDeMedida() {
         this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
     }
+
+
+
 
     public List<UnidadeDeMedida> getUnidadesDeMedida() {
         return unidadesDeMedida;

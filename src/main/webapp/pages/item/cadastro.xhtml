@@ -19,6 +19,7 @@
             }
         </style>
 
+        <f:event type="preRenderComponent" listener="#{classeMB.carregaClasses()}"/>
         <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
         <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
     </ui:define>
@@ -113,7 +114,8 @@
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-1">
-                            <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"/>
+                            <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"
+                                             onclick="PF('dlgCadastroClasse').show();"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
@@ -167,131 +169,6 @@
             </div>
         </h:form>
 
-
-        <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
-                  id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
-
-
-
-
-            <h:form id="formUnDeMedida">
-
-                <f:facet name="header">
-
-                </f:facet>
-
-
-                <div align="center" >
-                    <p:panelGrid style="width: 100%" >
-
-
-
-                        <p:row >
-                            <p:column style="width: 10%">
-                                <p:inputText maxlength="2" size="5" placeholder="Sigla"
-                                             required="true" requiredMessage="Preencha o campo 'Sigla'"
-                                             value="#{unidadeDeMedidaMB.unidadeDeMedida.sigla}"/>
-                            </p:column>
-
-                            <p:column style="width: 58%">
-                                <p:inputText placeholder="Nome" styleClass="form-control"
-                                             required="true" requiredMessage="Preencha o campo 'Nome'"
-                                             value="#{unidadeDeMedidaMB.unidadeDeMedida.nome}"/>
-                            </p:column>
-
-                            <p:column style="width: 32%">
-                                <p:commandButton value="Adicionar" action="#{unidadeDeMedidaMB.adicionar()}"
-                                                 styleClass="btn btn-success form-control"
-                                                 process="@this , @form"
-                                                 update="growl , unidadesDeMedida, @form"/>
-                            </p:column>
-                        </p:row>
-                    </p:panelGrid>
-                </div>
-
-                <p:separator/>
-
-                    <div>
-                        <p:inputText styleClass="btn-group" placeholder="Buscar"/>
-                        <p:commandButton icon="fa fa-search"/>
-                    </div>
-                <br/>
-
-
-
-
-                    <p:dataTable var="unidadeDeMedida" value="#{unidadeDeMedidaMB.unidadesDeMedida}"
-                                 id="unidadesDeMedida" scrollable="true" scrollHeight="200"
-                                 widgetVar="unidadesDeMedida"
-                                 editable="true" paginator="true"
-                                 paginatorPosition="bottom" rows="10"
-                                 paginatorTemplate="{CurrentPageReport}
-                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                                 currentPageReportTemplate=""
-                                 rowsPerPageTemplate="5,10,15,20,30">
-
-
-
-                        <p:ajax event="rowEdit" update="unidadesDeMedida , growl"
-                                listener="#{unidadeDeMedidaMB.editarRow}"/>
-
-
-                        <p:column style="text-align: center ; width: 10%" >
-                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                             update="selectUnDeMedida" process="@this"
-                                             oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
-                                <f:setPropertyActionListener value="#{unidadeDeMedida}"
-                                                             target="#{itemMB.item.unidadeDeMedida}"/>
-                            </p:commandButton>
-                        </p:column>
-
-                        <p:column headerText="Sigla" style="text-align: center ; width: 10%">
-                            <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.sigla}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.sigla}"
-                                                                   style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column headerText="Nome" style="text-align: center ; width: 50%">
-                            <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.nome}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{unidadeDeMedida.nome}"
-                                                                   style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column style="text-align: center; width: 15%" headerText="Editar">
-                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
-                        </p:column>
-
-                        <p:column style="text-align: center; width: 15%" headerText="Excluir">
-                            <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                             action="#{unidadeDeMedidaMB.excluir()}" process="@this"
-                                             update="growl , unidadesDeMedida , selectUnDeMedida">
-                                <f:setPropertyActionListener value="#{unidadeDeMedida}"
-                                                             target="#{unidadeDeMedidaMB.unidadeDeMedida}"/>
-                                <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
-                            </p:commandButton>
-
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="SIM" process="@this"
-                                                 styleClass="ui-confirmdialog-yes btn-success"
-                                                 icon="fa fa-check">
-                                </p:commandButton>
-                                <p:commandButton value="NÃO" type="button"
-                                                 styleClass="ui-confirmdialog-no btn-danger"
-                                                 icon="fa fa-times"/>
-                            </p:confirmDialog>
-                        </p:column>
-
-                    </p:dataTable>
-
-            </h:form>
-        </p:dialog>
-
-
-
         <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="50%"
                   id="DialogCadastroGrupo" resizable="true" responsive="true">
 
@@ -320,96 +197,319 @@
                     </p:commandButton>
                 </p:panelGrid>
 
-                <p:commandButton value="A" action="#{grupoMB.carregaGrupos()}"
-                                 update="grupos" id="btRefresh" ajax="true"/>
-
 
                 <p:separator/>
 
 
-                    <p:dataTable var="grupo" value="#{grupoMB.grupos}"
-                                 id="grupos" widgetVar="grupos" scrollable="true" scrollHeight="200"
-                                 editable="true" paginator="true"
-                                 paginatorPosition="bottom" rows="10"
-                                 paginatorTemplate="{CurrentPageReport}
+                <p:dataTable var="grupo" value="#{grupoMB.grupos}"
+                             id="grupos" widgetVar="grupos" scrollable="true" scrollHeight="200"
+                             editable="true" paginator="true"
+                             paginatorPosition="bottom" rows="10"
+                             paginatorTemplate="{CurrentPageReport}
                                  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                                 currentPageReportTemplate=""
-                                 rowsPerPageTemplate="5,10,15,20,30">
+                             currentPageReportTemplate=""
+                             rowsPerPageTemplate="5,10,15,20,30">
 
+                    <f:facet name="header">
+                        <div align="right">
+                            <p:inputText id="filterCadastroItemGrupo" style="width:150px" styleClass="btn-group"
+                                         placeholder="Pesquisar"/>
+                            <p:commandButton icon="fa fa-search"/>
+
+                        </div>
+                    </f:facet>
+
+
+                    <p:ajax event="rowEdit" update="grupos , growl" listener="#{grupoMB.editarRow}"/>
+
+
+                    <p:column style="text-align: center ; width: 7%">
+                        <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                         title="Clique para selecionar o Grupo"
+                                         update="selectGrupos , selectClasses" process="@this"
+                                         oncomplete="PF('dlgCadastroGrupo').hide();">
+                            <f:setPropertyActionListener value="#{grupo}"
+                                                         target="#{itemMB.item.classe.grupo}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Sigla" style="text-align: center ; width: 12%" sortBy="#{grupo.sigla}">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{grupo.sigla}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{grupo.sigla}"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+
+                    <p:column headerText="Nome" style="text-align: center ; width: 20%" sortBy="#{grupo.nome}">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{grupo.nome}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{grupo.nome}"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Descricao" style="text-align: left ; width: 45%">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{grupo.descricao}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{grupo.descricao}"
+                                                               style="width: 100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+
+                    <p:column style="text-align: center ; width: 8%">
+                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                    </p:column>
+
+                    <p:column style="text-align: center ; width: 7%">
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
+                                         action="#{grupoMB.excluir()}" process="@this"
+                                         update="growl , grupos , selectGrupos , @form" immediate="true">
+                            <f:setPropertyActionListener value="#{grupo}"
+                                                         target="#{grupoMB.grupo}"/>
+                            <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="SIM" process="@this"
+                                             styleClass="ui-confirmdialog-yes btn-success"
+                                             icon="fa fa-check">
+                            </p:commandButton>
+                            <p:commandButton value="NÃO" type="button"
+                                             styleClass="ui-confirmdialog-no btn-danger"
+                                             icon="fa fa-times"/>
+                        </p:confirmDialog>
+                    </p:column>
+
+
+                </p:dataTable>
+                <h:outputScript library="js" name="scriptGrupo.js"/>
+
+            </h:form>
+        </p:dialog>
+
+        <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
+                  id="DialogCadastroClasse" width="30%" resizable="true" responsive="true">
+
+            <h:form id="formClasse">
+
+                <div align="left">
+                    <p:panelGrid columns="2">
                         <f:facet name="header">
-                            <div align="right">
-                                <p:inputText id="globalFilter" style="width:150px" styleClass="btn-group"
-                                             placeholder="Pesquisar"/>
-                                <p:commandButton icon="fa fa-search"/>
-
+                            <div align="left">
+                                <p:outputLabel value="Nova Classe"/>
                             </div>
                         </f:facet>
 
 
-                        <p:ajax event="rowEdit" update="grupos , growl" listener="#{grupoMB.editarRow}"/>
+                        <p:inputText placeholder="nome"
+                                     required="true" requiredMessage="Preencha o campo 'Nome'"
+                                     value="#{classeMB.classe.nome}"/>
+                        <p:inputText maxlength="2" size="2" placeholder="sigla"
+                                     required="true" requiredMessage="Preencha o campo 'Sigla'"
+                                     value="#{classeMB.classe.sigla}"/>
+
+                        <p:selectOneMenu value="#{classeMB.classe.grupo}" appendTo="@this"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                            <f:selectItems value="#{grupoMB.grupos}"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton icon="fa fa-plus" title="Adicionar"
+                                         style="width: 53px ; float: right" action="#{classeMB.adicionar()}"
+                                         styleClass="btn btn-primary btn-sm"
+                                         process="@this , @form "
+                                         update="growl , classes, @form"/>
+                    </p:panelGrid>
+                </div>
+
+                <p:separator/>
 
 
-                        <p:column style="text-align: center ; width: 7%" >
-                            <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                             title="Clique para selecionar o Grupo"
-                                             update="selectGrupos , selectClasses" process="@this"
-                                             oncomplete="PF('dlgCadastroGrupo').hide();">
-                                <f:setPropertyActionListener value="#{grupo}"
-                                                             target="#{itemMB.item.classe.grupo}"/>
+                <p:dataTable var="classe" value="#{classeMB.classes}"
+                             id="classes" scrollable="true" scrollHeight="200"
+                             widgetVar="classes"
+                             editable="true" paginator="true"
+                             paginatorPosition="bottom" rows="10"
+                             paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                             currentPageReportTemplate=""
+                             rowsPerPageTemplate="5,10,15,20,30">
+
+                    <f:facet name="header">
+                        <div align="right">
+                            <p:inputText id="filterCadastroItemClasse"  style="width:150px" styleClass="btn-group"
+                                         placeholder="Pesquisar"/>
+                            <p:commandButton icon="fa fa-search"/>
+
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" update="classes , growl"
+                            listener="#{classeMB.editarRow}"/>
+
+                    <p:column style="text-align: center ; width: 10%">
+                        <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                         update="selectClasses" process="@this"
+                                         oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
+                            <f:setPropertyActionListener value="#{classe}"
+                                                         target="#{itemMB.item.classe}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Sigla" style="text-align: center ; width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{classe.sigla}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{classe.sigla}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="text-align: center ; width: 50%">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{classe.nome}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 15%" headerText="Editar">
+                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 15%" headerText="Excluir">
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
+                                         action="#{classeMB.excluir()}" process="@this"
+                                         update="growl , classes , selectUnDeMedida , @form" immediate="true">
+                            <f:setPropertyActionListener value="#{classe}"
+                                                         target="#{classeMB.classe}"/>
+                            <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="SIM" process="@this"
+                                             styleClass="ui-confirmdialog-yes btn-success"
+                                             icon="fa fa-check">
                             </p:commandButton>
-                        </p:column>
-
-                        <p:column headerText="Sigla" style="text-align: center ; width: 12%" sortBy="#{grupo.sigla}">
-                            <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{grupo.sigla}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.sigla}" /></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-
-
-                        <p:column headerText="Nome" style="text-align: center ; width: 20%" sortBy="#{grupo.nome}">
-                            <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{grupo.nome}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.nome}"  /></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column headerText="Descricao"  style="text-align: left ; width: 45%">
-                            <p:cellEditor>
-                                <f:facet name="output"><p:outputLabel value="#{grupo.descricao}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.descricao}" style="width: 100%" /></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                            <p:commandButton value="NÃO" type="button"
+                                             styleClass="ui-confirmdialog-no btn-danger"
+                                             icon="fa fa-times"/>
+                        </p:confirmDialog>
+                    </p:column>
+                    <h:outputScript library="js" name="script.js"/>
+                </p:dataTable>
+                <h:outputScript library="js" name="scriptClasse.js"/>
+            </h:form>
+        </p:dialog>
 
 
-                        <p:column style="text-align: center ; width: 8%" >
-                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
-                        </p:column>
 
-                        <p:column style="text-align: center ; width: 7%">
-                            <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                             action="#{grupoMB.excluir()}" process="@this"
-                                             update="growl , grupos , selectGrupos">
-                                <f:setPropertyActionListener value="#{grupo}"
-                                                             target="#{grupoMB.grupo}"/>
-                                <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+        <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
+                  id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
 
+            <h:form id="formUnDeMedida">
+
+                <div align="left">
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+                            <div align="left">
+                                <p:outputLabel value="Nova Un. De Medida"/>
+                            </div>
+                        </f:facet>
+
+                        <p:inputText placeholder="nome"
+                                     required="true" requiredMessage="Preencha o campo 'Nome'"
+                                     value="#{unidadeDeMedidaMB.unidadeDeMedida.nome}"/>
+                        <p:inputText maxlength="2" size="2" placeholder="sigla"
+                                     required="true" requiredMessage="Preencha o campo 'Sigla'"
+                                     value="#{unidadeDeMedidaMB.unidadeDeMedida.sigla}"/>
+                        <p:inputText disabled="true" style="background-color: white ; border-color: white"/>
+
+                        <p:commandButton icon="fa fa-plus" title="Adicionar"
+                                         style="width: 53px ; float: right" action="#{unidadeDeMedidaMB.adicionar()}"
+                                         styleClass="btn btn-primary btn-sm"
+                                         process="@this , @form"
+                                         update="growl , unidadesDeMedida, @form , form"/>
+                    </p:panelGrid>
+                </div>
+
+                <p:separator/>
+
+                <p:dataTable var="unidadeDeMedida" value="#{unidadeDeMedidaMB.unidadesDeMedida}"
+                             id="unidadesDeMedida" scrollable="true" scrollHeight="200"
+                             widgetVar="unidadesDeMedida"
+                             editable="true" paginator="true"
+                             paginatorPosition="bottom" rows="10"
+                             paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                             currentPageReportTemplate=""
+                             rowsPerPageTemplate="5,10,15,20,30">
+
+                    <f:facet name="header">
+                        <div align="right">
+                            <p:inputText id="filterCadastroItemUnDeMedida" style="width:150px" styleClass="btn-group"
+                                         placeholder="Pesquisar"/>
+                            <p:commandButton icon="fa fa-search"/>
+
+                        </div>
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" update="unidadesDeMedida , growl"
+                            listener="#{unidadeDeMedidaMB.editarRow}"/>
+
+
+                    <p:column style="text-align: center ; width: 10%">
+                        <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                         update="selectUnDeMedida" process="@this"
+                                         oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
+                            <f:setPropertyActionListener value="#{unidadeDeMedida}"
+                                                         target="#{itemMB.item.unidadeDeMedida}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                    <p:column headerText="Sigla" style="text-align: center ; width: 10%">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.sigla}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{unidadeDeMedida.sigla}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Nome" style="text-align: center ; width: 50%">
+                        <p:cellEditor>
+                            <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.nome}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{unidadeDeMedida.nome}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 15%" headerText="Editar">
+                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                    </p:column>
+
+                    <p:column style="text-align: center; width: 15%" headerText="Excluir">
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
+                                         action="#{unidadeDeMedidaMB.excluir()}" process="@this" immediate="true"
+                                         update="growl , unidadesDeMedida , selectUnDeMedida , @form">
+                            <f:setPropertyActionListener value="#{unidadeDeMedida}"
+                                                         target="#{unidadeDeMedidaMB.unidadeDeMedida}"/>
+                            <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="SIM" process="@this"
+                                             styleClass="ui-confirmdialog-yes btn-success"
+                                             icon="fa fa-check">
                             </p:commandButton>
+                            <p:commandButton value="NÃO" type="button"
+                                             styleClass="ui-confirmdialog-no btn-danger"
+                                             icon="fa fa-times"/>
+                        </p:confirmDialog>
+                    </p:column>
 
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="SIM" process="@this"
-                                                 styleClass="ui-confirmdialog-yes btn-success"
-                                                 icon="fa fa-check">
-                                </p:commandButton>
-                                <p:commandButton value="NÃO" type="button"
-                                                 styleClass="ui-confirmdialog-no btn-danger"
-                                                 icon="fa fa-times"/>
-                            </p:confirmDialog>
-                        </p:column>
-                    </p:dataTable>
-
-                <h:outputScript library="js" name="script.js"/>
+                </p:dataTable>
+                <h:outputScript library="js" name="scriptUndDeMedida.js"/>
             </h:form>
         </p:dialog>
 

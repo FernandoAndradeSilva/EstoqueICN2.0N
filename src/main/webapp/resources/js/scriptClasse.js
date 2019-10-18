@@ -6,21 +6,6 @@ $("#formClasse\\:classes\\:filterCadastroItemClasse").on("keyup", function () {
 });
 
 
-$("#formGrupo\\:grupos\\:filterCadastroItemGrupo").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    $("#formGrupo\\:grupos tr").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-});
-
-
-$("#formUnDeMedida\\:unidadesDeMedida\\:filterCadastroItemUnDeMedida").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    $("#formUnDeMedida\\:unidadesDeMedida tr").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-});
-
 
 // $("#estMin").change(function () {
 //
