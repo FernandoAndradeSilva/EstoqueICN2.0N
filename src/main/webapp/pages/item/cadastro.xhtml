@@ -19,8 +19,8 @@
             }
         </style>
 
-        <f:event type="preRenderComponent" listener="#{classeMB.carregaClasses()}"/>
         <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+        <f:event type="preRenderComponent" listener="#{classeMB.carregaClasses()}"/>
         <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
     </ui:define>
 
@@ -179,7 +179,7 @@
                 <p:panelGrid columns="2">
                     <f:facet name="header">
                         <div align="left">
-                            <p:outputLabel value="Novo Grupo"/>
+                            <p:outputLabel value="ADICIONAR GRUPO"/>
                         </div>
                     </f:facet>
                     <p:inputText placeholder="nome"
@@ -191,13 +191,11 @@
                     <p:inputText placeholder="descricao"
                                  required="true" requiredMessage="Preencha o campo 'Nome'"
                                  value="#{grupoMB.grupo.descricao}"/>
-                    <p:commandButton icon="fa fa-plus" title="Adicionar Grupo"
+                    <p:commandButton icon="fa fa-plus" title="Adicionar"
                                      style="width: 53px" action="#{grupoMB.adicionar()}"
                                      styleClass="btn btn-primary btn-sm"
                                      process="@this , @form"
                                      update="growl , grupos, selectGrupos, @form">
-
-
 
 
                     </p:commandButton>
@@ -217,14 +215,20 @@
                              rowsPerPageTemplate="5,10,15,20,30">
 
                     <f:facet name="header">
-                        <div align="right">
-                            <p:inputText id="filterCadastroItemGrupo" style="width:150px" styleClass="btn-group"
-                                         placeholder="Pesquisar"/>
-                            <p:commandButton icon="fa fa-search"/>
+                        <div class="ui-grid-row">
+                            <div style="float: left">
+                                <p:outputLabel value="GRUPOS"/>
+                            </div>
 
+                            <div style="float: right">
+                                <p:inputText id="filterCadastroItemGrupo" style="width:150px"
+                                             styleClass="btn-group"
+                                             placeholder="Pesquisar"/>
+                                <p:commandButton icon="fa fa-search"/>
+                            </div>
                         </div>
-                    </f:facet>
 
+                    </f:facet>
 
                     <p:ajax event="rowEdit" update="grupos , growl" listener="#{grupoMB.editarRow}"/>
 
@@ -296,7 +300,10 @@
         </p:dialog>
 
         <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
-                  id="DialogCadastroClasse" width="35%" resizable="true" responsive="true">
+                  id="DialogCadastroClasse" width="50%" resizable="true" responsive="true">
+
+            <p:ajax event="close" listener="#{grupoMB.carregaGrupos()}"
+                    update="form"/>
 
             <h:form id="formClasse">
 
@@ -304,36 +311,41 @@
                     <p:panelGrid columns="2">
                         <f:facet name="header">
                             <div align="left">
-                                <p:outputLabel value="Nova Classe"/>
+                                <p:outputLabel value="ADICIONAR CLASSE"/>
                             </div>
                         </f:facet>
 
+                        <p:selectOneMenu id="selectGruposCadastro" value="#{classeMB.classe.grupo}" appendTo="@this"
+                                         converter="omnifaces.SelectItemsConverter" required="true">
+                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                            <f:selectItems value="#{grupoMB.grupos}"/>
+                            <p:ajax event="change" update="classes , @form"/>
+                        </p:selectOneMenu>
 
-                        <p:inputText placeholder="nome"
-                                     required="true" requiredMessage="Preencha o campo 'Nome'"
-                                     value="#{classeMB.classe.nome}"/>
+
                         <p:inputText maxlength="2" size="2" placeholder="sigla"
                                      required="true" requiredMessage="Preencha o campo 'Sigla'"
                                      value="#{classeMB.classe.sigla}"/>
 
-                        <p:selectOneMenu value="#{classeMB.classe.grupo}" appendTo="@this"
-                                         converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
-                            <f:selectItems value="#{grupoMB.grupos}"/>
-                        </p:selectOneMenu>
+                        <p:inputText placeholder="nome"
+                                     required="true" requiredMessage="Preencha o campo 'Nome'"
+                                     value="#{classeMB.classe.nome}"/>
+
 
                         <p:commandButton icon="fa fa-plus" title="Adicionar"
                                          style="width: 53px ; float: right" action="#{classeMB.adicionar()}"
                                          styleClass="btn btn-primary btn-sm"
                                          process="@this , @form "
-                                         update="growl , classes, @form"/>
+                                         update="growl , classes, @form , selectGruposCadastro ,
+                                         selectClasses , selectGrupos"/>
                     </p:panelGrid>
                 </div>
 
                 <p:separator/>
 
 
-                <p:dataTable var="classe" value="#{classeMB.classes}"
+                <p:dataTable var="classe" value="#{classeMB.classe.grupo.id == 0 ?
+                (classeMB.classes) : (classeMB.classe.grupo.classes)}"
                              id="classes" scrollable="true" scrollHeight="200"
                              widgetVar="classes"
                              editable="true" paginator="true"
@@ -344,23 +356,31 @@
                              rowsPerPageTemplate="5,10,15,20,30">
 
                     <f:facet name="header">
-                        <div align="right">
-                            <p:inputText id="filterCadastroItemClasse"  style="width:150px" styleClass="btn-group"
-                                         placeholder="Pesquisar"/>
-                            <p:commandButton icon="fa fa-search"/>
+                        <div class="ui-grid-row">
+                            <div style="float: left">
+                                <p:outputLabel value="CLASSES"/>
+                            </div>
 
+                            <div style="float: right">
+                                <p:inputText id="filterCadastroItemClasse" style="width:150px"
+                                             styleClass="btn-group"
+                                             placeholder="Pesquisar"/>
+                                <p:commandButton icon="fa fa-search"/>
+                            </div>
                         </div>
+
                     </f:facet>
 
                     <p:ajax event="rowEdit" update="classes , growl"
                             listener="#{classeMB.editarRow}"/>
 
-                    <p:column style="text-align: center ; width: 12%" >
+                    <p:column style="text-align: center ; width: 12%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         update="selectClasses" process="@this" title="Selecionar Classe"
-                                         oncomplete="PF('dlgCadastroClasse').hide();">
+                                         update="selectGrupos, selectClasses" process="@this" title="Selecionar Classe"
+                                         oncomplete="PF('dlgCadastroClasse').hide();" action="#{itemMB.recarregaClasses()}">
                             <f:setPropertyActionListener value="#{classe}"
                                                          target="#{itemMB.item.classe}"/>
+
                         </p:commandButton>
                     </p:column>
 
@@ -372,7 +392,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Nome" style="text-align: center ; width: 51%">
+                    <p:column headerText="Nome" style="text-align: center ; width: 31%">
                         <p:cellEditor>
                             <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
                             <f:facet name="input"><p:inputText value="#{classe.nome}"
@@ -380,14 +400,20 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" title="Editar" >
+
+                    <p:column headerText="Classe" style="text-align: center ; width: 31%">
+                        <p:outputLabel value="#{classe.grupo}"/>
+                    </p:column>
+
+
+                    <p:column style="text-align: center; width: 8%" title="Editar">
                         <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 12%" title="Excluir">
+                    <p:column style="text-align: center; width: 8%" title="Excluir">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
                                          action="#{classeMB.excluir()}" process="@this" immediate="true"
-                                         update="growl , classes , selectClasses , @form" >
+                                         update="growl , classes , selectClasses , selectGrupos , @form">
                             <f:setPropertyActionListener value="#{classe}"
                                                          target="#{classeMB.classe}"/>
                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
@@ -410,7 +436,6 @@
         </p:dialog>
 
 
-
         <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
                   id="DialogCadastroUnidadeDeMedida" width="35%" resizable="true" responsive="true">
 
@@ -420,7 +445,7 @@
                     <p:panelGrid columns="2">
                         <f:facet name="header">
                             <div align="left">
-                                <p:outputLabel value="Nova Un. De Medida"/>
+                                <p:outputLabel value="ADICIONAR UNIDADE DE MEDIDA"/>
                             </div>
                         </f:facet>
 
@@ -430,7 +455,7 @@
                         <p:inputText maxlength="2" size="2" placeholder="sigla"
                                      required="true" requiredMessage="Preencha o campo 'Sigla'"
                                      value="#{unidadeDeMedidaMB.unidadeDeMedida.sigla}"/>
-                        <p:inputText disabled="true" style="background-color: white ; border-color: white"/>
+                        <p:inputText placeholder="descrição"/>
 
                         <p:commandButton icon="fa fa-plus" title="Adicionar"
                                          style="width: 53px ; float: right" action="#{unidadeDeMedidaMB.adicionar()}"
@@ -453,12 +478,22 @@
                              rowsPerPageTemplate="5,10,15,20,30">
 
                     <f:facet name="header">
-                        <div align="right">
-                            <p:inputText id="filterCadastroItemUnDeMedida" style="width:150px" styleClass="btn-group"
-                                         placeholder="Pesquisar"/>
-                            <p:commandButton icon="fa fa-search"/>
 
+                        <div class="ui-grid-row">
+                            <div style="float: left">
+                                <p:outputLabel value="UNIDADES DE MEDIDA"/>
+
+                            </div>
+
+                            <div style="float: right">
+                                <p:inputText id="filterCadastroItemUnDeMedida" style="width:150px"
+                                             styleClass="btn-group"
+                                             placeholder="Pesquisar"/>
+                                <p:commandButton icon="fa fa-search"/>
+
+                            </div>
                         </div>
+
                     </f:facet>
 
                     <p:ajax event="rowEdit" update="unidadesDeMedida , growl"
@@ -491,11 +526,11 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" >
+                    <p:column style="text-align: center; width: 15%">
                         <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 12%" >
+                    <p:column style="text-align: center; width: 12%">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger" title="Excluir"
                                          action="#{unidadeDeMedidaMB.excluir()}" process="@this" immediate="true"
                                          update="growl , unidadesDeMedida , selectUnDeMedida , @form">
@@ -519,8 +554,6 @@
                 <h:outputScript library="js" name="scriptUndDeMedida.js"/>
             </h:form>
         </p:dialog>
-
-
 
 
     </ui:define>

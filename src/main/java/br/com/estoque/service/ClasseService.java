@@ -4,6 +4,7 @@ package br.com.estoque.service;
 import br.com.estoque.dao.ClasseDao;
 import br.com.estoque.model.Grupo;
 import br.com.estoque.model.Classe;
+import br.com.estoque.util.Transacional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -22,6 +23,8 @@ public class ClasseService implements Serializable {
             classeDao.save(classe);
     }
 
+
+
     public List<Classe> listarTodas() {
         return classeDao.listar(Classe.class);
     }
@@ -30,8 +33,11 @@ public class ClasseService implements Serializable {
         classeDao.delete(classe,  classe.getId());
     }
 
+    public Classe buscar(Classe classe) {
+        return classeDao.findById(classe.getId());
+    }
 
-
+    @Transacional
     public Classe salvaRetorna(Classe classe) {
         return classeDao.saveReturn(classe);
     }

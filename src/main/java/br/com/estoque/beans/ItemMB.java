@@ -25,7 +25,7 @@ public class ItemMB implements Serializable {
     @Inject
     private ItemService itemService;
     @Inject
-
+    private ClasseService classeService;
     //---------FIM INJECTS-----------//
 
 
@@ -67,6 +67,12 @@ public class ItemMB implements Serializable {
         //        RequestContext context = RequestContext.getCurrentInstance();
 //        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
     }
+
+    public void recarregaClasses() {
+        item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(item.getClasse().getGrupo()));
+    }
+
+
 
     //------------FIM OUTROS MÉTODOS-------------//
 

@@ -3,7 +3,9 @@ package br.com.estoque.beans;
 
 
 import br.com.estoque.model.Classe;
+import br.com.estoque.model.Grupo;
 import br.com.estoque.service.ClasseService;
+import br.com.estoque.service.GrupoService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
 import org.primefaces.event.RowEditEvent;
@@ -26,6 +28,9 @@ public class ClasseMB implements Serializable {
 
     @Inject
     private ClasseService classeService;
+
+    @Inject
+    private GrupoService grupoService;
 
     //---------FIM INJECTS-----------//
 
@@ -50,21 +55,37 @@ public class ClasseMB implements Serializable {
 
     //-----------MÉTODOS TRANSCIONAIS -----------//
 
-    @Transacional
+
     public void adicionar() {
-        classeService.salvar(classe);
+        Classe c = classeService.salvaRetorna(classe);
         MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.classe = new Classe();
-        this.carregaClasses();
+        this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+
+//        List<Classe> classes = classeService.listarPorGrupo(classe.getGrupo());
+
+
+
+
+
+//        Classe temp = new Classe();
+//        temp.setGrupo(classe.getGrupo());
+//
+//        this.classe = temp;
+//
+//        System.out.println(temp.getGrupo().getClasses());
+
 
     }
 
     @Transacional
     public void excluir() {
+
+        Classe c = classe;
         classeService.excluir(classe);
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.classe = new Classe();
+        this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
         this.carregaClasses();
+        this.classe = new Classe();
     }
 
     @Transacional
@@ -82,6 +103,11 @@ public class ClasseMB implements Serializable {
 
     public void carregaClasses() {
         this.classes = classeService.listarTodas();
+    }
+
+
+    public void teste() {
+        System.out.println("TESTANDO");
     }
 
     //------------FIM OUTROS MÉTODOS-------------//
