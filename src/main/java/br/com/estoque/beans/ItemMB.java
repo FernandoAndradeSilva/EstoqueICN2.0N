@@ -21,36 +21,46 @@ public class ItemMB implements Serializable {
 
 
     //----------INJECTS---------------//
+
     @Inject
     private ItemService itemService;
     @Inject
+
     //---------FIM INJECTS-----------//
 
 
+
     //----------MODELS---------------//
+
     private Item item = new Item();
     private Grupo grupo = new Grupo();
     private Classe classe = new Classe();
+
     //---------FIM MODELS-----------//
 
 
+
     //-----------OUTROS-------------//
+
     private boolean quantidadeMinima = false;
+
     //-----------FIM OUTROS---------//
 
 
+
     //-----------MÉTODOS TRANSCIONAIS -----------//
+
     @Transacional
     public void salvaItem() {
         this.itemService.salvar(this.item);
         this.item = new Item();
     }
-    //----------FIMMÉTODOS TRANSCIONAIS----------//
+
+    //----------FIM MÉTODOS TRANSCIONAIS---------//
 
 
 
-
-
+    //--------------OUTROS MÉTODOS---------------//
 
     public void testeImpressao() {
 
@@ -58,6 +68,11 @@ public class ItemMB implements Serializable {
 //        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
     }
 
+    //------------FIM OUTROS MÉTODOS-------------//
+
+
+
+    //------------GETERS E SETTERS---------------//
     public Grupo getGrupo() {
         return grupo;
     }

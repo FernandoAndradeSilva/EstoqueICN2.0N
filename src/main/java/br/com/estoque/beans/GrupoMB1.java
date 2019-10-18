@@ -122,59 +122,7 @@ public class GrupoMB1 implements Serializable {
     }
 
 
-    ///////////// MÉTODOS DE BUSCA //////////////
-    public void buscaManualClasse(int tipoCampoPesquisa) {
-        Grupo cat = grupoService.busca(this.getGrupo().getId());
-        this.getGrupo().setClasses(cat.getClasses());
 
-        List<Classe> listResult = new ArrayList<>();
-
-        for (Classe classe : this.getGrupo().getClasses()) {
-            if(tipoCampoPesquisa == 1) {
-                if(classe.getSigla().contains(campoBuscaClasse.toUpperCase())) {
-                    listResult.add(classe);
-                }
-            } else if(tipoCampoPesquisa == 2) {
-                if(classe.getNome().contains(this.campoBuscaClasse.toUpperCase())) {
-                    listResult.add(classe);
-                }
-            }
-        }
-        if(listResult.size() >0) {
-            this.getGrupo().setClasses(listResult);
-        } else {
-            MessageUtil.addMessageTicket("A pesquisa não encontrou resultados" , MessageUtil.WARN , MessageUtil.NOREDIRECT);
-            this.getGrupo().setClasses(new ArrayList<>());
-        }
-    }
-
-    public void buscaManualGrupo(int tipoCampoPesquisa) {
-
-        this.grupos = grupoService.listarTodos();
-        List<Grupo> listResult = new ArrayList<>();
-
-        System.out.println(this.campoBuscaGrupo);
-
-        for (Grupo grupo : this.grupos) {
-
-            if(tipoCampoPesquisa == 1) {
-                if(grupo.getSigla().contains(this.campoBuscaGrupo.toUpperCase())) {
-                    listResult.add(grupo);
-                }
-            } else if(tipoCampoPesquisa == 2) {
-                if(grupo.getNome().contains(this.campoBuscaGrupo.toUpperCase())) {
-                    listResult.add(grupo);
-                }
-            }
-        }
-        if(listResult.size() >0) {
-            this.setGrupos(listResult);
-        } else {
-            MessageUtil.addMessageTicket("A pesquisa não encontrou resultados" , MessageUtil.WARN , MessageUtil.NOREDIRECT);
-            this.setGrupos(new ArrayList<>());
-            this.campoBuscaGrupo = "";
-        }
-    }
 
 
     //////////FIM MÉTODOS DE BUSCA //////////////

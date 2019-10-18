@@ -23,15 +23,21 @@ public class ClasseMB implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //----------INJECTS---------------//
+
     @Inject
     private ClasseService classeService;
+
     //---------FIM INJECTS-----------//
 
 
+
     //------------MODELS-------------//
+
     private Classe classe = new Classe();
     private List<Classe> classes = new ArrayList<>();
+
     //---------FIM MODELS-----------//
+
 
 
     //-----------OUTROS-------------//
@@ -41,7 +47,9 @@ public class ClasseMB implements Serializable {
     //---------FIM OUTROS-----------//
 
 
+
     //-----------MÉTODOS TRANSCIONAIS -----------//
+
     @Transacional
     public void adicionar() {
         classeService.salvar(classe);
@@ -67,12 +75,20 @@ public class ClasseMB implements Serializable {
     }
 
     //----------FIM MÉTODOS TRANSCIONAIS----------//
-    //---------------------------------------//
-    ////////////////// OUTROS /////////////////
+
+
+
+    //--------------OUTROS MÉTODOS---------------//
+
     public void carregaClasses() {
         this.classes = classeService.listarTodas();
     }
 
+    //------------FIM OUTROS MÉTODOS-------------//
+
+
+
+    //------------GETERS E SETTERS---------------//
     public Classe getClasse() {
         return classe;
     }
@@ -90,7 +106,7 @@ public class ClasseMB implements Serializable {
     }
 
 
-    ///////////////FIM OUTROS /////////////////
+
 
 
 

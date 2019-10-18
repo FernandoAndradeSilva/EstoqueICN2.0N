@@ -25,25 +25,33 @@ public class GrupoMB implements Serializable {
 
 
     //----------INJECTS---------------//
+
     @Inject
     private GrupoService grupoService;
+
     //---------FIM INJECTS-----------//
 
 
+
     //----------MODELS---------------//
+
     private Grupo grupo = new Grupo();
     private List<Grupo> grupos = new ArrayList<>();
+
     //---------FIM MODELS-----------//
 
 
-    //-----------OUTROS-------------//
-    private boolean quantidadeMinima = false;
 
+    //-----------OUTROS-------------//
+
+    private boolean quantidadeMinima = false;
 
     //-----------FIM OUTROS---------//
 
 
+
     //-----------MÉTODOS TRANSCIONAIS -----------//
+
     @Transacional
     public void adicionar() {
         grupoService.salvar(grupo);
@@ -78,19 +86,10 @@ public class GrupoMB implements Serializable {
     }
 
 
+    //------------FIM OUTROS MÉTODOS------------//
 
 
-
-
-
-
-
-
-
-    //---------------------------------------//
-    ////////////////// OUTROS /////////////////
-
-
+    //------------GETERS E SETTERS-------------//
     public Grupo getGrupo() {
         return grupo;
     }

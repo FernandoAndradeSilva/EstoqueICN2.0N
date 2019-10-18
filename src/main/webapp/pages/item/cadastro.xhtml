@@ -172,6 +172,9 @@
         <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="50%"
                   id="DialogCadastroGrupo" resizable="true" responsive="true">
 
+            <p:ajax event="close" listener="#{grupoMB.carregaGrupos()}" update="formGrupo:grupos"/>
+
+
             <h:form id="formGrupo">
                 <p:panelGrid columns="2">
                     <f:facet name="header">
@@ -192,7 +195,10 @@
                                      style="width: 53px" action="#{grupoMB.adicionar()}"
                                      styleClass="btn btn-primary btn-sm"
                                      process="@this , @form"
-                                     update="growl , grupos, @form">
+                                     update="growl , grupos, selectGrupos, @form">
+
+
+
 
                     </p:commandButton>
                 </p:panelGrid>
@@ -225,7 +231,7 @@
 
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         title="Clique para selecionar o Grupo"
+                                         title="Selecionar Grupo"
                                          update="selectGrupos , selectClasses" process="@this"
                                          oncomplete="PF('dlgCadastroGrupo').hide();">
                             <f:setPropertyActionListener value="#{grupo}"
@@ -263,7 +269,7 @@
 
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                         action="#{grupoMB.excluir()}" process="@this"
+                                         action="#{grupoMB.excluir()}" process="@this" title="Excluir"
                                          update="growl , grupos , selectGrupos , @form" immediate="true">
                             <f:setPropertyActionListener value="#{grupo}"
                                                          target="#{grupoMB.grupo}"/>
@@ -290,7 +296,7 @@
         </p:dialog>
 
         <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
-                  id="DialogCadastroClasse" width="30%" resizable="true" responsive="true">
+                  id="DialogCadastroClasse" width="35%" resizable="true" responsive="true">
 
             <h:form id="formClasse">
 
@@ -349,10 +355,10 @@
                     <p:ajax event="rowEdit" update="classes , growl"
                             listener="#{classeMB.editarRow}"/>
 
-                    <p:column style="text-align: center ; width: 10%">
+                    <p:column style="text-align: center ; width: 12%" >
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         update="selectClasses" process="@this"
-                                         oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
+                                         update="selectClasses" process="@this" title="Selecionar Classe"
+                                         oncomplete="PF('dlgCadastroClasse').hide();">
                             <f:setPropertyActionListener value="#{classe}"
                                                          target="#{itemMB.item.classe}"/>
                         </p:commandButton>
@@ -366,7 +372,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Nome" style="text-align: center ; width: 50%">
+                    <p:column headerText="Nome" style="text-align: center ; width: 51%">
                         <p:cellEditor>
                             <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
                             <f:facet name="input"><p:inputText value="#{classe.nome}"
@@ -374,14 +380,14 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" headerText="Editar">
+                    <p:column style="text-align: center; width: 15%" title="Editar" >
                         <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" headerText="Excluir">
+                    <p:column style="text-align: center; width: 12%" title="Excluir">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                         action="#{classeMB.excluir()}" process="@this"
-                                         update="growl , classes , selectUnDeMedida , @form" immediate="true">
+                                         action="#{classeMB.excluir()}" process="@this" immediate="true"
+                                         update="growl , classes , selectClasses , @form" >
                             <f:setPropertyActionListener value="#{classe}"
                                                          target="#{classeMB.classe}"/>
                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
@@ -406,7 +412,7 @@
 
 
         <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
-                  id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
+                  id="DialogCadastroUnidadeDeMedida" width="35%" resizable="true" responsive="true">
 
             <h:form id="formUnDeMedida">
 
@@ -459,8 +465,9 @@
                             listener="#{unidadeDeMedidaMB.editarRow}"/>
 
 
-                    <p:column style="text-align: center ; width: 10%">
+                    <p:column style="text-align: center ; width: 12%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
+                                         title="Selecionar Unidade De Medida"
                                          update="selectUnDeMedida" process="@this"
                                          oncomplete="PF('dlgCadastroUnidadeDeMedida').hide();">
                             <f:setPropertyActionListener value="#{unidadeDeMedida}"
@@ -476,7 +483,7 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Nome" style="text-align: center ; width: 50%">
+                    <p:column headerText="Nome" style="text-align: center ; width: 51%">
                         <p:cellEditor>
                             <f:facet name="output"><p:outputLabel value="#{unidadeDeMedida.nome}"/></f:facet>
                             <f:facet name="input"><p:inputText value="#{unidadeDeMedida.nome}"
@@ -484,12 +491,12 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" headerText="Editar">
+                    <p:column style="text-align: center; width: 15%" >
                         <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
                     </p:column>
 
-                    <p:column style="text-align: center; width: 15%" headerText="Excluir">
-                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
+                    <p:column style="text-align: center; width: 12%" >
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger" title="Excluir"
                                          action="#{unidadeDeMedidaMB.excluir()}" process="@this" immediate="true"
                                          update="growl , unidadesDeMedida , selectUnDeMedida , @form">
                             <f:setPropertyActionListener value="#{unidadeDeMedida}"
