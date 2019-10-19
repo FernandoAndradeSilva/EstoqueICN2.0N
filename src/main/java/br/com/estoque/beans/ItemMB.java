@@ -43,6 +43,9 @@ public class ItemMB implements Serializable {
     //-----------OUTROS-------------//
 
     private boolean quantidadeMinima = false;
+    private Long paramIdGrupo = 0l;
+    private Long paramIdClasse = 0l;
+    private Long paramIdUnDeMedida = 0l;
 
     //-----------FIM OUTROS---------//
 
@@ -67,6 +70,20 @@ public class ItemMB implements Serializable {
         //        RequestContext context = RequestContext.getCurrentInstance();
 //        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
     }
+
+    public void verificaParametros() {
+        if(paramIdGrupo !=0 || paramIdClasse !=0 || paramIdUnDeMedida !=0) {
+            System.out.println(paramIdGrupo);
+            System.out.println(paramIdClasse);
+            System.out.println(paramIdUnDeMedida);
+        }
+    }
+
+    public String encaminha() {
+        return "lista.xhtml?id=A";
+
+    }
+
 
     public void recarregaClasses() {
         item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(item.getClasse().getGrupo()));
@@ -111,5 +128,27 @@ public class ItemMB implements Serializable {
         this.quantidadeMinima = quantidadeMinima;
     }
 
+    public Long getParamIdGrupo() {
+        return paramIdGrupo;
+    }
 
+    public void setParamIdGrupo(Long paramIdGrupo) {
+        this.paramIdGrupo = paramIdGrupo;
+    }
+
+    public Long getParamIdClasse() {
+        return paramIdClasse;
+    }
+
+    public void setParamIdClasse(Long paramIdClasse) {
+        this.paramIdClasse = paramIdClasse;
+    }
+
+    public Long getParamIdUnDeMedida() {
+        return paramIdUnDeMedida;
+    }
+
+    public void setParamIdUnDeMedida(Long paramIdUnDeMedida) {
+        this.paramIdUnDeMedida = paramIdUnDeMedida;
+    }
 }
