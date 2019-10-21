@@ -90,4 +90,10 @@ public class Item extends AbstractEntity {
     public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
         this.unidadeDeMedida = unidadeDeMedida;
     }
+
+
+    public void configuraCodigo(int cod) {
+        this.codigo += Integer.toString(cod);
+    }
+
 }

@@ -64,7 +64,6 @@ public class GrupoMB implements Serializable {
         this.grupo = new Grupo();
         this.carregaGrupos();
 
-
         if(redireciona == true) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.xhtml?idGrupo=" +g.getId());
         }
@@ -113,6 +112,8 @@ public class GrupoMB implements Serializable {
     public List<Grupo> getGrupos() {
         return grupos;
     }
+
+
 
     public void setGrupos(List<Grupo> grupos) {
         this.grupos = grupos;

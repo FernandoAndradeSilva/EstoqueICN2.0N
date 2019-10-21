@@ -34,14 +34,12 @@
     <ui:define name="body">
         <f:metadata>
 
-            <f:event type="preRenderComponent" listener="#{itemMB.verificaParametros()}"/>
+
             <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
             <f:event type="preRenderComponent" listener="#{classeMB.carregaClasses()}"/>
             <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
 
-            <f:viewParam name="idGrupo" value="#{itemMB.paramIdGrupo}" converter="javax.faces.Long" />
-            <f:viewParam name="idClasse" value="#{itemMB.paramIdClasse}" converter="javax.faces.Long"/>
-            <f:viewParam name="idUnMedida" value="#{itemMB.paramIdUnDeMedida}" converter="javax.faces.Long"/>
+
 
 
         </f:metadata>
@@ -58,7 +56,7 @@
                     <p:focus/>
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-                        <p:commandButton value="Salvar" update="@form"
+                        <p:commandButton value="Salvar" update="@form , growl"
                                          action="#{itemMB.salvaItem()}"
                                          icon="fa fa-check" styleClass="btn-primary"/>
                         <p:spacer width="5"/>
@@ -107,7 +105,8 @@
                         <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectGrupos" value="#{itemMB.item.classe.grupo}"
                                              converter="omnifaces.SelectItemsConverter"
-                                             filter="true" filterMatchMode="startsWith">
+                                             filter="true" filterMatchMode="startsWith"
+                                             required="true" requiredMessage="Preencha o campo 'Grupo'">
                                 <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
                                 <f:selectItems value="#{grupoMB.grupos}"/>
                                 <p:ajax event="change" update="selectClasses"/>
@@ -120,31 +119,41 @@
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:inputText id="descricao" value="#{itemMB.item.descricao}" placeholder="Descricao"/>
+                            <p:inputText id="descricao"
+                                         required="true" requiredMessage="Preencha o campo 'Descrição'"
+                                         value="#{itemMB.item.descricao}" placeholder="Descricao"/>
                         </div>
 
                         <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectClasses" value="#{itemMB.item.classe}"
                                              filter="true" filterMatchMode="startsWith"
+                                             required="true"  requiredMessage="Preencha o campo 'Classe'"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
                                 <f:selectItems value="#{itemMB.item.classe.grupo.classes}"/>
+                                <p:ajax event="change" process="@this" update="codigo , cod"
+                                        listener="#{itemMB.configuraPreCodigo()}"/>
                             </p:selectOneMenu>
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-1">
                             <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"
-                                             onclick="PF('dlgCadastroClasse').show();" update="formClasse:toggleClasse"/>
+                                             oncomplete="PF('dlgCadastroClasse').show();"
+                                             action="#{classeMB.verificaGrupoPreenchido(itemMB.item.classe.grupo)}"
+                                             update="formClasse:toggleClasse , DialogCadastroClasse"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
-                            <p:inputText id="especificacao" value="#{itemMB.item.especificacao}"
+                            <p:inputText id="especificacao"
+                                         required="true" requiredMessage="Preencha o campo 'Especificação'"
+                                         value="#{itemMB.item.especificacao}"
                                          placeholder="Especificação"/>
                         </div>
 
                         <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectUnDeMedida" value="#{itemMB.item.unidadeDeMedida}"
                                              filter="true" filterMatchMode="startsWith"
+                                             required="true" requiredMessage="Preencha o campo 'Unidade de Medida'"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
                                 <f:selectItems value="#{unidadeDeMedidaMB.unidadesDeMedida}"/>
@@ -157,13 +166,31 @@
                                              icon="fa fa-plus" process="@this" update="formUnDeMedida:toggleUnDeMedida"/>
                         </div>
 
+
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
-                            <p:inputText id="codigo" value="#{itemMB.item.codigo}" placeholder="Codigo"/>
+                            <p:inputText value="Codigo" readonly="true"/>
                         </div>
 
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
-                            <p:selectBooleanCheckbox value="#{itemMB.quantidadeMinima}" itemLabel="Qtd. M."
+                            <p:inputText id="codigo" value="#{itemMB.item.codigo}" readonly="true"
+                                         disabled="#{(itemMB.item.classe.id == 0 and itemMB.item.classe.grupo.id == 0)}"/>
+                        </div>
+
+                        <div class="ui-sm-4 ui-md-4 ui-lg-2">
+                            <p:spinner id="cod" size="3" maxlength="3" value="#{itemMB.codFinal}"
+                                       required="true" requiredMessage="Preencha o campo 'Código'"
+                                         disabled="#{(itemMB.item.classe.id == 0 and itemMB.item.classe.grupo.id == 0)}"/>
+                        </div>
+
+                        <div class="ui-sm-12 ui-md-6 ui-lg-6">
+                            <p:inputTextarea id="observacoes" value="#{itemMB.item.observacoes}"
+                                             placeholder="Preencha com as observações"/>
+                        </div>
+
+
+                        <div class="ui-sm-4 ui-md-4 ui-lg-4">
+                            <p:selectBooleanCheckbox value="#{itemMB.quantidadeMinima}" itemLabel="Notificar qtd. mínima"
                                                      styleClass="form-control"
                                                      title="Marque para exibir uma notifição quando o produto atingir uma quantidade mínima">
                                 <p:ajax event="change" update="campoEstMin"/>
@@ -177,12 +204,6 @@
                         </div>
 
 
-                        <div class="ui-sm-12 ui-md-6 ui-lg-12">
-                            <p:inputTextarea id="observacoes" value="#{itemMB.item.observacoes}"
-                                             placeholder="Preencha com as observações"/>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -191,58 +212,46 @@
         <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="50%"
                   id="DialogCadastroGrupo" resizable="true" responsive="true" position="top">
 
-            <p:ajax event="close" listener="#{grupoMB.carregaGrupos()}" update="formGrupo:grupos"/>
-
 
             <h:form id="formGrupo">
 
                 <p:panel id="toggleGrupos" toggleable="true" closable="false"
                          toggleSpeed="500" collapsed="true"
-                         closeSpeed="500" widgetVar="panel" style="width: 40%">
+                         closeSpeed="500" widgetVar="panel" style="width: 100%">
 
                     <f:facet name="header">
                         <p:outputLabel value="ADICIONAR GRUPO"/>
                     </f:facet>
 
 
-                    <p:panelGrid columns="2" style="width: 100% ">
-
+                    <p:panelGrid columns="4">
 
                         <p:outputLabel value="Sigla"/>
+                        <p:outputLabel value="Nome"/>
+                        <p:outputLabel value="Descrição"/>
+                        <p:outputLabel value=" "/>
+
                         <p:inputText  maxlength="2" size="2"
                                      required="true" requiredMessage="Preencha o campo 'Sigla'"
                                      value="#{grupoMB.grupo.sigla}"/>
-                        <p:outputLabel value="Nome"/>
+
                         <p:inputText styleClass="form-control"
                                      required="true" requiredMessage="Preencha o campo 'Nome'"
                                      value="#{grupoMB.grupo.nome}"/>
-                        <p:outputLabel value="Descrição"/>
+
                         <p:inputText styleClass="form-control"
                                      required="true" requiredMessage="Preencha o campo 'Nome'"
                                      value="#{grupoMB.grupo.descricao}"/>
 
+                        <p:commandButton action="#{grupoMB.adicionar(false)}" icon="fa fa-plus"
+                                         process="@this , @form" styleClass="btn btn-primary btn-xs"
+                                         update="growl , grupos, selectGrupos, @form" title="Adicionar"/>
+
                     </p:panelGrid>
-                    <br/>
-
-
-                    <div class="ui-grid-row">
-                    <p:commandButton value="ADICIONAR" action="#{grupoMB.adicionar(false)}" style="float: left"
-                                     process="@this , @form" styleClass="btn btn-info" icon="fa fa-plus"
-                                     update="growl , grupos, selectGrupos, @form"/>
-
-
-
-
-                    <p:commandButton value="FINALIZAR" action="#{grupoMB.adicionar(true)}" style="float: right"
-                                     process="@this , @form" styleClass="btn btn-info" icon="fa fa-save"
-                                     update="growl , grupos, selectGrupos, @form"/>
-
-                    </div>
 
                 </p:panel>
 
                 <p:separator/>
-
 
                 <p:dataTable var="grupo" value="#{grupoMB.grupos}"
                              id="grupos" widgetVar="grupos" scrollable="true" scrollHeight="260"
@@ -271,7 +280,6 @@
 
                     <p:ajax event="rowEdit" update="grupos , growl" listener="#{grupoMB.editarRow}"/>
 
-
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
                                          title="Selecionar Grupo"
@@ -288,7 +296,6 @@
                             <f:facet name="input"><p:inputText value="#{grupo.sigla}"/></f:facet>
                         </p:cellEditor>
                     </p:column>
-
 
                     <p:column headerText="Nome" style="text-align: center ; width: 20%" sortBy="#{grupo.nome}">
                         <p:cellEditor>
@@ -331,7 +338,6 @@
                         </p:confirmDialog>
                     </p:column>
 
-
                 </p:dataTable>
                 <h:outputScript library="js" name="scriptGrupo.js"/>
 
@@ -341,76 +347,53 @@
         <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true" position="top"
                   id="DialogCadastroClasse" width="50%" resizable="true" responsive="true">
 
-            <p:ajax event="close" listener="#{grupoMB.carregaGrupos()}"
-                    update="form"/>
+            <p:ajax event="close" listener="#{itemMB.recarregaClassesCadastroItem()}"
+                   update="selectClasses , formClasse"/>
+
+            <p:ajax event="open" listener="#{classeMB.limpaClassePreenchida()}"
+                    update="formClasse"/>
 
             <h:form id="formClasse">
-
-
                 <p:panel id="toggleClasse" toggleable="true" closable="false"
                          toggleSpeed="500" collapsed="true"
-                         closeSpeed="500" widgetVar="panel" style="width: 40%">
+                         closeSpeed="500" widgetVar="panel" style="width: 100%">
 
                     <f:facet name="header">
                         <p:outputLabel value="ADICIONAR CLASSE"/>
                     </f:facet>
 
-
-                    <p:panelGrid columns="2" style="width: 100% ">
-
-
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Grupo"/>
                         <p:outputLabel value="Sigla"/>
+                        <p:outputLabel value="Nome"/>
+                        <p:outputLabel value=" "/>
+
+                        <p:selectOneMenu id="selectGruposCadastro" value="#{classeMB.classe.grupo}" appendTo="@this"
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="Todos"  value="#{null}" />
+                            <f:selectItems value="#{grupoMB.grupos}"/>
+                            <p:ajax event="change" update="classes" process="@this"
+                                    listener="#{classeMB.verificaGrupoCadastro()}"/>
+                        </p:selectOneMenu>
+
                         <p:inputText maxlength="2" size="2"
                                      required="true" requiredMessage="Preencha o campo 'Sigla'"
                                      value="#{classeMB.classe.sigla}"/>
 
-                        <p:outputLabel value="Grupo"/>
-                        <p:selectOneMenu id="selectGruposCadastro" value="#{classeMB.classe.grupo}" appendTo="@this"
-                                         converter="omnifaces.SelectItemsConverter" required="true">
-                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
-                            <f:selectItems value="#{grupoMB.grupos}"/>
-                            <p:ajax event="change" update="classes"/>
-                        </p:selectOneMenu>
-
-
-                        <p:outputLabel value="Nome"/>
                         <p:inputText required="true" requiredMessage="Preencha o campo 'Nome'"
                                      value="#{classeMB.classe.nome}" styleClass="form-control"/>
 
-
-
+                        <p:commandButton  action="#{classeMB.adicionar()}"
+                                          process="@this , @form" styleClass="btn btn-primary btn-xs" icon="fa fa-plus"
+                                          update="growl , classes, selectGruposCadastro ,
+                                         selectClasses , selectGrupos, @form" title="Adicionar Classe"/>
 
 
                     </p:panelGrid>
-                    <br/>
-
-
-                    <div class="ui-grid-row">
-
-                        <p:commandButton value="ADICIONAR" action="#{classeMB.adicionar()}" style="float: left"
-                                         process="@this , @form" styleClass="btn btn-info" icon="fa fa-plus"
-                                         update="growl , classes, selectGruposCadastro ,
-                                         selectClasses , selectGrupos, @form"/>
-
-
-                        <p:commandButton value="FINALIZAR" action="#{classeMB.adicionar()}" style="float: right"
-                                         process="@this , @form" styleClass="btn btn-info" icon="fa fa-save"
-                                         update="growl , classes, selectGruposCadastro ,
-                                         selectClasses , selectGrupos, @form"/>
-
-                    </div>
 
                 </p:panel>
 
-
-
-
-
-
-
-
                 <p:separator/>
-
 
                 <p:dataTable var="classe" value="#{classeMB.classe.grupo.id == 0 ?
                 (classeMB.classes) : (classeMB.classe.grupo.classes)}"
@@ -444,7 +427,7 @@
 
                     <p:column style="text-align: center ; width: 12%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         update="selectGrupos, selectClasses" process="@this" title="Selecionar Classe"
+                                         update="selectGrupos, selectClasses , codigo" process="@this" title="Selecionar Classe"
                                          oncomplete="PF('dlgCadastroClasse').hide();"
                                          action="#{itemMB.recarregaClasses()}">
                             <f:setPropertyActionListener value="#{classe}"
@@ -469,8 +452,7 @@
                         </p:cellEditor>
                     </p:column>
 
-
-                    <p:column headerText="Classe" style="text-align: center ; width: 31%">
+                    <p:column headerText="Grupo" style="text-align: center ; width: 31%">
                         <p:outputLabel value="#{classe.grupo}"/>
                     </p:column>
 
@@ -509,53 +491,36 @@
                   id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
 
             <h:form id="formUnDeMedida">
-
                 <div align="left">
 
                     <p:panel id="toggleUnDeMedida" toggleable="true" closable="false"
                              toggleSpeed="500" collapsed="true"
-                             closeSpeed="500" widgetVar="panel" style="width: 54%">
+                             closeSpeed="500" widgetVar="panel" style="width: 100%">
 
                         <f:facet name="header">
-                            <p:outputLabel value="ADICIONAR UN. DE MEDIDA"/>
+                            <p:outputLabel value="ADICIONAR UNIDADE DE MEDIDA"/>
                         </f:facet>
 
-
-                        <p:panelGrid columns="2" style="width: 100% ">
-
+                        <p:panelGrid columns="3" >
                             <p:outputLabel value="Sigla"/>
+                            <p:outputLabel value="Nome"/>
+                            <p:outputLabel value=" "/>
+
                             <p:inputText maxlength="2" size="2"
                                          required="true" requiredMessage="Preencha o campo 'Sigla'"
                                          value="#{unidadeDeMedidaMB.unidadeDeMedida.sigla}"/>
 
-                            <p:outputLabel value="Nome"/>
                             <p:inputText styleClass="form-control"
                                          required="true" requiredMessage="Preencha o campo 'Nome'"
                                          value="#{unidadeDeMedidaMB.unidadeDeMedida.nome}"/>
+
+                            <p:commandButton action="#{unidadeDeMedidaMB.adicionar(false)}" icon="fa fa-plus"
+                                             styleClass="btn btn-primary btn-xs"
+                                             process="@this , @form"
+                                             update="growl , unidadesDeMedida, selectUnDeMedida, @form"/>
                         </p:panelGrid>
 
-                        <br/>
-
-                        <div class="ui-grid-row">
-                            <p:commandButton value="ADICIONAR" action="#{unidadeDeMedidaMB.adicionar(false)}" icon="fa fa-plus"
-                                              styleClass="btn btn-info" style="float: left"
-                                             process="@this , @form"
-                                             update="growl , unidadesDeMedida, selectUnDeMedida, @form"/>
-
-
-
-
-                            <p:commandButton value="FINALIZAR" action="#{unidadeDeMedidaMB.adicionar(true)}" icon="fa fa-save"
-                                             styleClass="btn btn-info" style="float: right"
-                                             process="@this , @form"
-                                             update="growl , unidadesDeMedida, selectUnDeMedida, @form"/>
-                        </div>
-
                     </p:panel>
-
-
-
-
                 </div>
 
                 <p:separator/>

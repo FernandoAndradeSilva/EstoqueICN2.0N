@@ -57,30 +57,23 @@ public class ClasseMB implements Serializable {
 
 
     public void adicionar() {
-        Classe c = classeService.salvaRetorna(classe);
-        MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-        this.classe.setNome("");
-        this.classe.setSigla("");
-//        List<Classe> classes = classeService.listarPorGrupo(classe.getGrupo());
+        if(classe.getGrupo() == null) {
+            MessageUtil.addMessageTicket("O campo 'Grupo' precisa estar selecionado" ,
+                    MessageUtil.ERROR , MessageUtil.NOREDIRECT);
+            this.classe.setGrupo(new Grupo());
+            this.classe.getGrupo().setClasses(classeService.listarTodas());
 
-
-
-
-
-//        Classe temp = new Classe();
-//        temp.setGrupo(classe.getGrupo());
-//
-//        this.classe = temp;
-//
-//        System.out.println(temp.getGrupo().getClasses());
-
-
+        } else {
+            Classe c = classeService.salvaRetorna(classe);
+            MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+            this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+            this.classe.setNome("");
+            this.classe.setSigla("");
+        }
     }
 
     @Transacional
     public void excluir() {
-
         Classe c = classe;
         classeService.excluir(classe);
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
@@ -107,9 +100,24 @@ public class ClasseMB implements Serializable {
         this.classes = classeService.listarTodas();
     }
 
+    public void verificaGrupoPreenchido(Grupo gr) {
+        if(gr != null) {
+            if(gr.getId() > 0) {
+                this.classe.setGrupo(gr);
+            }
+        }
+    }
 
-    public void teste() {
-        System.out.println("TESTANDO");
+    public void limpaClassePreenchida() {
+        this.classe.setNome("");
+        this.classe.setSigla("");
+    }
+
+    public void verificaGrupoCadastro() {
+        if(this.classe.getGrupo() == null) {
+            this.classe.setGrupo(new Grupo());
+            this.classe.getGrupo().setClasses(classeService.listarTodas());
+        }
     }
 
     //------------FIM OUTROS MÉTODOS-------------//
@@ -128,6 +136,9 @@ public class ClasseMB implements Serializable {
     public List<Classe> getClasses() {
         return classes;
     }
+
+
+
 
     public void setClasses(List<Classe> classes) {
         this.classes = classes;

@@ -1,10 +1,15 @@
 package br.com.estoque.beans;
 
-import br.com.estoque.model.*;
-import br.com.estoque.service.*;
+import br.com.estoque.model.Classe;
+import br.com.estoque.model.Grupo;
+import br.com.estoque.model.Item;
+import br.com.estoque.model.UnidadeDeMedida;
+import br.com.estoque.service.ClasseService;
+import br.com.estoque.service.GrupoService;
+import br.com.estoque.service.ItemService;
+import br.com.estoque.service.UnidadeDeMedidaService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
-import org.primefaces.context.RequestContext;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -19,108 +24,74 @@ public class ItemMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
-    //----------INJECTS---------------//
-
+    //------------------INJECTS-------------------//
     @Inject
     private ItemService itemService;
     @Inject
-    private ClasseService classeService;
-    @Inject
     private GrupoService grupoService;
+    @Inject
+    private ClasseService classeService;
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
 
-    //---------FIM INJECTS-----------//
+    //--------------------------------------------//
 
 
-
-    //----------MODELS---------------//
-
+    //------------------MODELS-------------------//
     private Item item = new Item();
     private Grupo grupo = new Grupo();
     private Classe classe = new Classe();
+    private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
 
-    //---------FIM MODELS-----------//
+    private List<Item> itens = new ArrayList<Item>();
+    private List<Grupo> grupos = new ArrayList<Grupo>();
+    private List<Classe> classes = new ArrayList<Classe>();
+    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<UnidadeDeMedida>();
+
+    //-------------------------------------------//
 
 
-
-    //-----------OUTROS-------------//
-
+    //--------------OOUTROS ATRIBUTOS------------//
     private boolean quantidadeMinima = false;
-    private Long paramIdGrupo = 0l;
-    private Long paramIdClasse = 0l;
-    private Long paramIdUnDeMedida = 0l;
+    private int codFinal;
 
-    //-----------FIM OUTROS---------//
+    //-------------------------------------------//
 
 
-
-    //-----------MÉTODOS TRANSCIONAIS -----------//
-
+    //--------------MÉTODOS ITEM----------------//
     @Transacional
     public void salvaItem() {
+        this.item.configuraCodigo(this.codFinal);
         this.itemService.salvar(this.item);
         this.item = new Item();
-
+        this.quantidadeMinima = false;
+        this.codFinal = 0;
+        MessageUtil.addMessageTicket
+                ("Item cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
 
     }
 
-    //----------FIM MÉTODOS TRANSCIONAIS---------//
 
-
-
-    //--------------OUTROS MÉTODOS---------------//
-
-    public void testeImpressao() {
-
-        //        RequestContext context = RequestContext.getCurrentInstance();
-//        context.execute("PF('dlgCadastroUnidadeDeMedida').hide();");
+    /**
+     * Configura início do código gerado automaticamente
+     */
+    public void configuraPreCodigo() {
+        this.item.setCodigo(item.getClasse().getGrupo().getSigla() + item.getClasse().getSigla());
     }
 
-    public void verificaParametros() {
+    //-------------------------------------------//
+
+    //-------------GETTERS E SETTERS-------------//
 
 
-
-        if(paramIdGrupo !=0 || paramIdClasse !=0 || paramIdUnDeMedida !=0) {
-
-            if(paramIdGrupo != 0) {
-
-                               this.item.getClasse().setGrupo(grupoService.buscaPorId(paramIdGrupo));
-
-            }else if (paramIdClasse != 0) {
-
-                this.item.setClasse(classeService.buscarPorId(paramIdClasse));
-
-            } else if (paramIdUnDeMedida != 0) {
-
-                this.item.setUnidadeDeMedida(unidadeDeMedidaService.busca(paramIdUnDeMedida));
-            }
-
-
-
-        }
-
-
-        this.paramIdUnDeMedida = 0l;
-        this.paramIdClasse = 0l;
-        this.paramIdGrupo =0l;
+    public Item getItem() {
+        return item;
     }
 
-
-
-
-    public void recarregaClasses() {
-        item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(item.getClasse().getGrupo()));
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-
-
-    //------------FIM OUTROS MÉTODOS-------------//
-
-
-
-    //------------GETERS E SETTERS---------------//
     public Grupo getGrupo() {
         return grupo;
     }
@@ -137,12 +108,44 @@ public class ItemMB implements Serializable {
         this.classe = classe;
     }
 
-    public Item getItem() {
-        return item;
+    public UnidadeDeMedida getUnidadeDeMedida() {
+        return unidadeDeMedida;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
+        this.unidadeDeMedida = unidadeDeMedida;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    public List<Classe> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Classe> classes) {
+        this.classes = classes;
+    }
+
+    public List<UnidadeDeMedida> getUnidadesDeMedida() {
+        return unidadesDeMedida;
+    }
+
+    public void setUnidadesDeMedida(List<UnidadeDeMedida> unidadesDeMedida) {
+        this.unidadesDeMedida = unidadesDeMedida;
     }
 
     public boolean isQuantidadeMinima() {
@@ -153,27 +156,11 @@ public class ItemMB implements Serializable {
         this.quantidadeMinima = quantidadeMinima;
     }
 
-    public Long getParamIdGrupo() {
-        return paramIdGrupo;
+    public int getCodFinal() {
+        return codFinal;
     }
 
-    public void setParamIdGrupo(Long paramIdGrupo) {
-        this.paramIdGrupo = paramIdGrupo;
-    }
-
-    public Long getParamIdClasse() {
-        return paramIdClasse;
-    }
-
-    public void setParamIdClasse(Long paramIdClasse) {
-        this.paramIdClasse = paramIdClasse;
-    }
-
-    public Long getParamIdUnDeMedida() {
-        return paramIdUnDeMedida;
-    }
-
-    public void setParamIdUnDeMedida(Long paramIdUnDeMedida) {
-        this.paramIdUnDeMedida = paramIdUnDeMedida;
+    public void setCodFinal(int codFinal) {
+        this.codFinal = codFinal;
     }
 }
