@@ -21,6 +21,10 @@ public class GrupoService implements Serializable {
         grupoDao.save(grupo);
     }
 
+    public Grupo salvaRetorna(Grupo grupo) {
+        return  grupoDao.saveReturn(grupo);
+    }
+
     public List<Grupo> listarTodos() {
         return grupoDao.listar(Grupo.class);
     }
@@ -29,7 +33,7 @@ public class GrupoService implements Serializable {
         grupoDao.delete(grupo,  grupo.getId());
     }
 
-    public Grupo busca(Long id) {
+    public Grupo buscaPorId(Long id) {
         return grupoDao.findById(id);
     }
 

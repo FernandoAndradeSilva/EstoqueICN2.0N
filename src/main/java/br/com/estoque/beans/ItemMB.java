@@ -26,6 +26,11 @@ public class ItemMB implements Serializable {
     private ItemService itemService;
     @Inject
     private ClasseService classeService;
+    @Inject
+    private GrupoService grupoService;
+    @Inject
+    private UnidadeDeMedidaService unidadeDeMedidaService;
+
     //---------FIM INJECTS-----------//
 
 
@@ -57,6 +62,8 @@ public class ItemMB implements Serializable {
     public void salvaItem() {
         this.itemService.salvar(this.item);
         this.item = new Item();
+
+
     }
 
     //----------FIM MÉTODOS TRANSCIONAIS---------//
@@ -72,17 +79,35 @@ public class ItemMB implements Serializable {
     }
 
     public void verificaParametros() {
+
+
+
         if(paramIdGrupo !=0 || paramIdClasse !=0 || paramIdUnDeMedida !=0) {
-            System.out.println(paramIdGrupo);
-            System.out.println(paramIdClasse);
-            System.out.println(paramIdUnDeMedida);
+
+            if(paramIdGrupo != 0) {
+
+                               this.item.getClasse().setGrupo(grupoService.buscaPorId(paramIdGrupo));
+
+            }else if (paramIdClasse != 0) {
+
+                this.item.setClasse(classeService.buscarPorId(paramIdClasse));
+
+            } else if (paramIdUnDeMedida != 0) {
+
+                this.item.setUnidadeDeMedida(unidadeDeMedidaService.busca(paramIdUnDeMedida));
+            }
+
+
+
         }
+
+
+        this.paramIdUnDeMedida = 0l;
+        this.paramIdClasse = 0l;
+        this.paramIdGrupo =0l;
     }
 
-    public String encaminha() {
-        return "lista.xhtml?id=A";
 
-    }
 
 
     public void recarregaClasses() {

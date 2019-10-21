@@ -7,9 +7,11 @@ import br.com.estoque.util.Transacional;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.event.RowEditEvent;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +43,18 @@ public class UnidadeDeMedidaMB implements Serializable {
 
     //-----------MÉTODOS TRANSCIONAIS -----------//
     @Transacional
-    public void adicionar() {
-        unidadeDeMedidaService.salvar(unidadeDeMedida);
+    public void adicionar(Boolean redireciona) throws IOException {
+
+        UnidadeDeMedida un = new UnidadeDeMedida();
+        un = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
+
         MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.unidadeDeMedida = new UnidadeDeMedida();
         this.carregaUnidadesDeMedida();
 
+        if(redireciona == true) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.xhtml?idUnMedida=" +un.getId());
+        }
     }
 
     @Transacional

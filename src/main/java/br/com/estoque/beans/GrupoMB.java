@@ -8,11 +8,16 @@ import br.com.estoque.service.GrupoService;
 import br.com.estoque.service.UnidadeDeMedidaService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,11 +58,18 @@ public class GrupoMB implements Serializable {
     //-----------MÉTODOS TRANSCIONAIS -----------//
 
     @Transacional
-    public void adicionar() {
-        grupoService.salvar(grupo);
+    public void adicionar(boolean redireciona) throws IOException {
+        Grupo g = grupoService.salvaRetorna(grupo);
         MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.grupo = new Grupo();
         this.carregaGrupos();
+
+
+        if(redireciona == true) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.xhtml?idGrupo=" +g.getId());
+        }
+
+
 
     }
 

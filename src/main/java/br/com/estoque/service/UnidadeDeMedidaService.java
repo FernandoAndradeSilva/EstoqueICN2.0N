@@ -21,6 +21,12 @@ public class UnidadeDeMedidaService implements Serializable {
             unidadeDeMedidaDao.save(unidadeDeMedida);
     }
 
+
+    public UnidadeDeMedida salvaRetorna(UnidadeDeMedida unidadeDeMedida) {
+
+        return unidadeDeMedidaDao.saveReturn(unidadeDeMedida);
+    }
+
     public List<UnidadeDeMedida> listarTodos() {
         return unidadeDeMedidaDao.listar(UnidadeDeMedida.class);
     }

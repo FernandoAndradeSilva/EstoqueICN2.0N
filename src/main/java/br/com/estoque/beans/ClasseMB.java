@@ -60,7 +60,8 @@ public class ClasseMB implements Serializable {
         Classe c = classeService.salvaRetorna(classe);
         MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-
+        this.classe.setNome("");
+        this.classe.setSigla("");
 //        List<Classe> classes = classeService.listarPorGrupo(classe.getGrupo());
 
 
@@ -85,7 +86,8 @@ public class ClasseMB implements Serializable {
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
         this.carregaClasses();
-        this.classe = new Classe();
+        this.classe.setNome("");
+        this.classe.setSigla("");
     }
 
     @Transacional

@@ -86,7 +86,7 @@ public class GrupoMB1 implements Serializable {
     public void adicionaNovaClasse() {
         classe.setGrupo(this.grupo);
         classeService.salvar(classe);
-        Grupo cat = grupoService.busca(this.getGrupo().getId());
+        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
         this.getGrupo().setClasses(cat.getClasses());
         this.classe = new Classe();
         MessageUtil.addMessageTicket("Cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);    }
@@ -108,14 +108,14 @@ public class GrupoMB1 implements Serializable {
     }
 
     public void atualizaExclusao() {
-        Grupo cat = grupoService.busca(this.getGrupo().getId());
+        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
         this.getGrupo().setClasses(cat.getClasses());
         this.classe = new Classe();
     }
 
     public void recarregarBusca() {
         classe.setGrupo(this.grupo);
-        Grupo cat = grupoService.busca(this.getGrupo().getId());
+        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
         this.getGrupo().setClasses(cat.getClasses());
         this.classe = new Classe();
         this.campoBuscaClasse = "";

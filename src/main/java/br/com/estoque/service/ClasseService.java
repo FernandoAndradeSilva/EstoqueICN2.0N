@@ -37,6 +37,10 @@ public class ClasseService implements Serializable {
         return classeDao.findById(classe.getId());
     }
 
+    public Classe buscarPorId(Long id) {
+        return classeDao.findById(id);
+    }
+
     @Transacional
     public Classe salvaRetorna(Classe classe) {
         return classeDao.saveReturn(classe);
