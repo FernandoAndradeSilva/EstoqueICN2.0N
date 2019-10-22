@@ -22,39 +22,41 @@ public class UnidadeDeMedidaMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //----------INJECTS---------------//
+    //--------------------------INJECTS----------------------------//
+
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
-    //---------FIM INJECTS-----------//
+
+    //--------------------------------------------------------------//
 
 
-    //------------MODELS-------------//
+
+    //--------------------------MODELS-----------------------------//
+
     private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
     private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<>();
-    //---------FIM MODELS-----------//
 
-
-    //-----------OUTROS-------------//
+    //--------------------------------------------------------------//
 
 
 
-    //---------FIM OUTROS-----------//
+    //----------------------OUTROS ATRIBUTOS------------------------//
 
 
-    //-----------MÉTODOS TRANSCIONAIS -----------//
+
+
+    //--------------------------------------------------------------//
+
+
+
+    //--------------------------MÉTODOS---------------------------//
+
     @Transacional
-    public void adicionar(Boolean redireciona) throws IOException {
-
-        UnidadeDeMedida un = new UnidadeDeMedida();
-        un = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
-
-        MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+    public void salvar() {
+        UnidadeDeMedida u = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
         this.unidadeDeMedida = new UnidadeDeMedida();
         this.carregaUnidadesDeMedida();
-
-        if(redireciona == true) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro.xhtml?idUnMedida=" +un.getId());
-        }
     }
 
     @Transacional
@@ -67,18 +69,21 @@ public class UnidadeDeMedidaMB implements Serializable {
 
     @Transacional
     public void editarRow(RowEditEvent event) {
-        unidadeDeMedidaService.salvar(((UnidadeDeMedida) event.getObject()));
+        unidadeDeMedidaService.salvar((UnidadeDeMedida) event.getObject());
         MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.carregaUnidadesDeMedida();
     }
-    //--------FIM MÉTODOS TRANSCIONAIS--------//
-    //---------------------------------------//
-    ////////////////// OUTROS /////////////////
+
     public void carregaUnidadesDeMedida() {
         this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
     }
 
 
+    //--------------------------------------------------------------//
+
+
+
+    //---------------------GETTERS E SETTERS------------------------//
 
 
     public List<UnidadeDeMedida> getUnidadesDeMedida() {
@@ -96,6 +101,8 @@ public class UnidadeDeMedidaMB implements Serializable {
     public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
         this.unidadeDeMedida = unidadeDeMedida;
     }
+
+
 
 
 }

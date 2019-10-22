@@ -8,6 +8,7 @@ import br.com.estoque.util.Transacional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClasseService implements Serializable {
@@ -47,6 +48,10 @@ public class ClasseService implements Serializable {
     }
 
     public List<Classe> listarPorGrupo(Grupo grupo) {
+        if(grupo == null) {
+            return new ArrayList<Classe>();
+        } else
+
         return classeDao.listarPorGrupo(grupo);
     }
 }

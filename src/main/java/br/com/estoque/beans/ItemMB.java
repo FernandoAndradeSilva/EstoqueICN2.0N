@@ -39,13 +39,13 @@ public class ItemMB implements Serializable {
     //--------------------------MODELS-----------------------------//
     private Item item = new Item();
     private Classe classe = new Classe();
-    private Grupo grupo = new Grupo();
-    private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
+
+
 
     private List<Item> itens = new ArrayList<>();
-    private List<Grupo> grupos = new ArrayList<>();
+
     private List<Classe> classes = new ArrayList<>();
-    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<>();
+
 
     //--------------------------------------------------------------//
 
@@ -82,36 +82,6 @@ public class ItemMB implements Serializable {
     //-----------------------------------------------------------//
 
 
-
-    //--------------------------GRUPO----------------------------//
-    @Transacional
-    public void salvaGrupo() {
-        Grupo g = grupoService.salvaRetorna(grupo);
-        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
-        this.grupo = new Grupo();
-        this.carregaGrupos();
-    }
-
-    @Transacional
-    public void excluirGrupo() {
-        grupoService.excluir(grupo);
-        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.grupo = new Grupo();
-        this.carregaGrupos();
-    }
-
-    @Transacional
-    public void editarRowGrupo(RowEditEvent event) {
-        grupoService.salvar((Grupo) event.getObject());
-        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.carregaGrupos();
-    }
-
-    public void carregaGrupos() {
-        this.grupos = grupoService.listarTodos();
-    }
-
-    //--------------------------------------------------------------//
 
 
 
@@ -197,32 +167,7 @@ public class ItemMB implements Serializable {
 
     //----------------------UNIDADE DE MEDIDA-----------------------//
 
-    @Transacional
-    public void salvarUndiadeDeMedida() {
-        UnidadeDeMedida u = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
-        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
-        this.unidadeDeMedida = new UnidadeDeMedida();
-        this.carregaUnidadesDeMedida();
-    }
 
-    @Transacional
-    public void excluirUnidadeDeMedida() {
-        unidadeDeMedidaService.excluir(unidadeDeMedida);
-        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.unidadeDeMedida = new UnidadeDeMedida();
-        this.carregaUnidadesDeMedida();
-    }
-
-    @Transacional
-    public void editarRowUnidadeDeMedida(RowEditEvent event) {
-        unidadeDeMedidaService.salvar((UnidadeDeMedida) event.getObject());
-        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.carregaUnidadesDeMedida();
-    }
-
-    public void carregaUnidadesDeMedida() {
-        this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
-    }
 
     //--------------------------------------------------------------//
 
@@ -257,21 +202,9 @@ public class ItemMB implements Serializable {
         this.classe = classe;
     }
 
-    public Grupo getGrupo() {
-        return grupo;
-    }
 
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
 
-    public UnidadeDeMedida getUnidadeDeMedida() {
-        return unidadeDeMedida;
-    }
 
-    public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
-        this.unidadeDeMedida = unidadeDeMedida;
-    }
 
     public boolean isQuantidadeMinima() {
         return quantidadeMinima;
@@ -289,13 +222,7 @@ public class ItemMB implements Serializable {
         this.itens = itens;
     }
 
-    public List<Grupo> getGrupos() {
-        return grupos;
-    }
 
-    public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
-    }
 
     public List<Classe> getClasses() {
         return classes;
@@ -305,13 +232,7 @@ public class ItemMB implements Serializable {
         this.classes = classes;
     }
 
-    public List<UnidadeDeMedida> getUnidadesDeMedida() {
-        return unidadesDeMedida;
-    }
 
-    public void setUnidadesDeMedida(List<UnidadeDeMedida> unidadesDeMedida) {
-        this.unidadesDeMedida = unidadesDeMedida;
-    }
 
     public int getCodFinal() {
         return codFinal;

@@ -35,9 +35,9 @@
         <f:metadata>
 
 
-            <f:event type="preRenderComponent" listener="#{itemMB.carregaGrupos()}"/>
+            <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
             <f:event type="preRenderComponent" listener="#{itemMB.carregaClasses()}"/>
-            <f:event type="preRenderComponent" listener="#{itemMB.carregaUnidadesDeMedida()}"/>
+            <f:event type="preRenderComponent" listener="#{unidadeDeMedidaMB.carregaUnidadesDeMedida()}"/>
 
 
 
@@ -107,8 +107,9 @@
                                              converter="omnifaces.SelectItemsConverter"
                                              filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
-                                <f:selectItems value="#{itemMB.grupos}"/>
-                                <p:ajax  event="change" process="@this" update="selectClasses"/>
+                                <f:selectItems value="#{grupoMB.grupos}"/>
+                                <p:ajax  event="change" process="@this" update="selectClasses"
+                                         listener="#{classeMB.listarClasses(itemMB.item.classe.grupo)}"/>
                             </p:selectOneMenu>
                         </div>
 
@@ -129,17 +130,14 @@
                                              required="true"  requiredMessage="Preencha o campo 'Classe'"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
-                                <f:selectItems value="#{itemMB.item.classe.grupo.classes}"/>
+                                <f:selectItems value="#{classeMB.classes}"/>
                                 <p:ajax event="change" process="@this" update="codigo , cod"
                                         listener="#{itemMB.configuraPreCodigo()}"/>
                             </p:selectOneMenu>
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-1">
-                            <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"
-                                             oncomplete="PF('dlgCadastroClasse').show();"
-                                             action="#{itemMB.carregaGruposCadastroClasse()}"
-                                             update="formClasse:toggleClasse, DialogCadastroClasse"/>
+
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
@@ -154,7 +152,7 @@
                                              required="true" requiredMessage="O campo 'Unidade De Medida' é obrigatório"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
-                                <f:selectItems value="#{itemMB.unidadesDeMedida}"/>
+                                <f:selectItems value="#{unidadeDeMedidaMB.unidadesDeMedida}"/>
 
                                 <p:ajax  event="change" process="@this"/>
                             </p:selectOneMenu>
@@ -230,17 +228,17 @@
 
                         <p:inputText  maxlength="2" size="2"
                                       required="true" requiredMessage="Preencha o campo 'Sigla'"
-                                      value="#{itemMB.grupo.sigla}"/>
+                                      value="#{grupoMB.grupo.sigla}"/>
 
                         <p:inputText styleClass="form-control"
                                      required="true" requiredMessage="Preencha o campo 'Nome'"
-                                     value="#{itemMB.grupo.nome}"/>
+                                     value="#{grupoMB.grupo.nome}"/>
 
                         <p:inputText styleClass="form-control"
                                      required="true" requiredMessage="Preencha o campo 'Nome'"
-                                     value="#{itemMB.grupo.descricao}"/>
+                                     value="#{grupoMB.grupo.descricao}"/>
 
-                        <p:commandButton  action="#{itemMB.salvaGrupo()}" style="float: left"
+                        <p:commandButton  action="#{grupoMB.salva()}" style="float: left"
                                           process="@this , @form" styleClass="btn btn-primary" icon="fa fa-plus"
                                           update="growl , grupos, selectGrupos, @form"/>
 
@@ -253,7 +251,7 @@
                 <p:separator/>
 
 
-                <p:dataTable var="grupo" value="#{itemMB.grupos}"
+                <p:dataTable var="grupo" value="#{grupoMB.grupos}"
                              id="grupos" widgetVar="grupos" scrollable="true" scrollHeight="260"
                              editable="true" paginator="true"
                              paginatorPosition="bottom" rows="10"
@@ -278,7 +276,7 @@
 
                     </f:facet>
 
-                    <p:ajax event="rowEdit" update="grupos , growl , selectGrupos" listener="#{itemMB.editarRowGrupo}"/>
+                    <p:ajax event="rowEdit" update="grupos , growl , selectGrupos" listener="#{grupoMB.editarRow}"/>
 
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
@@ -320,10 +318,10 @@
 
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                         action="#{itemMB.excluirGrupo()}" process="@this" title="Excluir"
+                                         action="#{grupoMB.excluir()}" process="@this" title="Excluir"
                                          update="growl , grupos , selectGrupos , @form" immediate="true">
                             <f:setPropertyActionListener value="#{grupo}"
-                                                         target="#{itemMB.grupo}"/>
+                                                         target="#{grupoMB.grupo}"/>
                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
 
                         </p:commandButton>
@@ -345,154 +343,6 @@
 
             </h:form>
         </p:dialog>
-
-
-        <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
-                  id="DialogCadastroClasse" width="50%" resizable="true" responsive="true">
-
-            <h:form id="formClasse">
-
-                <p:panel id="toggleClasse" toggleable="true" closable="false"
-                         toggleSpeed="500" collapsed="true"
-                         closeSpeed="500" widgetVar="panel" style="width: 100%%">
-
-                    <f:facet name="header">
-                        <p:outputLabel value="ADICIONAR CLASSE"/>
-                    </f:facet>
-
-
-                    <p:panelGrid columns="4" >
-
-                        <p:outputLabel value="Grupo"/>
-                        <p:outputLabel value="Sigla"/>
-                        <p:outputLabel value="Nome"/>
-                        <p:outputLabel value=""/>
-
-                        <p:selectOneMenu id="selectGruposCadastro" value="#{itemMB.classe.grupo}" appendTo="@this"
-                                         converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem itemLabel="Todas" value="#{null}"/>
-                            <f:selectItems value="#{itemMB.grupos}"/>
-                            <p:ajax event="change" update="classes"
-                                    listener="#{itemMB.verificaClassesCadastro()}"/>
-                        </p:selectOneMenu>
-
-                        <p:inputText maxlength="2" size="2"
-                                     required="true" requiredMessage="Preencha o campo 'Sigla'"
-                                     value="#{itemMB.classe.sigla}"/>
-
-                        <p:inputText required="true" requiredMessage="Preencha o campo 'Nome'"
-                                     value="#{itemMB.classe.nome}" styleClass="form-control"/>
-
-                        <p:commandButton action="#{itemMB.salvaClasse()}" style="float: left"
-                                         process="@this , @form" styleClass="btn btn-primary" icon="fa fa-plus"
-                                         update="growl , classes, selectGruposCadastro ,
-                                         selectClasses , selectGrupos , formClasse , form"/>
-
-
-
-                    </p:panelGrid>
-                </p:panel>
-
-
-                <p:separator/>
-
-
-                <p:dataTable var="classe" value="#{itemMB.classe.grupo.classes}"
-                             id="classes" scrollable="true" scrollHeight="260"
-                             widgetVar="classes"
-                             editable="true" paginator="true"
-                             paginatorPosition="bottom" rows="10"
-                             paginatorTemplate="{CurrentPageReport}
-                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                             currentPageReportTemplate=""
-                             rowsPerPageTemplate="5,10,15,20,30">
-
-                    <f:facet name="header">
-                        <div class="ui-grid-row">
-                            <div style="float: left">
-                                <p:outputLabel value="CLASSES"/>
-                            </div>
-
-                            <div style="float: right">
-                                <p:inputText id="filterCadastroItemClasse" style="width:150px"
-                                             styleClass="btn-group"
-                                             placeholder="Pesquisar"/>
-                                <p:commandButton icon="fa fa-search"/>
-                            </div>
-                        </div>
-
-                    </f:facet>
-
-                    <p:ajax event="rowEdit" update="classes , growl"
-                            listener="#{classeMB.editarRow}"/>
-
-                    <p:column style="text-align: center ; width: 12%">
-                        <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         action="#{itemMB.selecionarClasse(classe)}"
-                                         update="selectGrupos , selectClasses , form"
-                                         process="@this" title="Selecionar Classe"
-                                         oncomplete="PF('dlgCadastroClasse').hide();">
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column headerText="Sigla" style="text-align: center ; width: 10%">
-                        <p:cellEditor>
-                            <f:facet name="output"><p:outputLabel value="#{classe.sigla}"/></f:facet>
-                            <f:facet name="input"><p:inputText value="#{classe.sigla}"
-                                                               style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="Nome" style="text-align: center ; width: 31%">
-                        <p:cellEditor>
-                            <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
-                            <f:facet name="input"><p:inputText value="#{classe.nome}"
-                                                               style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-
-                    <p:column headerText="Classe" style="text-align: center ; width: 31%">
-                        <p:outputLabel value="#{classe.grupo}"/>
-                    </p:column>
-
-
-                    <p:column style="text-align: center; width: 8%" title="Editar">
-                        <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
-                    </p:column>
-
-                    <p:column style="text-align: center; width: 8%" title="Excluir">
-                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger"
-                                         action="#{itemMB.excluirClasse()}" process="@this" immediate="true"
-                                         update="growl , classes , selectClasses , selectGrupos , @form">
-                            <f:setPropertyActionListener value="#{classe}"
-                                                         target="#{itemMB.classe}"/>
-                            <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
-                        </p:commandButton>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="SIM" process="@this"
-                                             styleClass="ui-confirmdialog-yes btn-success"
-                                             icon="fa fa-check">
-                            </p:commandButton>
-                            <p:commandButton value="NÃO" type="button"
-                                             styleClass="ui-confirmdialog-no btn-danger"
-                                             icon="fa fa-times"/>
-                        </p:confirmDialog>
-                    </p:column>
-                </p:dataTable>
-                <h:outputScript library="js" name="scriptClasse.js"/>
-            </h:form>
-        </p:dialog>
-
-
-
-
-
-
-
-
-
 
         <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
                   id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
@@ -517,14 +367,14 @@
 
                             <p:inputText maxlength="2" size="2"
                                          required="true" requiredMessage="Preencha o campo 'Sigla'"
-                                         value="#{itemMB.unidadeDeMedida.sigla}"/>
+                                         value="#{unidadeDeMedidaMB.unidadeDeMedida.sigla}"/>
 
 
                             <p:inputText styleClass="form-control"
                                          required="true" requiredMessage="Preencha o campo 'Nome'"
-                                         value="#{itemMB.unidadeDeMedida.nome}"/>
+                                         value="#{unidadeDeMedidaMB.unidadeDeMedida.nome}"/>
 
-                            <p:commandButton action="#{itemMB.salvarUndiadeDeMedida()}" icon="fa fa-plus"
+                            <p:commandButton action="#{unidadeDeMedidaMB.salvar()}" icon="fa fa-plus"
                                              styleClass="btn btn-primary" style="float: left"
                                              process="@this , @form"
                                              update="growl , unidadesDeMedida, selectUnDeMedida, @form"/>
@@ -535,7 +385,7 @@
 
                 <p:separator/>
 
-                <p:dataTable var="unidadeDeMedida" value="#{itemMB.unidadesDeMedida}"
+                <p:dataTable var="unidadeDeMedida" value="#{unidadeDeMedidaMB.unidadesDeMedida}"
                              id="unidadesDeMedida" scrollable="true" scrollHeight="260"
                              widgetVar="unidadesDeMedida"
                              editable="true" paginator="true"
@@ -565,7 +415,7 @@
                     </f:facet>
 
                     <p:ajax event="rowEdit" update="unidadesDeMedida , growl , selectUnDeMedida"
-                            listener="#{itemMB.editarRowUnidadeDeMedida}"/>
+                            listener="#{unidadeDeMedidaMB.editarRow}"/>
 
                     <p:column style="text-align: center ; width: 12%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
@@ -599,10 +449,10 @@
 
                     <p:column style="text-align: center; width: 12%">
                         <p:commandButton icon="fa fa-trash" styleClass="btn btn-xs btn-danger" title="Excluir"
-                                         action="#{itemMB.excluirUnidadeDeMedida()}" process="@this" immediate="true"
+                                         action="#{unidadeDeMedidaMB.excluir()}" process="@this" immediate="true"
                                          update="growl , unidadesDeMedida , selectUnDeMedida , @form">
                             <f:setPropertyActionListener value="#{unidadeDeMedida}"
-                                                         target="#{itemMB.unidadeDeMedida}"/>
+                                                         target="#{unidadeDeMedidaMB.unidadeDeMedida}"/>
                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"/>
                         </p:commandButton>
 
@@ -621,6 +471,10 @@
                 <h:outputScript library="js" name="scriptUndDeMedida.js"/>
             </h:form>
         </p:dialog>
+
+
+
+
 
     </ui:define>
 

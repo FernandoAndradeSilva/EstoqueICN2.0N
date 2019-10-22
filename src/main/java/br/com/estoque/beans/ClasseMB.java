@@ -24,7 +24,7 @@ public class ClasseMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //----------INJECTS---------------//
+    //--------------------------INJECTS----------------------------//
 
     @Inject
     private ClasseService classeService;
@@ -32,34 +32,32 @@ public class ClasseMB implements Serializable {
     @Inject
     private GrupoService grupoService;
 
-    //---------FIM INJECTS-----------//
+    //--------------------------------------------------------------//
 
 
 
-    //------------MODELS-------------//
+    //--------------------------MODELS-----------------------------//
 
     private Classe classe = new Classe();
     private List<Classe> classes = new ArrayList<>();
 
-    //---------FIM MODELS-----------//
+    //--------------------------------------------------------------//
 
 
 
-    //-----------OUTROS-------------//
+    //----------------------OUTROS ATRIBUTOS------------------------//
 
 
 
-    //---------FIM OUTROS-----------//
+
+    //--------------------------------------------------------------//
 
 
 
-    //-----------MÉTODOS TRANSCIONAIS -----------//
-
-
+    //--------------------------MÉTODOS----------------------------//
 
     @Transacional
     public void excluir() {
-
         Classe c = classe;
         classeService.excluir(classe);
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
@@ -76,24 +74,20 @@ public class ClasseMB implements Serializable {
         this.carregaClasses();
     }
 
-    //----------FIM MÉTODOS TRANSCIONAIS----------//
-
-
-
-    //--------------OUTROS MÉTODOS---------------//
-
     public void carregaClasses() {
         this.classes = classeService.listarTodas();
     }
 
+    public void listarClasses(Grupo grupo) {
+        this.classes = classeService.listarPorGrupo(grupo);
+
+    }
+
+    //-------------------------------------------------------------//
 
 
 
-    //------------FIM OUTROS MÉTODOS-------------//
-
-
-
-    //------------GETERS E SETTERS---------------//
+    //--------------GETTERS E SETTERS-------------------------//
     public Classe getClasse() {
         return classe;
     }
@@ -102,18 +96,18 @@ public class ClasseMB implements Serializable {
         this.classe = classe;
     }
 
-    public List<Classe> getClasses() {
+    public List<Classe> getClasses(Grupo grupo) {
         return classes;
     }
+
+
 
     public void setClasses(List<Classe> classes) {
         this.classes = classes;
     }
 
-
-
-
-
-
+    public List<Classe> getClasses() {
+        return classes;
+    }
 }
 

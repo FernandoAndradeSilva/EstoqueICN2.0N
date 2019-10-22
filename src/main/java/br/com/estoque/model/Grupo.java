@@ -11,7 +11,7 @@ public class Grupo extends AbstractEntity {
     private String sigla;
     private String descricao;
 
-    @OneToMany(mappedBy="grupo" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="grupo" , fetch = FetchType.LAZY)
     private List<Classe> classes = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.usuario" , fetch = FetchType.LAZY)
