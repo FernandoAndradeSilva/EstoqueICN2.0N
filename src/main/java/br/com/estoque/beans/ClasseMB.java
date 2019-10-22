@@ -28,7 +28,6 @@ public class ClasseMB implements Serializable {
 
     @Inject
     private ClasseService classeService;
-
     @Inject
     private GrupoService grupoService;
 
@@ -36,10 +35,12 @@ public class ClasseMB implements Serializable {
 
 
 
+
     //--------------------------MODELS-----------------------------//
 
     private Classe classe = new Classe();
     private List<Classe> classes = new ArrayList<>();
+
 
     //--------------------------------------------------------------//
 
@@ -57,31 +58,38 @@ public class ClasseMB implements Serializable {
     //--------------------------MÉTODOS----------------------------//
 
     @Transacional
+    public void salva() {
+        Classe c = classeService.salvaRetorna(classe);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+        this.listarClasses(c.getGrupo());
+        this.classe.setSigla("");
+        this.classe.setNome("");
+    }
+
+    @Transacional
     public void excluir() {
         Classe c = classe;
         classeService.excluir(classe);
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-        this.carregaClasses();
-        this.classe.setNome("");
+        this.listarClasses(c.getGrupo());
         this.classe.setSigla("");
+        this.classe.setNome("");
+
     }
 
-    @Transacional
-    public void editarRow(RowEditEvent event) {
-        classeService.salvar(((Classe) event.getObject()));
-        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.carregaClasses();
-    }
 
-    public void carregaClasses() {
-        this.classes = classeService.listarTodas();
-    }
 
     public void listarClasses(Grupo grupo) {
         this.classes = classeService.listarPorGrupo(grupo);
-
     }
+
+
+
+
+    public void listarTodasClasses() {
+        this.classes = classeService.listarTodas();
+    }
+
 
     //-------------------------------------------------------------//
 
@@ -109,5 +117,7 @@ public class ClasseMB implements Serializable {
     public List<Classe> getClasses() {
         return classes;
     }
+
+
 }
 
