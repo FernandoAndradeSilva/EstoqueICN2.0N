@@ -102,7 +102,7 @@ public class ItemMB implements Serializable {
 
     @Transacional
     public void editarRowGrupo(RowEditEvent event) {
-        grupoService.salvar(((Grupo) event.getObject()));
+        grupoService.salvar((Grupo) event.getObject());
         MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.carregaGrupos();
     }
@@ -115,14 +115,96 @@ public class ItemMB implements Serializable {
 
 
 
-    //----------------------MÉTODOS DE BUSCA------------------------//
+
+    //--------------------------CLASSES----------------------------//
+    @Transacional
+    public void salvaClasse() {
+        Classe c = classeService.salvaRetorna(classe);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+        this.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+        this.carregaGrupos();
+
+        if(this.item.getClasse() != null) {
+            this.item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+        }
+
+        this.getClasse().setNome("");
+        this.getClasse().setSigla("");
+
+    }
+
+    @Transacional
+    public void excluirClasse() {
+        Classe c = classe;
+        classeService.excluir(classe);
+        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+        this.getClasse().setNome("");
+        this.getClasse().setSigla("");
+    }
+
+    @Transacional
+    public void editarRowClasse(RowEditEvent event) {
+        classeService.salvar((Classe) event.getObject());
+        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.carregaClasses();
+    }
+
     public void carregaClasses() {
         this.classes = classeService.listarTodas();
+    }
+
+    //--------------------------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------UNIDADE DE MEDIDA-----------------------//
+
+    @Transacional
+    public void salvarUndiadeDeMedida() {
+        UnidadeDeMedida u = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+        this.unidadeDeMedida = new UnidadeDeMedida();
+        this.carregaUnidadesDeMedida();
+    }
+
+    @Transacional
+    public void excluirUnidadeDeMedida() {
+        unidadeDeMedidaService.excluir(unidadeDeMedida);
+        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.unidadeDeMedida = new UnidadeDeMedida();
+        this.carregaUnidadesDeMedida();
+    }
+
+    @Transacional
+    public void editarRowUnidadeDeMedida(RowEditEvent event) {
+        unidadeDeMedidaService.salvar((UnidadeDeMedida) event.getObject());
+        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.carregaUnidadesDeMedida();
     }
 
     public void carregaUnidadesDeMedida() {
         this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
     }
+
+    //--------------------------------------------------------------//
+
+
+
+
+
+    //----------------------MÉTODOS DE BUSCA------------------------//
+
+
+
 
 
     //--------------------------------------------------------------//
