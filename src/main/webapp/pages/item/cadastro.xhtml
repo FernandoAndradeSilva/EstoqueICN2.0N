@@ -105,7 +105,6 @@
                         <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectGrupos" value="#{itemMB.item.classe.grupo}"
                                              converter="omnifaces.SelectItemsConverter"
-                                             required="true" requiredMessage="O campo 'Grupo' é obrigatório"
                                              filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
                                 <f:selectItems value="#{itemMB.grupos}"/>
@@ -138,7 +137,9 @@
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-1">
                             <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"
-                                             oncomplete="PF('dlgCadastroClasse').show();" update="formClasse:toggleClasse"/>
+                                             oncomplete="PF('dlgCadastroClasse').show();"
+                                             action="#{itemMB.carregaGruposCadastroClasse()}"
+                                             update="formClasse:toggleClasse, DialogCadastroClasse"/>
                         </div>
 
                         <div class="ui-sm-12 ui-md-12 ui-lg-6">
@@ -208,7 +209,7 @@
 
 
         <p:dialog header="GRUPOS" widgetVar="dlgCadastroGrupo" modal="true" width="50%"
-                  id="DialogCadastroGrupo" resizable="true" responsive="true" position="top">
+                  id="DialogCadastroGrupo" resizable="true" responsive="true" >
 
             <h:form id="formGrupo">
 
@@ -346,10 +347,8 @@
         </p:dialog>
 
 
-        <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true" position="top"
+        <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
                   id="DialogCadastroClasse" width="50%" resizable="true" responsive="true">
-
-            <p:ajax event="close" listener="#{itemMB.carregaGrupos()}" update="selectGrupos"/>
 
             <h:form id="formClasse">
 
@@ -370,10 +369,11 @@
                         <p:outputLabel value=""/>
 
                         <p:selectOneMenu id="selectGruposCadastro" value="#{itemMB.classe.grupo}" appendTo="@this"
-                                         converter="omnifaces.SelectItemsConverter" required="true">
-                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="Todas" value="#{null}"/>
                             <f:selectItems value="#{itemMB.grupos}"/>
-                            <p:ajax event="change" update="classes"/>
+                            <p:ajax event="change" update="classes"
+                                    listener="#{itemMB.verificaClassesCadastro()}"/>
                         </p:selectOneMenu>
 
                         <p:inputText maxlength="2" size="2"
@@ -386,7 +386,7 @@
                         <p:commandButton action="#{itemMB.salvaClasse()}" style="float: left"
                                          process="@this , @form" styleClass="btn btn-primary" icon="fa fa-plus"
                                          update="growl , classes, selectGruposCadastro ,
-                                         selectClasses , selectGrupos , formClasse"/>
+                                         selectClasses , selectGrupos , formClasse , form"/>
 
 
 
@@ -428,12 +428,10 @@
 
                     <p:column style="text-align: center ; width: 12%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         update="selectGrupos, selectClasses" process="@this" title="Selecionar Classe"
+                                         action="#{itemMB.selecionarClasse(classe)}"
+                                         update="selectGrupos , selectClasses , form"
+                                         process="@this" title="Selecionar Classe"
                                          oncomplete="PF('dlgCadastroClasse').hide();">
-                            <f:setPropertyActionListener value="#{classe}"
-                                                         target="#{itemMB.item.classe}"/>
-
-
                         </p:commandButton>
                     </p:column>
 
@@ -482,7 +480,6 @@
                                              icon="fa fa-times"/>
                         </p:confirmDialog>
                     </p:column>
-                    <h:outputScript library="js" name="script.js"/>
                 </p:dataTable>
                 <h:outputScript library="js" name="scriptClasse.js"/>
             </h:form>
@@ -497,7 +494,7 @@
 
 
 
-        <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true" position="top"
+        <p:dialog header="UNIDADES DE MEDIDA" widgetVar="dlgCadastroUnidadeDeMedida" modal="true"
                   id="DialogCadastroUnidadeDeMedida" width="30%" resizable="true" responsive="true">
 
             <h:form id="formUnDeMedida">

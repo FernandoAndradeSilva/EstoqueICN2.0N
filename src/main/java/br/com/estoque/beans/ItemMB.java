@@ -121,13 +121,9 @@ public class ItemMB implements Serializable {
     public void salvaClasse() {
         Classe c = classeService.salvaRetorna(classe);
         MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
-        this.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-        this.carregaGrupos();
-
-        if(this.item.getClasse() != null) {
-            this.item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-        }
-
+        List<Classe> classesAtualizadas = classeService.listarPorGrupo(c.getGrupo());
+        this.item.getClasse().getGrupo().setClasses(classesAtualizadas);
+        this.classe.getGrupo().setClasses(classesAtualizadas);
         this.getClasse().setNome("");
         this.getClasse().setSigla("");
 
@@ -138,7 +134,13 @@ public class ItemMB implements Serializable {
         Classe c = classe;
         classeService.excluir(classe);
         MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+        List<Classe> classesAtualizadas = classeService.listarPorGrupo(c.getGrupo());
+        this.item.getClasse().getGrupo().setClasses(classesAtualizadas);
+
+        if(c.getGrupo() == null) {
+            System.out.println("grupo nulo");
+        }
+        this.classe.getGrupo().setClasses(classesAtualizadas);
         this.getClasse().setNome("");
         this.getClasse().setSigla("");
     }
@@ -150,9 +152,36 @@ public class ItemMB implements Serializable {
         this.carregaClasses();
     }
 
+    public void selecionarClasse(Classe c) {
+        this.item.setClasse(c);
+        this.item.getClasse().getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
+
+    }
+
+    public void carregaGruposCadastroClasse() {
+
+        if (this.item.getClasse() == null || this.item.getClasse().getGrupo().getId() == 0 ) {
+            this.classe.getGrupo().setClasses(classeService.listarTodas());
+        } else {
+            this.classe.setGrupo(item.getClasse().getGrupo());
+            this.classe.getGrupo().setClasses(classeService.listarPorGrupo(this.item.getClasse().getGrupo()));
+
+        }
+    }
+
+    public void verificaClassesCadastro() {
+        if(this.classe.getGrupo() == null) {
+
+            this.classe = new Classe();
+            this.getClasse().getGrupo().setClasses(classeService.listarTodas());
+        }
+    }
+
     public void carregaClasses() {
         this.classes = classeService.listarTodas();
     }
+
+
 
     //--------------------------------------------------------------//
 

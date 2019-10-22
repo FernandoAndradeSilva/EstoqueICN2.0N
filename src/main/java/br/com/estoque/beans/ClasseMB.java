@@ -56,27 +56,6 @@ public class ClasseMB implements Serializable {
     //-----------MÉTODOS TRANSCIONAIS -----------//
 
 
-    public void adicionar() {
-        Classe c = classeService.salvaRetorna(classe);
-        MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
-        this.classe.getGrupo().setClasses(classeService.listarPorGrupo(c.getGrupo()));
-        this.classe.setNome("");
-        this.classe.setSigla("");
-//        List<Classe> classes = classeService.listarPorGrupo(classe.getGrupo());
-
-
-
-
-
-//        Classe temp = new Classe();
-//        temp.setGrupo(classe.getGrupo());
-//
-//        this.classe = temp;
-//
-//        System.out.println(temp.getGrupo().getClasses());
-
-
-    }
 
     @Transacional
     public void excluir() {
@@ -108,9 +87,7 @@ public class ClasseMB implements Serializable {
     }
 
 
-    public void teste() {
-        System.out.println("TESTANDO");
-    }
+
 
     //------------FIM OUTROS MÉTODOS-------------//
 
