@@ -1,16 +1,13 @@
 package br.com.estoque.beans;
 
-import br.com.estoque.model.Classe;
-import br.com.estoque.model.Grupo;
-import br.com.estoque.model.Item;
-import br.com.estoque.model.UnidadeDeMedida;
-import br.com.estoque.service.ClasseService;
-import br.com.estoque.service.GrupoService;
-import br.com.estoque.service.ItemService;
-import br.com.estoque.service.UnidadeDeMedidaService;
+import br.com.estoque.model.*;
+import br.com.estoque.service.*;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,41 +21,53 @@ public class ItemMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //------------------INJECTS-------------------//
+
+    //--------------------------INJECTS----------------------------//
     @Inject
     private ItemService itemService;
     @Inject
-    private GrupoService grupoService;
-    @Inject
     private ClasseService classeService;
+    @Inject
+    private GrupoService grupoService;
     @Inject
     private UnidadeDeMedidaService unidadeDeMedidaService;
 
-    //--------------------------------------------//
+    //--------------------------------------------------------------//
 
 
-    //------------------MODELS-------------------//
+
+    //--------------------------MODELS-----------------------------//
     private Item item = new Item();
-    private Grupo grupo = new Grupo();
     private Classe classe = new Classe();
+    private Grupo grupo = new Grupo();
     private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
 
-    private List<Item> itens = new ArrayList<Item>();
-    private List<Grupo> grupos = new ArrayList<Grupo>();
-    private List<Classe> classes = new ArrayList<Classe>();
-    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<UnidadeDeMedida>();
+    private List<Item> itens = new ArrayList<>();
+    private List<Grupo> grupos = new ArrayList<>();
+    private List<Classe> classes = new ArrayList<>();
+    private List<UnidadeDeMedida> unidadesDeMedida = new ArrayList<>();
 
-    //-------------------------------------------//
+    //--------------------------------------------------------------//
 
 
-    //--------------OOUTROS ATRIBUTOS------------//
+
+    //----------------------OUTROS ATRIBUTOS------------------------//
     private boolean quantidadeMinima = false;
     private int codFinal;
 
-    //-------------------------------------------//
+    //--------------------------------------------------------------//
 
 
-    //--------------MÉTODOS ITEM----------------//
+
+    //--------------------------MÉTODOS---------------------------//
+
+
+
+    //--------------------------ITEM-----------------------------//
+    public void configuraPreCodigo() {
+        this.item.setCodigo(item.getClasse().getGrupo().getSigla() + item.getClasse().getSigla());
+    }
+
     @Transacional
     public void salvaItem() {
         this.item.configuraCodigo(this.codFinal);
@@ -68,36 +77,65 @@ public class ItemMB implements Serializable {
         this.codFinal = 0;
         MessageUtil.addMessageTicket
                 ("Item cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+    }
 
+    //-----------------------------------------------------------//
+
+
+
+    //--------------------------GRUPO----------------------------//
+    @Transacional
+    public void salvaGrupo() {
+        Grupo g = grupoService.salvaRetorna(grupo);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+        this.grupo = new Grupo();
+        this.carregaGrupos();
+    }
+
+    @Transacional
+    public void excluirGrupo() {
+        grupoService.excluir(grupo);
+        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.grupo = new Grupo();
+        this.carregaGrupos();
+    }
+
+    @Transacional
+    public void editarRowGrupo(RowEditEvent event) {
+        grupoService.salvar(((Grupo) event.getObject()));
+        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.carregaGrupos();
+    }
+
+    public void carregaGrupos() {
+        this.grupos = grupoService.listarTodos();
+    }
+
+    //--------------------------------------------------------------//
+
+
+
+    //----------------------MÉTODOS DE BUSCA------------------------//
+    public void carregaClasses() {
+        this.classes = classeService.listarTodas();
+    }
+
+    public void carregaUnidadesDeMedida() {
+        this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
     }
 
 
-    /**
-     * Configura início do código gerado automaticamente
-     */
-    public void configuraPreCodigo() {
-        this.item.setCodigo(item.getClasse().getGrupo().getSigla() + item.getClasse().getSigla());
-    }
-
-    //-------------------------------------------//
-
-    //-------------GETTERS E SETTERS-------------//
+    //--------------------------------------------------------------//
 
 
+
+    //----------------------GETTERS E SETTERS-----------------------//
     public Item getItem() {
         return item;
     }
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
     }
 
     public Classe getClasse() {
@@ -108,12 +146,28 @@ public class ItemMB implements Serializable {
         this.classe = classe;
     }
 
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
     public UnidadeDeMedida getUnidadeDeMedida() {
         return unidadeDeMedida;
     }
 
     public void setUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida) {
         this.unidadeDeMedida = unidadeDeMedida;
+    }
+
+    public boolean isQuantidadeMinima() {
+        return quantidadeMinima;
+    }
+
+    public void setQuantidadeMinima(boolean quantidadeMinima) {
+        this.quantidadeMinima = quantidadeMinima;
     }
 
     public List<Item> getItens() {
@@ -148,14 +202,6 @@ public class ItemMB implements Serializable {
         this.unidadesDeMedida = unidadesDeMedida;
     }
 
-    public boolean isQuantidadeMinima() {
-        return quantidadeMinima;
-    }
-
-    public void setQuantidadeMinima(boolean quantidadeMinima) {
-        this.quantidadeMinima = quantidadeMinima;
-    }
-
     public int getCodFinal() {
         return codFinal;
     }
@@ -163,4 +209,7 @@ public class ItemMB implements Serializable {
     public void setCodFinal(int codFinal) {
         this.codFinal = codFinal;
     }
+
+    //--------------------------------------------------------------//
+
 }

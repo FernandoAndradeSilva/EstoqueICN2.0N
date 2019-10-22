@@ -45,7 +45,9 @@ public class UnidadeDeMedidaMB implements Serializable {
     @Transacional
     public void adicionar(Boolean redireciona) throws IOException {
 
-        UnidadeDeMedida un = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
+        UnidadeDeMedida un = new UnidadeDeMedida();
+        un = unidadeDeMedidaService.salvaRetorna(unidadeDeMedida);
+
         MessageUtil.addMessageTicket("Adicionado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
         this.unidadeDeMedida = new UnidadeDeMedida();
         this.carregaUnidadesDeMedida();
