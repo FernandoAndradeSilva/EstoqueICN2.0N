@@ -14,7 +14,7 @@ public class ClasseDao extends AbstractDao<Classe, Long> {
 
         List<Classe> lista = manager.createQuery
                 ("Select c from " + Classe.class.getName() + " c  where c.grupo = " + grupo.getId()).getResultList();
-        System.out.println(lista);
+
         return lista;
 
     }

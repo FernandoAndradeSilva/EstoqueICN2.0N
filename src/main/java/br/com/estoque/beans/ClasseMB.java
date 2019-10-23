@@ -74,20 +74,25 @@ public class ClasseMB implements Serializable {
         this.listarClasses(c.getGrupo());
         this.classe.setSigla("");
         this.classe.setNome("");
-
     }
 
-
+    @Transacional
+    public void editarRow(RowEditEvent event) {
+        Classe c = classeService.salvaRetorna((Classe) event.getObject());
+        MessageUtil.addMessageTicket("Salvo com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.listarClasses(c.getGrupo());
+    }
 
     public void listarClasses(Grupo grupo) {
         this.classes = classeService.listarPorGrupo(grupo);
     }
 
+    public void verificaGrupoPreenchido(Grupo grupo) {
+        if(grupo == null || grupo.getId() == 0) {
+            classe.setGrupo(new Grupo());
+            this.listarClasses(classe.getGrupo());
+        }
 
-
-
-    public void listarTodasClasses() {
-        this.classes = classeService.listarTodas();
     }
 
 

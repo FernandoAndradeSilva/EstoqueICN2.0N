@@ -92,8 +92,8 @@ public class Item extends AbstractEntity {
     }
 
 
-    public void configuraCodigo(int cod) {
-        this.codigo += Integer.toString(cod);
+    public void configuraCodigo(String cod) {
+        this.codigo += cod;
     }
 
 }

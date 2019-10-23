@@ -1,5 +1,7 @@
 package br.com.estoque.util;
 
+import br.com.estoque.model.Item;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.component.UIComponent;
@@ -16,7 +18,6 @@ public class Validadores {
 
     public void validaEmail(FacesContext context, UIComponent toValidate, Object value) {
 
-
             String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
             Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(value.toString());
@@ -26,9 +27,7 @@ public class Validadores {
                 msg.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(msg);
             }
-
-
-
     }
+
 
 }

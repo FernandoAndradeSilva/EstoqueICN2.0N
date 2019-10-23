@@ -12,9 +12,6 @@ public class GrupoUsuario implements Serializable {
     private GrupoUsuarioPK id = new GrupoUsuarioPK();
 
 
-
-
-
     public GrupoUsuarioPK getId() {
         return id;
     }

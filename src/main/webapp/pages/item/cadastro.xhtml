@@ -104,6 +104,7 @@
                         <div class="ui-sm-8 ui-md-8 ui-lg-5">
                             <p:selectOneMenu id="selectGrupos" value="#{itemMB.item.classe.grupo}"
                                              converter="omnifaces.SelectItemsConverter"
+
                                              filter="true" filterMatchMode="startsWith">
                                 <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
                                 <f:selectItems value="#{grupoMB.grupos}"/>
@@ -138,6 +139,7 @@
                         <div class="ui-sm-4 ui-md-4 ui-lg-1">
                             <p:commandButton styleClass="btn btn-primary btn-sm" icon="fa fa-plus" process="@this"
                                              oncomplete="PF('dlgCadastroClasse').show();"
+                                             action="#{classeMB.verificaGrupoPreenchido(itemMB.item.classe.grupo)}"
                                              update="formClasse:toggleClasse, DialogCadastroClasse"/>
                         </div>
 
@@ -176,9 +178,13 @@
                         </div>
 
                         <div class="ui-sm-4 ui-md-4 ui-lg-2">
-                            <p:spinner id="cod" size="3" maxlength="3" value="#{itemMB.codFinal}"
-                                       required="true" requiredMessage="Preencha o campo 'Código'"
-                                       disabled="#{(itemMB.item.classe.id == 0 and itemMB.item.classe.grupo.id == 0)}"/>
+
+                            <p:inputText id="cod" size="3" maxlength="3" value="#{itemMB.codFinal}"
+                                         required="true" requiredMessage="Preencha o campo 'Código'"
+                                         disabled="#{(itemMB.item.classe.id == 0 and itemMB.item.classe.grupo.id == 0)}">
+                                <p:keyFilter regEx="/[0-9_]/i"/>
+                            </p:inputText>
+
                         </div>
 
                         <div class="ui-sm-12 ui-md-6 ui-lg-6">
@@ -352,6 +358,8 @@
         <p:dialog header="CLASSES" widgetVar="dlgCadastroClasse" modal="true"
                   id="DialogCadastroClasse" width="50%" resizable="true" responsive="true">
 
+
+
             <h:form id="formClasse">
 
                 <p:panel id="toggleClasse" toggleable="true" closable="false"
@@ -426,15 +434,20 @@
 
                     </f:facet>
 
-                    <p:ajax event="rowEdit" update="classes , growl"
-                            listener="#{classeMB.editarRow}"/>
+                    <p:ajax event="rowEdit"  listener="#{classeMB.editarRow}"
+                            update="classes , growl, #{itemMB.item.classe.grupo.id > 0 ? 'selectClasses' : ''}" />
 
                     <p:column style="text-align: center ; width: 12%">
+
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
-                                         update="selectGrupos , selectClasses , form"
+                                         update="selectGrupos, selectClasses , codigo , cod"
+                                         action="#{itemMB.configuraPreCodigo()}"
                                          process="@this" title="Selecionar Classe"
                                          oncomplete="PF('dlgCadastroClasse').hide();">
+                            <f:setPropertyActionListener value="#{classe}"
+                                                         target="#{itemMB.item.classe}"/>
                         </p:commandButton>
+
                     </p:column>
 
                     <p:column headerText="Sigla" style="text-align: center ; width: 10%">
