@@ -1,42 +1,53 @@
 package br.com.estoque.service;
-
 import br.com.estoque.dao.GrupoDao;
 import br.com.estoque.model.Grupo;
-
-
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
-public class GrupoService implements Serializable {
+public class GrupoService implements Serializable , AbstractService<Grupo , Long> {
+
 
     @Inject
     private GrupoDao grupoDao;
 
-    public void salvar(Grupo grupo) {
-
-        if(grupo.getId() >0) {
-            grupoDao.update(grupo);
+    @Override
+    public void salvar(Grupo entidade) {
+        if(entidade.getId() >0) {
+            grupoDao.update(entidade);
         } else
-        grupoDao.save(grupo);
+            grupoDao.save(entidade);
     }
 
-    public Grupo salvaRetorna(Grupo grupo) {
-        return  grupoDao.saveReturn(grupo);
+    @Override
+    public Grupo salvaRetorna(Grupo entidade) {
+        return grupoDao.saveReturn(entidade);
     }
 
-    public List<Grupo> listarTodos() {
-        return grupoDao.listar(Grupo.class);
+    @Override
+    public void editar(Grupo entidade) {
+
     }
 
-    public void excluir(Grupo grupo) {
-        grupoDao.delete(grupo,  grupo.getId());
+    @Override
+    public void excluir(Grupo entidade) {
+        grupoDao.delete(entidade,  entidade.getId());
     }
 
-    public Grupo buscaPorId(Long id) {
+    @Override
+    public Grupo buscar(Grupo entidade) {
+        return grupoDao.findById(entidade.getId());
+    }
+
+    @Override
+    public Grupo buscarPorId(Long id) {
         return grupoDao.findById(id);
     }
 
+    @Override
+    public List<Grupo> listar() {
+        return grupoDao.listar(Grupo.class);
+    }
 
 
 }

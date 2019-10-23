@@ -90,7 +90,8 @@ public class ClasseMB implements Serializable {
     public void verificaGrupoPreenchido(Grupo grupo) {
         if(grupo == null || grupo.getId() == 0) {
             classe.setGrupo(new Grupo());
-            this.listarClasses(classe.getGrupo());
+        } else {
+            classe.setGrupo(grupo);
         }
 
     }

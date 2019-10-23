@@ -156,7 +156,6 @@
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Unidade De Medida" noSelectionOption="true"/>
                                 <f:selectItems value="#{unidadeDeMedidaMB.unidadesDeMedida}"/>
-
                                 <p:ajax  event="change" process="@this"/>
                             </p:selectOneMenu>
                         </div>
@@ -288,10 +287,12 @@
                     <p:column style="text-align: center ; width: 7%">
                         <p:commandButton icon="fa fa-check" styleClass="btn btn-xs btn-success"
                                          title="Selecionar Grupo"
+                                         action="#{classeMB.listarClasses(itemMB.item.classe.grupo)}"
                                          update="selectGrupos , selectClasses" process="@this"
                                          oncomplete="PF('dlgCadastroGrupo').hide();">
                             <f:setPropertyActionListener value="#{grupo}"
                                                          target="#{itemMB.item.classe.grupo}"/>
+
                         </p:commandButton>
                     </p:column>
 
@@ -395,7 +396,7 @@
                                      value="#{classeMB.classe.nome}" styleClass="form-control"/>
 
                         <p:commandButton action="#{classeMB.salva()}" style="float: left"
-                                         process="@this , @form" styleClass="btn btn-primary" icon="fa fa-plus"
+                                         process="@this , @form" styleClass="btn btn-primary btn-sm" icon="fa fa-plus"
                                          update="growl , classes , formClasse,
                                          #{itemMB.item.classe.grupo.id > 0 ? 'selectClasses' : ''}"/>
 
@@ -540,7 +541,7 @@
                                          value="#{unidadeDeMedidaMB.unidadeDeMedida.nome}"/>
 
                             <p:commandButton action="#{unidadeDeMedidaMB.salvar()}" icon="fa fa-plus"
-                                             styleClass="btn btn-primary" style="float: left"
+                                             styleClass="btn btn-primary btn-sm" style="float: left"
                                              process="@this , @form"
                                              update="growl , unidadesDeMedida, selectUnDeMedida, @form"/>
                         </p:panelGrid>

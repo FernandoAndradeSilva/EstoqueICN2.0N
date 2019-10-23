@@ -6,6 +6,14 @@ $("#formGrupo\\:grupos\\:filterCadastroItemGrupo").on("keyup", function () {
 });
 
 
+$("#filterGrupo").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#grupos tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+
+
 // $("#estMin").change(function () {
 //
 //     debugger;

@@ -27,7 +27,7 @@ public class LogonMB implements Serializable {
 
 
     public String logar() {
-       usuarioLogado = usuarioService.buscar(1l);
+       usuarioLogado = usuarioService.buscarPorId(1l);
 
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -58,6 +58,10 @@ public class LogonMB implements Serializable {
 
 
 
+    }
+
+    public static Usuario usuarioDaSessao() {
+        return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
     }
 
 

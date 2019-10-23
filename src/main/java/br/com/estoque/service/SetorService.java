@@ -7,31 +7,47 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
-public class SetorService implements Serializable {
+public class SetorService implements Serializable, AbstractService<Setor , Long> {
 
     @Inject
     private SetorDao setorDao;
 
-    public void salvar(Setor setor) {
 
-        if(setor.getId() >0) {
-            setorDao.update(setor);
+    @Override
+    public void salvar(Setor entidade) {
+        if(entidade.getId() >0) {
+            setorDao.update(entidade);
         } else
-        setorDao.save(setor);
+            setorDao.save(entidade);
     }
 
-    public List<Setor> listarTodos() {
-        return setorDao.listar(Setor.class);
+    @Override
+    public Setor salvaRetorna(Setor entidade) {
+        return null;
     }
 
-    public void excluir(Setor setor) {
-        setorDao.delete(setor,  setor.getId());
+    @Override
+    public void editar(Setor entidade) {
+
     }
 
-    public Setor busca(Long id) {
+    @Override
+    public void excluir(Setor entidade) {
+        setorDao.delete(entidade,  entidade.getId());
+    }
+
+    @Override
+    public Setor buscar(Setor entidade) {
+        return setorDao.findById(entidade.getId());
+    }
+
+    @Override
+    public Setor buscarPorId(Long id) {
         return setorDao.findById(id);
     }
 
-
-
+    @Override
+    public List<Setor> listar() {
+        return setorDao.listar(Setor.class);
+    }
 }

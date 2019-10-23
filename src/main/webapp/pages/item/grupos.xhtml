@@ -17,7 +17,7 @@
 
         </style>
 
-        <f:event type="preRenderComponent" listener="#{grupoMB1.carregaGrupos()}"/>
+        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
 
     </ui:define>
 
@@ -57,35 +57,19 @@
                                          process="@this"
                                          icon="fa fa-reply"/>
 
-
                         <div style="float: right">
+                            <p:inputText style="width:150px"
+                                         placeholder="Buscar Grupo" styleClass="btn-group" id="filterGrupo"/>
+                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"/>
+                            <p:commandButton icon="fa fa-refresh" type="button" title="Recarregar"/>
 
-
-
-                            <p:inputText value="#{grupoMB1.campoBuscaGrupo}" style="width:150px"
-                                         placeholder="Buscar Grupo" styleClass="btn-group" id="campoBuscaGrupo"/>
-
-                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"
-                                             update="grupos"/>
-
-                            <p:commandButton icon="fa fa-refresh" title="Recarregar" action="#{grupoMB1.carregaGrupos()}"
-                                             update="grupos , campoBuscaGrupo"/>
-
-                            <p:slideMenu overlay="true" trigger="buttonPesquisarGrupo" my="left top"
-                                         at="left bottom" style="width:100px ; height: 70px">
-                                <p:menuitem value="Por Sigla" update="grupos , growl"
-                                            action="#{grupoMB1.buscaManualGrupo(1)}"/>
-                                <p:menuitem value="Por Nome" update="grupos , growl"
-                                            action="#{grupoMB1.buscaManualGrupo(2)}"/>
-                            </p:slideMenu>
                         </div>
                     </div>
 
 
                     <p:separator/>
 
-
-                    <p:dataTable var="grupo" value="#{grupoMB1.grupos}" id="grupos"
+                    <p:dataTable var="grupo" value="#{grupoMB.grupos}" id="grupos"
                                  rowExpandMode="single" widgetVar="grupos"
                                  editable="true" paginator="true"
                                  paginatorPosition="bottom"
@@ -95,11 +79,9 @@
                                  rowsPerPageTemplate="5,10,15,20,30">
 
 
-                        <p:ajax event="rowEdit" listener="#{grupoMB1.editarGrupo}" update="growl"/>
-
-                        <p:ajax event="rowToggle" listener="#{grupoMB1.selecionaGrupo(grupo)}"
+                        <p:ajax event="rowEdit" listener="#{grupoMB.editarRow}" update="growl"/>
+                        <p:ajax event="rowToggle" listener="#{grupoMB.selecionaGrupoToggle(grupo)}"
                                 update="grupos:classes"/>
-
 
                         <p:column style="width:35px">
                             <p:rowToggler />
@@ -109,8 +91,7 @@
                         <p:column headerText="Sigla" styleClass="ui-sm-1 ui-md-1 ui-lg-1" style="text-align: center">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.sigla}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.sigla}"
-                                                                   style="width:100%"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{grupo.sigla}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
@@ -118,16 +99,14 @@
                         <p:column headerText="Nome" styleClass="ui-sm-3 ui-md-3 ui-lg-3" style="text-align: center">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.nome}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.nome}"
-                                                                   style="width:100%"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{grupo.nome}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="Descrição">
                             <p:cellEditor>
                                 <f:facet name="output"><p:outputLabel value="#{grupo.descricao}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{grupo.descricao}"
-                                                                   style="width:100%"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{grupo.descricao}" style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>
 
@@ -138,10 +117,10 @@
 
                         <p:column style="width:60px; text-align: center" headerText="Excluir" >
                             <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
-                                             title="Excluir" update="grupos , growl"
-                                             action="#{grupoMB1.excluirGrupo()}">
+                                             title="Excluir" update="grupos , growl" immediate="true"
+                                             action="#{grupoMB.excluir()}" process="@this">
                                 <f:setPropertyActionListener value="#{grupo}"
-                                                             target="#{grupoMB1.novoGrupo}"/>
+                                                             target="#{grupoMB.grupo}"/>
                                 <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
                                            icon="fa fa-exclamation-triangle"/>
 
@@ -161,12 +140,42 @@
 
                         <p:rowExpansion>
 
-
-                            <div class="ui-sm-6 ui-md-6 ui-lg-6"
-                                 style="float: left ; max-height: 260px ; overflow: auto">
+                            <div class="ui-sm-5 ui-md-5 ui-lg-5" style="float: left">
 
 
-                                <p:dataTable id="classes" var="classe" value="#{grupoMB1.grupo.classes}"
+                                <p:panelGrid columns="3" id="gridCadastroClasse">
+
+                                    <f:facet name="header">
+                                        ADICIONAR CLASSE
+
+                                    </f:facet>
+
+
+                                    <p:outputLabel value="Sigla"/>
+                                    <p:outputLabel value="Nome"/>
+                                    <p:outputLabel value=""/>
+
+                                    <p:inputText maxlength="2" size="2" styleClass="form-control"
+                                                 value="#{grupoMB.classe.sigla}" id="campoSigla"/>
+
+
+                                    <p:inputText  styleClass="form-control"
+                                                  value="#{grupoMB.classe.nome}" id="campoNome" />
+
+                                    <p:commandButton icon="fa fa-plus"  value="Adicionar"
+                                                     styleClass="ui-priority-success btn-primary form-control"
+                                                     action="#{grupoMB.salvaClasseGrupo()}"
+                                                     update="classes,  growl , gridCadastroClasse">
+                                    </p:commandButton>
+
+                                </p:panelGrid>
+
+
+                            </div>
+
+                            <div class="ui-sm-6 ui-md-6 ui-lg-6" style="float: right ; max-height: 260px ; overflow: auto">
+
+                                <p:dataTable id="classes" var="classe" value="#{grupoMB.grupo.classes}"
                                              editable="true" widgetVar="classes"
                                              style="margin-bottom:20px">
                                     <f:facet name="header">
@@ -176,52 +185,34 @@
                                             <p:outputLabel value="CLASSES" style="float: left ; margin-top: 8px" />
 
 
-                                                    <p:inputText value="#{grupoMB1.campoBuscaClasse}" styleClass="btn-group"
+                                                    <p:inputText styleClass="btn-group"
                                                                  placeholder="Buscar Classe" title="Buscar Classe"/>
-
 
                                                     <p:commandButton icon="fa fa-search" id="buttonPesquisaClasse"
                                                                      type="button" title="Buscar" style="background-color: white"
                                                                      update="classes"/>
 
-                                                    <p:commandButton icon="fa fa-refresh" action="#{grupoMB1.recarregarBusca()}"
-                                                                     update="classes" title="Recarregar" style="background-color: white"/>
-
-
-                                                    <p:slideMenu overlay="true" trigger="buttonPesquisaClasse"
-                                                                 my="left top"
-                                                                 at="left bottom" style="width:100px ; height: 70px">
-                                                        <p:menuitem value="Por Sigla"
-                                                                    action="#{grupoMB1.buscaManualClasse(1)}"
-                                                                    update="classes , growl"/>
-                                                        <p:menuitem value="Por Nome"
-                                                                    action="#{grupoMB1.buscaManualClasse(2)}"
-                                                                    update="classes , growl"/>
-                                                    </p:slideMenu>
-
+                                                    <p:commandButton icon="fa fa-refresh" style="background-color: white"
+                                                                     update="classes" title="Recarregar" />
 
                                         </div>
                                     </f:facet>
 
 
-                                    <p:ajax event="rowEdit" update="classes , growl"
-                                            listener="#{grupoMB1.editarClasse}"/>
-
+                                    <p:ajax event="rowEdit" update="classes , growl" listener="#{classeMB.editarRow}"/>
 
                                     <p:column headerText="Sigla" style="text-align: center"
                                               styleClass="ui-sm-2 ui-md-2 ui-lg-2">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:outputLabel value="#{classe.sigla}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{classe.sigla}"
-                                                                               style="width:100%"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{classe.sigla}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
                                     <p:column headerText="Nome" style="text-align: center">
                                         <p:cellEditor>
                                             <f:facet name="output"><p:outputLabel value="#{classe.nome}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{classe.nome}"
-                                                                               style="width:100%"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{classe.nome}" style="width:100%"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
@@ -233,10 +224,9 @@
 
                                     <p:column style="width:60px; text-align: center" headerText="Excluir">
                                         <p:commandButton icon="fa fa-trash" styleClass="btn-danger btn-xs"
-                                                         title="Excluir" update="classes "
-                                                         action="#{grupoMB1.atualizaExclusao()}">
-                                            <f:setPropertyActionListener value="#{classe}"
-                                                                         target="#{grupoMB1.classe}"/>
+                                                         title="Excluir" update="classes , growl" process="@this"
+                                                        immediate="true" action="#{grupoMB.excluirClasseGrupo()}">
+                                            <f:setPropertyActionListener value="#{classe}" target="#{grupoMB.classe}"/>
                                             <p:confirm header="ATENÇÃO" message="Confirma exclusão?"
                                                        icon="fa fa-exclamation-triangle"/>
                                         </p:commandButton>
@@ -244,8 +234,6 @@
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                             <p:commandButton value="SIM" styleClass="ui-confirmdialog-yes btn-success"
                                                              icon="fa fa-check">
-                                                <p:ajax event="click" listener="#{grupoMB1.excluirClasse(classe)}"
-                                                        update="classes, growl"/>
                                             </p:commandButton>
                                             <p:commandButton value="NÃO" type="button"
                                                              styleClass="ui-confirmdialog-no btn-danger"
@@ -258,41 +246,7 @@
 
                             </div>
 
-
-                            <div class="ui-sm-5 ui-md-5 ui-lg-5" style="float: left">
-
-
-                                <p:panelGrid columns="3">
-
-                                    <f:facet name="header">
-                                        ADICIONAR CLASSE
-
-                                    </f:facet>
-
-                                    <p:inputText placeholder="Sigla"
-                                                 maxlength="2" styleClass="form-control"
-                                                 value="#{grupoMB1.classe.sigla}" id="campoSigla"/>
-
-                                    <p:inputText placeholder="Nome" styleClass="form-control"
-                                                 value="#{grupoMB1.classe.nome}" id="campoNome"
-                                    />
-
-
-                                    <p:commandButton icon="fa fa-save" style="width: 100%" value="Salvar"
-                                                     styleClass="ui-priority-primary btn-success form-control"
-                                                     action="#{grupoMB1.adicionaNovaClasse()}"
-                                                     update="classes , grupos:0:campoNome , grupos:0:campoSigla , growl">
-                                        <p:resetInput target="grupos:0:campoNome"/>
-                                        <p:resetInput target="grupos:0:campoSigla"/>
-                                    </p:commandButton>
-
-                                </p:panelGrid>
-
-
-                            </div>
-
                         </p:rowExpansion>
-
 
                     </p:dataTable>
 
@@ -300,7 +254,7 @@
                 </div>
             </div>
 
-
+            <h:outputScript library="js" name="scriptGrupo.js"/>
         </h:form>
 
         <p:dialog header="CADASTRO" widgetVar="dlgCadastroClasse" modal="true" id="DialogCadastroClasse">
@@ -358,24 +312,24 @@
                     </f:facet>
 
                     <p:outputLabel value="Sigla: "/>
-                    <p:inputText maxlength="2" value="#{grupoMB1.novoGrupo.sigla}"
+                    <p:inputText maxlength="2" value="#{grupoMB.grupo.sigla}"
                                  required="true" requiredMessage="Preencha o campo 'Sigla'"
                                  styleClass="form-control" />
                     <p:outputLabel value="Nome: "/>
-                    <p:inputText value="#{grupoMB1.novoGrupo.nome}"
+                    <p:inputText value="#{grupoMB.grupo.nome}"
                                  required="true" requiredMessage="Preencha o campo 'Nome'"/>
 
                     <p:outputLabel value="Descricao: "/>
                     <p:inputTextarea styleClass="form-control"
-                                     value="#{grupoMB1.novoGrupo.descricao}"
+                                     value="#{grupoMB.grupo.descricao}"
                                      required="true" requiredMessage="Preencha o campo 'Descrição'"/>
 
 
                     <f:facet name="footer">
                         <div align="center">
                             <p:commandButton value="SALVAR" style="width: 50%"
-                                             action="#{grupoMB1.salvarGrupo()}" styleClass="btn-success"
-                                             update="@form , formGrupos , formCadastroClasse , growl"/>
+                                             action="#{grupoMB.salva()}" styleClass="btn-success"
+                                             update="@form , grupos, growl"/>
                         </div>
                     </f:facet>
 

@@ -3,8 +3,8 @@ package br.com.estoque.beans;
 
 import br.com.estoque.model.Classe;
 import br.com.estoque.model.Grupo;
-import br.com.estoque.service.GrupoService;
 import br.com.estoque.service.ClasseService;
+import br.com.estoque.service.GrupoService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
 import org.primefaces.event.RowEditEvent;
@@ -22,8 +22,10 @@ public class GrupoMB1 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
     @Inject
     private GrupoService grupoService;
+
     @Inject
     private ClasseService classeService;
 
@@ -82,20 +84,20 @@ public class GrupoMB1 implements Serializable {
         MessageUtil.addMessageTicket("Excluído com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
-    @Transacional
-    public void adicionaNovaClasse() {
-        classe.setGrupo(this.grupo);
-        classeService.salvar(classe);
-        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
-        this.getGrupo().setClasses(cat.getClasses());
-        this.classe = new Classe();
-        MessageUtil.addMessageTicket("Cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);    }
+//    @Transacional
+//    public void adicionaNovaClasse() {
+//        classe.setGrupo(this.grupo);
+//        classeService.salvar(classe);
+//        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
+//        this.getGrupo().setClasses(cat.getClasses());
+//        this.classe = new Classe();
+//        MessageUtil.addMessageTicket("Cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);    }
 
     /////////FIM MÉTODOS TRANSCIONAIS //////////
 
     ////////////////// OUTROS /////////////////
     public void carregaGrupos() {
-        grupos = grupoService.listarTodos();
+        grupos = grupoService.listar();
         this.campoBuscaGrupo = "";
     }
 
@@ -106,20 +108,20 @@ public class GrupoMB1 implements Serializable {
             this.carregaGrupos();
         }
     }
-
-    public void atualizaExclusao() {
-        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
-        this.getGrupo().setClasses(cat.getClasses());
-        this.classe = new Classe();
-    }
-
-    public void recarregarBusca() {
-        classe.setGrupo(this.grupo);
-        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
-        this.getGrupo().setClasses(cat.getClasses());
-        this.classe = new Classe();
-        this.campoBuscaClasse = "";
-    }
+//
+//    public void atualizaExclusao() {
+//        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
+//        this.getGrupo().setClasses(cat.getClasses());
+//        this.classe = new Classe();
+//    }
+//
+//    public void recarregarBusca() {
+//        classe.setGrupo(this.grupo);
+//        Grupo cat = grupoService.buscaPorId(this.getGrupo().getId());
+//        this.getGrupo().setClasses(cat.getClasses());
+//        this.classe = new Classe();
+//        this.campoBuscaClasse = "";
+//    }
 
 
 

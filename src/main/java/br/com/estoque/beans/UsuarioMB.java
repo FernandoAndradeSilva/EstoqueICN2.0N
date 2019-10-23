@@ -5,21 +5,17 @@ import br.com.estoque.enums.TipoUsuario;
 import br.com.estoque.model.Grupo;
 import br.com.estoque.model.GrupoUsuario;
 import br.com.estoque.model.Usuario;
-import br.com.estoque.service.GrupoService;
 import br.com.estoque.service.GrupoUsuarioService;
 import br.com.estoque.service.SetorService;
 import br.com.estoque.service.UsuarioService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 
-import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.awt.event.ItemEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -38,9 +34,6 @@ public class UsuarioMB implements Serializable {
     @Inject
     private GrupoUsuarioService grupoUsuarioService;
 
-    @Inject
-    private SetorService setorService;
-
     private String campoBuscaUsuario;
 
     private Usuario usuarioSelecionado = new Usuario();
@@ -55,7 +48,7 @@ public class UsuarioMB implements Serializable {
     public void buscaManualUsuario(int tipoCampoPesquisa) {
 
 
-        this.usuarios = usuarioService.listarTodos();
+        this.usuarios = usuarioService.listar();
         List<Usuario> listResult = new ArrayList<>();
 
         System.out.println(campoBuscaUsuario);
@@ -136,7 +129,7 @@ public class UsuarioMB implements Serializable {
 
 
     public void carregaUsuarios() {
-        this.usuarios = usuarioService.listarTodos();
+        this.usuarios = usuarioService.listar();
         this.campoBuscaUsuario = "";
     }
 

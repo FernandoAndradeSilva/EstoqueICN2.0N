@@ -8,28 +8,47 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
-public class ItemService implements Serializable {
+public class ItemService implements Serializable, AbstractService<Item, Long>{
 
     @Inject
     private ItemDao itemDao;
 
-    public void salvar(Item item) {
 
-        if(item.getId() >0) {
-            itemDao.update(item);
+    @Override
+    public void salvar(Item entidade) {
+        if(entidade.getId() >0) {
+            itemDao.update(entidade);
         } else
-            itemDao.save(item);
+            itemDao.save(entidade);
     }
 
-    public List<Item> listarTodas() {
-        return itemDao.listar(Item.class);
+    @Override
+    public Item salvaRetorna(Item entidade) {
+        return itemDao.saveReturn(entidade);
     }
 
-    public void excluir(Item item) {
-        itemDao.delete(item ,  item.getId());
+    @Override
+    public void editar(Item entidade) {
+
     }
 
-    public Item salvaRetorna(Item item) {
-        return itemDao.saveReturn(item);
+    @Override
+    public void excluir(Item entidade) {
+        itemDao.delete(entidade,  entidade.getId());
+    }
+
+    @Override
+    public Item buscar(Item entidade) {
+        return itemDao.findById(entidade.getId());
+    }
+
+    @Override
+    public Item buscarPorId(Long id) {
+        return itemDao.findById(id);
+    }
+
+    @Override
+    public List<Item> listar() {
+        return null;
     }
 }

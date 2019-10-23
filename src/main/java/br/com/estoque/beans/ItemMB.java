@@ -1,6 +1,7 @@
 package br.com.estoque.beans;
 
 import br.com.estoque.model.*;
+import br.com.estoque.security.LogonMB;
 import br.com.estoque.service.*;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
@@ -53,7 +54,7 @@ public class ItemMB implements Serializable {
     public void salvaItem() {
         item.configuraCodigo(this.codFinal);
         itemService.salvar(this.item);
-        estoqueService.salvar(new Estoque(this.item , this.usuarioDaSessao().getSetor().getUnidade()));
+        estoqueService.salvar(new Estoque(this.item , LogonMB.usuarioDaSessao().getSetor().getUnidade()));
         item = new Item();
         quantidadeMinima = false;
         codFinal = "";
@@ -67,9 +68,7 @@ public class ItemMB implements Serializable {
         this.item.setCodigo(item.getClasse().getGrupo().getSigla() + item.getClasse().getSigla());
     }
 
-    public Usuario usuarioDaSessao() {
-        return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-    }
+
 
     //--------------------------------------------------------------//
 

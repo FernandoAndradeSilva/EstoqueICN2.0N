@@ -1,7 +1,9 @@
 package br.com.estoque.beans;
 
 
+import br.com.estoque.model.Classe;
 import br.com.estoque.model.Grupo;
+import br.com.estoque.service.ClasseService;
 import br.com.estoque.service.GrupoService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;
@@ -26,6 +28,9 @@ public class GrupoMB implements Serializable {
     @Inject
     private GrupoService grupoService;
 
+    @Inject
+    private ClasseService classeService;
+
     //--------------------------------------------------------------//
 
 
@@ -33,6 +38,8 @@ public class GrupoMB implements Serializable {
     //--------------------------MODELS-----------------------------//
 
     private Grupo grupo = new Grupo();
+    private Classe classe = new Classe();
+
     private List<Grupo> grupos = new ArrayList<>();
 
     //--------------------------------------------------------------//
@@ -73,10 +80,52 @@ public class GrupoMB implements Serializable {
         this.carregaGrupos();
     }
 
-    public void carregaGrupos() {
-        this.grupos = grupoService.listarTodos();
+    @Transacional
+    public void excluirClasseGrupo() {
+        Classe c = this.classe;
+        classeService.excluir(classe);
+        MessageUtil.addMessageTicket("Removido com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.selecionaGrupoToggle(c.getGrupo());
+        this.classe = new Classe();
     }
 
+    @Transacional
+    public void salvaClasseGrupo() {
+        classe.setGrupo(grupo);
+        Classe c = classeService.salvaRetorna(classe);
+        MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+        this.selecionaGrupoToggle(c.getGrupo());
+        this.classe = new Classe();
+
+    }
+
+
+    public void carregaGrupos() {
+        this.grupos = grupoService.listar();
+    }
+
+
+    public void selecionaGrupoToggle(Grupo grupo) {
+        this.setGrupo(grupo);
+        grupo.setClasses(classeService.listarPorGrupo(grupo));
+    }
+
+
+
+    //--------------------------------------------------------------//
+
+
+
+    //---------------------GETTERS E SETTERS------------------------//
+
+
+    public Classe getClasse() {
+        return classe;
+    }
+
+    public void setClasse(Classe classe) {
+        this.classe = classe;
+    }
 
     public Grupo getGrupo() {
         return grupo;

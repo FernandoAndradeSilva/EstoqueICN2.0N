@@ -75,7 +75,7 @@ public class UnidadeDeMedidaMB implements Serializable {
     }
 
     public void carregaUnidadesDeMedida() {
-        this.unidadesDeMedida = unidadeDeMedidaService.listarTodos();
+        this.unidadesDeMedida = unidadeDeMedidaService.listar();
     }
 
 

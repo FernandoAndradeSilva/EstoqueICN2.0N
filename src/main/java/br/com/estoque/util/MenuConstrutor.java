@@ -15,7 +15,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -60,7 +59,7 @@ public class MenuConstrutor implements Serializable {
 
     public void construirMenuItens() {
         menuItens = new DefaultMenuModel();
-        List<Grupo> grupos = grupoService.listarTodos();
+        List<Grupo> grupos = grupoService.listar();
 
         for(Grupo grupo : grupos) {
             DefaultSubMenu submenu = new DefaultSubMenu(grupo.getNome());
@@ -83,7 +82,7 @@ public class MenuConstrutor implements Serializable {
     public void construirMenuUnidades() {
 
         menuUnidades = new DefaultMenuModel();
-        List<Unidade> unidades = unidadeService.listarTodos();
+        List<Unidade> unidades = unidadeService.listar();
 
         for(Unidade unidade : unidades) {
             DefaultMenuItem item = new DefaultMenuItem("UNIDADE "+unidade.getNome());
