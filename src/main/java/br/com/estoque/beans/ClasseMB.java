@@ -59,6 +59,7 @@ public class ClasseMB implements Serializable {
 
     @Transacional
     public void salva() {
+        System.out.println(this.classe);
         Classe c = classeService.salvaRetorna(classe);
         MessageUtil.addMessageTicket("Adicionado com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
         this.listarClasses(c.getGrupo());

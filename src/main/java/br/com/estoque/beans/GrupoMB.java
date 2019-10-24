@@ -110,7 +110,9 @@ public class GrupoMB implements Serializable {
         grupo.setClasses(classeService.listarPorGrupo(grupo));
     }
 
-
+    public void resetaGrupo() {
+        this.setGrupo(new Grupo());
+    }
 
     //--------------------------------------------------------------//
 

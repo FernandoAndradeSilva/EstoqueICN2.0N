@@ -59,9 +59,8 @@
 
                         <div style="float: right">
                             <p:inputText style="width:150px"
-                                         placeholder="Buscar Grupo" styleClass="btn-group" id="filterGrupo"/>
+                                         placeholder="Buscar" styleClass="btn-group" id="filterGrupo"/>
                             <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"/>
-                            <p:commandButton icon="fa fa-refresh" type="button" title="Recarregar"/>
 
                         </div>
                     </div>
@@ -158,7 +157,6 @@
                                     <p:inputText maxlength="2" size="2" styleClass="form-control"
                                                  value="#{grupoMB.classe.sigla}" id="campoSigla"/>
 
-
                                     <p:inputText  styleClass="form-control"
                                                   value="#{grupoMB.classe.nome}" id="campoNome" />
 
@@ -167,7 +165,6 @@
                                                      action="#{grupoMB.salvaClasseGrupo()}"
                                                      update="classes,  growl , gridCadastroClasse">
                                     </p:commandButton>
-
                                 </p:panelGrid>
 
 
@@ -179,22 +176,8 @@
                                              editable="true" widgetVar="classes"
                                              style="margin-bottom:20px">
                                     <f:facet name="header">
-                                        <div class="ui-grid-row" style="display: inline list-item">
-
-
-                                            <p:outputLabel value="CLASSES" style="float: left ; margin-top: 8px" />
-
-
-                                                    <p:inputText styleClass="btn-group"
-                                                                 placeholder="Buscar Classe" title="Buscar Classe"/>
-
-                                                    <p:commandButton icon="fa fa-search" id="buttonPesquisaClasse"
-                                                                     type="button" title="Buscar" style="background-color: white"
-                                                                     update="classes"/>
-
-                                                    <p:commandButton icon="fa fa-refresh" style="background-color: white"
-                                                                     update="classes" title="Recarregar" />
-
+                                        <div align="center">
+                                            <p:outputLabel value="CLASSES DO GRUPO #{grupoMB.grupo.nome}"/>
                                         </div>
                                     </f:facet>
 
@@ -259,7 +242,8 @@
 
         <p:dialog header="CADASTRO" widgetVar="dlgCadastroClasse" modal="true" id="DialogCadastroClasse">
 
-            <p:ajax event="close" resetValues="true" update="formCadastroClasse"/>
+            <p:ajax event="close" resetValues="true" update="formCadastroClasse"
+                    listener="#{grupoMB.resetaGrupo()}"/>
 
             <h:form id="formCadastroClasse">
                 <p:panelGrid columns="2">
@@ -267,32 +251,32 @@
                         <p:outputLabel value="CLASSE"/>
                     </f:facet>
 
-
-
                     <p:outputLabel value="Grupo: "/>
                     <p:selectOneMenu required="true" requiredMessage="Preencha o campo 'Grupo'"
                                      appendTo="@this" id="GruposNovoClasse"
-                                     value="#{grupoMB1.classe.grupo}" height="100"
+                                     value="#{grupoMB.grupo}" height="100"
                                      converter="omnifaces.SelectItemsConverter">
                         <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-                        <f:selectItems value="#{grupoMB1.grupos}"/>
+                        <f:selectItems value="#{grupoMB.grupos}"/>
+                        <p:ajax event="change" process="@this"/>
+
                     </p:selectOneMenu>
 
 
                     <p:outputLabel value="Sigla: "/>
                     <p:inputText required="true" requiredMessage="Preencha o campo 'Sigla'"
                                  maxlength="2"  styleClass="form-control"
-                                 value="#{grupoMB1.classe.sigla}"/>
+                                 value="#{grupoMB.classe.sigla}"/>
                     <p:outputLabel value="Descricao: "/>
                     <p:inputText required="true" requiredMessage="Preencha o campo 'Descrição'"
-                                 value="#{grupoMB1.classe.nome}"/>
+                                 value="#{grupoMB.classe.nome}"/>
 
 
                     <f:facet name="footer">
                         <div align="center">
                             <p:commandButton value="SALVAR" style="width: 50%"
-                                             action="#{grupoMB1.salvarClasse()}" styleClass="btn-success"
-                                             update="@form , formGrupos , grupos , grupos:classes , growl"/>
+                                             action="#{grupoMB.salvaClasseGrupo()}" styleClass="btn-success"
+                                             update="grupos , grupos:classes , growl"/>
                         </div>
                     </f:facet>
 

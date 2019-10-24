@@ -6,29 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="785cec35-8e19-4578-8157-2dac03d2b521" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="86cf07e6-23a8-4f01-857a-25215aaa79f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UnidadeDeMedidaMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/ClasseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/GrupoService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/GrupoUsuarioService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/ItemService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/SetorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/SetorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeDeMedidaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeDeMedidaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/util/MenuConstrutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/util/MenuConstrutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/scriptClasse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/scriptClasse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/scriptGrupo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/scriptGrupo.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,32 +32,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3789">
-              <caret line="330" column="65" lean-forward="true" selection-start-line="330" selection-start-column="65" selection-end-line="330" selection-end-column="65" />
+            <state relative-caret-position="189">
+              <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="398" column="118" lean-forward="true" selection-start-line="398" selection-start-column="118" selection-end-line="398" selection-end-column="118" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="65" column="32" lean-forward="true" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
-              <folding>
-                <element signature="e#2317#2318#0" expanded="true" />
-                <element signature="e#2383#2384#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="388">
+              <caret line="278" column="59" selection-start-line="278" selection-start-column="53" selection-end-line="278" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -84,17 +52,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            <state relative-caret-position="189">
+              <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
               <folding>
-                <element signature="e#2009#2010#0" expanded="true" />
-                <element signature="e#2060#2061#0" expanded="true" />
-                <element signature="e#2652#2653#0" expanded="true" />
-                <element signature="e#2681#2682#0" expanded="true" />
-                <element signature="e#2725#2726#0" expanded="true" />
-                <element signature="e#2761#2762#0" expanded="true" />
-                <element signature="e#2233#2234#0" expanded="true" />
-                <element signature="e#2262#2263#0" expanded="true" />
+                <element signature="e#3092#3093#0" expanded="true" />
+                <element signature="e#3123#3124#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,6 +74,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>salvar</find>
+      <find>CLASSES</find>
+      <find>h:form</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,12 +105,12 @@
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/security/LogonMB.java" />
         <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/GrupoDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" />
-        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/scriptClasse.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/resources/js/scriptGrupo.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" />
       </list>
     </option>
   </component>
@@ -165,9 +129,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
+    <option name="x" value="1777" />
+    <option name="y" value="165" />
+    <option name="width" value="1616" />
     <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -178,7 +142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -227,24 +190,6 @@
               <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="estoque" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="estoque" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ProjetoEstoque-2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EstoqueICN2.0N" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -285,6 +230,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -330,7 +276,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 9.0.17" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.17" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 9.0.27" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.27" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="ProjetoEstoque-2.0:war exploded">
@@ -421,12 +367,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22096000" />
+    <option name="totallyTimeSpent" value="27622000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="1592" y="172" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23853868" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15938166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -436,7 +383,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4535666" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39973083" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -547,16 +494,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/GrupoUsuarioService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="23" column="9" lean-forward="true" selection-end-line="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/ClasseService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -604,17 +541,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/service/ItemService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="5" lean-forward="true" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="56" column="58" selection-start-line="56" selection-start-column="58" selection-end-line="56" selection-end-column="58" />
+        <state relative-caret-position="867">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+          <folding>
+            <element signature="e#2102#2103#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+            <element signature="e#2167#2168#0" expanded="true" />
+            <element signature="e#2199#2200#0" expanded="true" />
+            <element signature="e#2243#2244#0" expanded="true" />
+            <element signature="e#2282#2283#0" expanded="true" />
+            <element signature="e#2347#2348#0" expanded="true" />
+            <element signature="e#2403#2404#0" expanded="true" />
+            <element signature="e#2439#2440#0" expanded="true" />
+            <element signature="e#2467#2468#0" expanded="true" />
+            <element signature="e#2513#2514#0" expanded="true" />
+            <element signature="e#2547#2548#0" expanded="true" />
+            <element signature="e#2582#2583#0" expanded="true" />
+            <element signature="e#2613#2614#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -775,6 +721,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-99">
+          <caret line="398" column="118" lean-forward="true" selection-start-line="398" selection-start-column="118" selection-end-line="398" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/js/scriptGrupo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -782,45 +735,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-          <folding>
-            <element signature="e#2009#2010#0" expanded="true" />
-            <element signature="e#2060#2061#0" expanded="true" />
-            <element signature="e#2652#2653#0" expanded="true" />
-            <element signature="e#2681#2682#0" expanded="true" />
-            <element signature="e#2725#2726#0" expanded="true" />
-            <element signature="e#2761#2762#0" expanded="true" />
-            <element signature="e#2233#2234#0" expanded="true" />
-            <element signature="e#2262#2263#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="189">
+          <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ClasseMB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="65" column="32" lean-forward="true" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
+        <state relative-caret-position="189">
+          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
           <folding>
-            <element signature="e#2317#2318#0" expanded="true" />
-            <element signature="e#2383#2384#0" expanded="true" />
+            <element signature="e#3092#3093#0" expanded="true" />
+            <element signature="e#3123#3124#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3789">
-          <caret line="330" column="65" lean-forward="true" selection-start-line="330" selection-start-column="65" selection-end-line="330" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="398" column="118" lean-forward="true" selection-start-line="398" selection-start-column="118" selection-end-line="398" selection-end-column="118" />
+        <state relative-caret-position="388">
+          <caret line="278" column="59" selection-start-line="278" selection-start-column="53" selection-end-line="278" selection-end-column="59" />
         </state>
       </provider>
     </entry>
