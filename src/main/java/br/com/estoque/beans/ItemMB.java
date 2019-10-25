@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Named
@@ -35,10 +36,9 @@ public class ItemMB implements Serializable {
 
     //--------------------------MODELS-----------------------------//
     private Item item = new Item();
-    private List<Item> itens = new ArrayList<>();
+    private List<Estoque> itens = new ArrayList<>();
 
-    private List<Estoque> items = new ArrayList<>();
-
+    private List<Object> itensHash = new ArrayList<>();
     //--------------------------------------------------------------//
 
 
@@ -78,8 +78,40 @@ public class ItemMB implements Serializable {
 
     public void carregaItens() {
         Unidade unidade = unidadeService.buscar(LogonMB.usuarioDaSessao().getSetor().getUnidade());
-        items = unidade.getEstoques();
+        itens = unidade.getEstoques();
     }
+
+
+    public void movimentacao() {
+        HashMap<String , Object> map = new HashMap<>();
+        List<Object> itensVisualizacao = new ArrayList<>();
+
+
+        List<Item> itens = itemService.listar();
+
+        for(Item item : itens) {
+
+            map.put("id" , item.getId());
+            map.put("codigo" , item.getCodigo());
+            map.put("nome" , item.getDescricao());
+            map.put("quantidade" , 0);
+            map.put("cupomFiscal" , " ");
+            map.put("notaFiscal" , " ");
+            map.put("valor" , 0.0);
+
+            itensVisualizacao.add(map);
+            map = new HashMap<>();
+        }
+
+
+        System.out.println(itensVisualizacao);
+
+        this.itensHash = itensVisualizacao;
+
+
+    }
+
+
 
     //--------------------------------------------------------------//
 
@@ -102,12 +134,12 @@ public class ItemMB implements Serializable {
         this.quantidadeMinima = quantidadeMinima;
     }
 
-    public List<Item> getItens() {
-        return itens;
+    public List<Object> getItensHash() {
+        return itensHash;
     }
 
-    public void setItens(List<Item> itens) {
-        this.itens = itens;
+    public void setItensHash(List<Object> itensHash) {
+        this.itensHash = itensHash;
     }
 
     public String getCodFinal() {
@@ -118,12 +150,12 @@ public class ItemMB implements Serializable {
         this.codFinal = codFinal;
     }
 
-    public List<Estoque> getItems() {
-        return items;
+    public List<Estoque> getItens() {
+        return itens;
     }
 
-    public void setItems(List<Estoque> items) {
-        this.items = items;
+    public void setItens(List<Estoque> itens) {
+        this.itens = itens;
     }
 
     //--------------------------------------------------------------//

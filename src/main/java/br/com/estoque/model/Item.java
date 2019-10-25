@@ -29,6 +29,10 @@ public class Item extends AbstractEntity {
     @JoinColumn(name = "unidadeMedida" , nullable = false)
     private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
 
+    @ManyToOne
+    @JoinColumn(name = "marca" , nullable = false)
+    private Marca marca = new Marca();
+
     public void configuraCodigo(String cod) {
         this.codigo += cod;
     }
@@ -95,6 +99,14 @@ public class Item extends AbstractEntity {
 
     public void setEstoques(Set<Estoque> estoques) {
         this.estoques = estoques;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
     @Override

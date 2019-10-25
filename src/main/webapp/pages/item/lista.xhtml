@@ -58,7 +58,7 @@
 
 
 	                    <p:dataTable id="itens" widgetVar="itens" rows="10"
-	                                 paginator="true" value="#{itemMB.items}"
+	                                 paginator="true" value="#{itemMB.itens}"
 	                                 paginatorPosition="bottom"	 var="item"
 	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
 	                                 {PageLinks} {NextPageLink} {LastPageLink} "
@@ -109,6 +109,8 @@
 	            </div>
 
 
+
+				<p:commandButton value="Testando Batch" action="#{itemMB.movimentacao()}"/>
 
 
         	</h:form>

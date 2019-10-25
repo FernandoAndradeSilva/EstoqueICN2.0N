@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+
+        <f:event type="preRenderComponent" listener="#{itemMB.movimentacao()}"/>
+    </ui:define>
+
+    <ui:define name="title">
+        MOVIMENTACAO
+    </ui:define>
+
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Pesquisa Default"/>
+
+        <h:form id="formMovimentacao" prependId="false">
+
+            <p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
+
+
+            <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+                <div class="box-header with-border">
+
+                    <p:commandButton ajax="false" icon="fa fa-plus"
+                                     value="SALVAR" styleClass="btn-primary"/>
+
+                    <p:separator/>
+
+
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <p:selectBooleanCheckbox style="margin-top: 8px" itemLabel="AJUSTE DE ESTOQUE"/>
+                    </div>
+
+
+    <!--                <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <div class="ui-inputgroup">
+                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Fornecedor"/>
+                            </p:selectOneMenu>
+                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                             styleClass="btn btn-primary btn-sm"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <div class="ui-inputgroup">
+                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Motivo"/>
+                            </p:selectOneMenu>
+                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                             styleClass="btn btn-primary btn-sm"/>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <div class="ui-inputgroup">
+                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Aplicação"/>
+                            </p:selectOneMenu>
+                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                             styleClass="btn btn-primary btn-sm"/>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <div class="ui-inputgroup">
+                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Setor"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                        <div class="ui-inputgroup">
+                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
+                                             filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Centro de Custo"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>-->
+
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+                        <p:separator/>
+                    </div>
+
+
+
+                    <p:panelGrid columns="3">
+
+                        <p:outputLabel value="FILTRAR" style="margin-top: 8px"/>
+
+                        <p:selectOneMenu  converter="omnifaces.SelectItemsConverter"
+                                         filter="true" filterMatchMode="startsWith">
+                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                            <f:selectItems value="#{grupoMB.grupos}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu  converter="omnifaces.SelectItemsConverter"
+                                         filter="true" filterMatchMode="startsWith">
+                            <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
+                            <f:selectItems value="#{grupoMB.grupos}"/>
+                        </p:selectOneMenu>
+
+
+                    </p:panelGrid>
+
+
+                    <br/>
+                    <br/>
+
+                    <div class="ui-g-12 ui-md-12 ui-lg-12">
+
+
+
+
+
+                        <p:dataTable id="itensHash" widgetVar="itens" rows="10"
+                                     paginator="true" value="#{itemMB.itensHash}"
+                                     paginatorPosition="bottom" var="itemHash"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+	                                 {PageLinks} {NextPageLink} {LastPageLink} "
+                                     currentPageReportTemplate=""
+                                     rowsPerPageTemplate="5,10,15,20,30">
+
+
+                            <p:column headerText="Código">
+                                <p:outputLabel value="#{itemHash.codigo}"/>
+                            </p:column>
+
+                            <p:column headerText="Nome">
+                                <p:outputLabel value="#{itemHash.nome}"/>
+                            </p:column>
+
+                            <p:column headerText="Quantidade">
+                                <p:inputNumber value="#{itemHash.quantidade}"/>
+                            </p:column>
+
+                            <p:column headerText="Cupom Fiscal">
+                                <p:inputText value="#{itemHash.cupomFiscal}"/>
+                            </p:column>
+
+                            <p:column headerText="Nota Fiscal">
+                                <p:inputText value="#{itemHash.notaFiscal}"/>
+                            </p:column>
+
+                            <p:column headerText="Valor">
+                                <p:inputNumber value="#{itemHash.valor}"/>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

@@ -34,6 +34,7 @@ public class UnidadeDeMedidaService implements Serializable , AbstractService <U
 
     @Override
     public void excluir(UnidadeDeMedida entidade) {
+        unidadeDeMedidaDao.delete(entidade , entidade.getId());
 
     }
 
