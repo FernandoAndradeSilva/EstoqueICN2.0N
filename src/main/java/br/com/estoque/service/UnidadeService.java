@@ -38,12 +38,12 @@ public class UnidadeService implements Serializable , AbstractService <Unidade ,
 
     @Override
     public Unidade buscar(Unidade entidade) {
-        return null;
+        return unidadeDao.findById(entidade.getId());
     }
 
     @Override
     public Unidade buscarPorId(Long id) {
-        return null;
+        return unidadeDao.findById(id);
     }
 
     @Override

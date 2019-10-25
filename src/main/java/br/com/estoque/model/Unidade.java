@@ -16,7 +16,7 @@ public class Unidade extends AbstractEntity {
     @OneToMany( mappedBy = "unidade", fetch = FetchType.EAGER)
     private List<Setor> setores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.unidade", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.unidade")
     private List<Estoque> estoques = new ArrayList<>();
 
     public String getNome() {

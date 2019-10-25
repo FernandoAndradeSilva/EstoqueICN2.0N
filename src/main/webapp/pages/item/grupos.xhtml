@@ -7,20 +7,17 @@
                 xmlns:adm="http://github.com/adminfaces"
                 template="/WEB-INF/templates/template.xhtml">
 
-    <ui:define name="title">
-        GRUPOS E CLASSES
-    </ui:define>
-
     <ui:define name="head-end">
         <style type="text/css">
 
-
         </style>
-
         <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
-
     </ui:define>
 
+
+    <ui:define name="title">
+        GRUPOS E CLASSES
+    </ui:define>
 
     <ui:define name="body">
         <f:metadata>
@@ -39,7 +36,6 @@
                     <p:focus/>
 
                     <div id="main-buttons" class="hidden-sm hidden-xs">
-
 
                         <p:splitButton value="Cadastrar" type="button"
                                        icon="fa fa-plus" styleClass="btn-primary">

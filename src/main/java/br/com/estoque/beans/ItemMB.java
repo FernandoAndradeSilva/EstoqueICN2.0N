@@ -26,15 +26,18 @@ public class ItemMB implements Serializable {
     private ItemService itemService;
     @Inject
     private EstoqueService estoqueService;
+    @Inject
+    private UnidadeService unidadeService;
 
     //--------------------------------------------------------------//
 
 
 
     //--------------------------MODELS-----------------------------//
-
     private Item item = new Item();
     private List<Item> itens = new ArrayList<>();
+
+    private List<Estoque> items = new ArrayList<>();
 
     //--------------------------------------------------------------//
 
@@ -49,9 +52,8 @@ public class ItemMB implements Serializable {
 
 
     //--------------------------MÉTODOS---------------------------//
-
     @Transacional
-    public void salvaItem() {
+    public void salva() {
         item.configuraCodigo(this.codFinal);
         itemService.salvar(this.item);
         estoqueService.salvar(new Estoque(this.item , LogonMB.usuarioDaSessao().getSetor().getUnidade()));
@@ -63,12 +65,21 @@ public class ItemMB implements Serializable {
                 ("Item cadastrado com sucesso" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
 
+    @Transacional
+    public void movimentar(Estoque estoqueItem , int tipo) {
+        estoqueItem.atualizaSaldo(50 , tipo);
+        estoqueService.atualizar(estoqueItem);
+    }
+
 
     public void configuraPreCodigo() {
         this.item.setCodigo(item.getClasse().getGrupo().getSigla() + item.getClasse().getSigla());
     }
 
-
+    public void carregaItens() {
+        Unidade unidade = unidadeService.buscar(LogonMB.usuarioDaSessao().getSetor().getUnidade());
+        items = unidade.getEstoques();
+    }
 
     //--------------------------------------------------------------//
 
@@ -105,6 +116,14 @@ public class ItemMB implements Serializable {
 
     public void setCodFinal(String codFinal) {
         this.codFinal = codFinal;
+    }
+
+    public List<Estoque> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Estoque> items) {
+        this.items = items;
     }
 
     //--------------------------------------------------------------//

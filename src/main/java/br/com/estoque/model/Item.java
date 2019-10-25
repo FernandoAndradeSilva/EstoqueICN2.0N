@@ -4,7 +4,9 @@ import br.com.estoque.enums.TipoUsuario;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "item")
 public class Item extends AbstractEntity {
@@ -20,19 +22,15 @@ public class Item extends AbstractEntity {
     @JoinColumn(name = "classe", nullable = false)
     private Classe classe = new Classe();
 
-    @OneToMany(mappedBy = "id.item", fetch = FetchType.EAGER)
-    private List<Estoque> estoques = new ArrayList<>();
+    @OneToMany(mappedBy = "id.item")
+    private Set<Estoque> estoques = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "unidadeMedida" , nullable = false)
     private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
 
-    public List<Estoque> getEstoques() {
-        return estoques;
-    }
-
-    public void setEstoques(List<Estoque> estoques) {
-        this.estoques = estoques;
+    public void configuraCodigo(String cod) {
+        this.codigo += cod;
     }
 
     public String getDescricao() {
@@ -91,9 +89,20 @@ public class Item extends AbstractEntity {
         this.unidadeDeMedida = unidadeDeMedida;
     }
 
-
-    public void configuraCodigo(String cod) {
-        this.codigo += cod;
+    public Set<Estoque> getEstoques() {
+        return estoques;
     }
 
+    public void setEstoques(Set<Estoque> estoques) {
+        this.estoques = estoques;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "codigo='" + codigo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", especificacao='" + especificacao + '\'' +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package br.com.estoque.model;
 
+import br.com.estoque.util.MessageUtil;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -12,7 +14,6 @@ public class Estoque implements Serializable {
     public static final int SAIDA = 2;
 
 
-
     @EmbeddedId
     private EstoquePK id = new EstoquePK();
 
@@ -21,23 +22,32 @@ public class Estoque implements Serializable {
     private int saldo;
     private float custo;
 
-    public Estoque(Item item , Unidade unidade) {
+    public Estoque(Item item, Unidade unidade) {
         this.id.setItem(item);
         this.id.setUnidade(unidade);
     }
 
-    public void atualizaSaldo(int quantidade , int tipo) {
-
-        if(tipo == 1) {
-            entradas+=quantidade;
-            saldo+=quantidade;
-        } else if (tipo == 1) {
-            saidas+=quantidade;
-            saldo-=quantidade;
-        }
-
+    public Estoque() {
     }
 
+    public void atualizaSaldo(int quantidade, int tipo) {
+
+        if (tipo == 1) {
+
+            entradas += quantidade;
+            saldo += quantidade;
+            MessageUtil.addMessageTicket("Movimentação realizada", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+
+        } else if (tipo == 2) {
+            if (quantidade > saldo) {
+                MessageUtil.addMessageTicket("Saldo insuficiente", MessageUtil.ERROR, MessageUtil.NOREDIRECT);
+            } else {
+                saidas += quantidade;
+                saldo -= quantidade;
+                MessageUtil.addMessageTicket("Movimentação realizada", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+            }
+        }
+    }
 
 
     @Override
@@ -46,7 +56,6 @@ public class Estoque implements Serializable {
                 "id=" + id +
                 '}';
     }
-
 
 
     public EstoquePK getId() {

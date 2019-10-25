@@ -49,6 +49,6 @@ public class ItemService implements Serializable, AbstractService<Item, Long>{
 
     @Override
     public List<Item> listar() {
-        return null;
+        return itemDao.listar(Item.class);
     }
 }

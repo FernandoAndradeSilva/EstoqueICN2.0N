@@ -28,73 +28,48 @@ public class UsuarioMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //--------------------------INJECTS----------------------------//
     @Inject
     private UsuarioService usuarioService;
-
     @Inject
     private GrupoUsuarioService grupoUsuarioService;
 
-    private String campoBuscaUsuario;
+    //--------------------------------------------------------------//
 
+
+
+    //--------------------------MODELS-----------------------------//
     private Usuario usuarioSelecionado = new Usuario();
-
-    private DualListModel<Grupo> grupos = new DualListModel<>();
-
     private Usuario novoUsuario = new Usuario();
-
     private List<Usuario> usuarios = new ArrayList<>();
 
-
-    public void buscaManualUsuario(int tipoCampoPesquisa) {
-
-
-        this.usuarios = usuarioService.listar();
-        List<Usuario> listResult = new ArrayList<>();
-
-        System.out.println(campoBuscaUsuario);
-
-        for (Usuario usuario : this.usuarios) {
-
-            if (tipoCampoPesquisa == 1) {
-                if (usuario.getNome().contains(campoBuscaUsuario)) {
-                    listResult.add(usuario);
-                }
-            } else if (tipoCampoPesquisa == 2) {
-                if (usuario.getUsuario().contains(this.campoBuscaUsuario)) {
-                    listResult.add(usuario);
-                }
-            } else if (tipoCampoPesquisa == 3) {
-                if (usuario.getEmail().contains(this.campoBuscaUsuario)) {
-                    listResult.add(usuario);
-                }
-            }
-        }
-        if (listResult.size() > 0) {
-            this.setUsuarios(listResult);
-        } else {
-            MessageUtil.addMessageTicket("A pesquisa não encontrou resultados", MessageUtil.WARN, MessageUtil.NOREDIRECT);
-            this.usuarios = new ArrayList<>();
-            this.campoBuscaUsuario = "";
-        }
+    //--------------------------------------------------------------//
 
 
-    }
+
+    //----------------------OUTROS ATRIBUTOS------------------------//
+    private DualListModel<Grupo> grupos = new DualListModel<>();
+
+    //--------------------------------------------------------------//
 
 
-    public void carregaGruposUsuario() {
 
-        grupos = new DualListModel<Grupo>(grupoUsuarioService.gruposNaoAssociados(this.usuarioSelecionado.getId()),
-                grupoUsuarioService.gruposAssociados(this.usuarioSelecionado.getId()));
 
+    //--------------------------MÉTODOS----------------------------//
+
+    @Transacional
+    public void salvar() {
+        usuarioService.salvar(novoUsuario);
+        this.novoUsuario = new Usuario();
+        this.carregaUsuarios();
     }
 
     @Transacional
-    public void editarUsuario(RowEditEvent event) {
+    public void editarRow(RowEditEvent event) {
         usuarioService.salvar(((Usuario) event.getObject()));
         MessageUtil.addMessageTicket("Informações alteradas com sucesso", MessageUtil.INFO, MessageUtil.NOREDIRECT);
 
     }
-
 
     @Transacional
     public void atualizaGrupos() {
@@ -120,28 +95,21 @@ public class UsuarioMB implements Serializable {
         }
     }
 
-    @Transacional
-    public void cadastrarUsuario() {
-        usuarioService.salvar(novoUsuario);
-        this.novoUsuario = new Usuario();
-        this.carregaUsuarios();
-    }
+    public void carregaGruposUsuario() {
+        grupos = new DualListModel<Grupo>(grupoUsuarioService.gruposNaoAssociados(this.usuarioSelecionado.getId()),
+                grupoUsuarioService.gruposAssociados(this.usuarioSelecionado.getId()));
 
+    }
 
     public void carregaUsuarios() {
         this.usuarios = usuarioService.listar();
-        this.campoBuscaUsuario = "";
     }
 
+    //---------------------------------------------------------//
 
-    public String getCampoBuscaUsuario() {
-        return campoBuscaUsuario;
-    }
 
-    public void setCampoBuscaUsuario(String campoBuscaUsuario) {
-        this.campoBuscaUsuario = campoBuscaUsuario;
-    }
 
+    //--------------GETTERS E SETTERS-------------------------//
     public List<Usuario> getUsuarios() {
         return usuarios;
     }

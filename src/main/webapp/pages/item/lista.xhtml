@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -23,66 +24,98 @@
                 padding: 0;
             }
         </style>
-
-
-
-
-		<f:event type="preRenderComponent" listener="#{usuarioMB.carregaUsuarios()}"/>
-
-
-
+		<f:event type="preRenderComponent" listener="#{itemMB.carregaItens()}"/>
     </ui:define>
 
     <ui:define name="title">
-        Pesquisa Default
+        TODOS ITENS
     </ui:define>
 
-    <ui:define name="description">
-        Pesquise ... 
-    </ui:define>
 
     <ui:define name="body">
         <adm:breadcrumb title="Pesquisa Default"/>
 
-			<h:form>
-            	<div class="box box-primary">
+			<h:form id="formItens" prependId="false">
+
+				<p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
+
+
+				<div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
                 	<div class="box-header with-border">
-                    	<p:commandButton action="cadastro?faces-redirect=true" ajax="false" icon="fa fa-plus"
+
+						<p:commandButton action="cadastro?faces-redirect=true" ajax="false" icon="fa fa-plus"
                          	            value="Novo" styleClass="btn-primary"/>
                     	<p:spacer width="5"/>
 	                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
 	                                     process="@form" update="@form"/>
 	                    <p:spacer width="5"/>
-	                    <p:commandButton value="Olhar Selecionado(s)" 
+	                    <p:commandButton value="Olhar Selecionado(s)"
 	                    				 oncomplete="PF('defaultSelecionadas').show()"
-	                    				 update="@(.ui-dialog)" 
+	                    				 update="@(.ui-dialog)"
 	                    				 styleClass="btn-info"
 	                                     icon="fa fa-search"/>
 	                    <p:separator/>
-	                    
-	                    
-	                    <p:dataTable id="tableItens" widgetVar="tableItens" rows="10"
-	                                 paginator="true"
-	                                 paginatorPosition="bottom"	                                 
+
+
+	                    <p:dataTable id="itens" widgetVar="itens" rows="10"
+	                                 paginator="true" value="#{itemMB.items}"
+	                                 paginatorPosition="bottom"	 var="item"
 	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
 	                                 {PageLinks} {NextPageLink} {LastPageLink} "
 	                                 currentPageReportTemplate=""
 	                                 rowsPerPageTemplate="5,10,15,20,30">
-	
 
-	
-	
-	                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>	                        
-	                        
-	                        	
+
+							<p:column headerText="Código" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+								<p:outputLabel value="#{item.id.item.codigo}"/>
+							</p:column>
+
+							<p:column headerText="Descrição">
+								<p:outputLabel value="#{item.id.item.descricao}"/>
+							</p:column>
+
+							<p:column headerText="Especificação">
+								<p:outputLabel value="#{item.id.item.especificacao}"/>
+							</p:column>
+
+							<p:column headerText="U.M." styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-center">
+								<p:outputLabel value="#{item.id.item.unidadeDeMedida.sigla}"/>
+							</p:column>
+
+							<p:column headerText="Entradas"  styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-center">
+								<p:outputLabel value="#{item.entradas}"/>
+							</p:column>
+
+							<p:column headerText="Saídas"  styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-center">
+								<p:outputLabel value="#{item.saidas}"/>
+							</p:column>
+
+							<p:column headerText="Saldo"  styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-center">
+								<p:outputLabel value="#{item.saldo}"/>
+							</p:column>
+
+							<p:column headerText="Custo" styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-right">
+								<p:outputLabel value="R$: #{item.custo}"/>
+							</p:column>
+
+
+							<p:column headerText="Custo" styleClass="ui-sm-1 ui-md-1 ui-lg-1 align-center">
+								<p:commandButton icon="fa fa-plus" action="#{itemMB.movimentar(item , 1)}" update="itens , growl" />
+								<p:commandButton icon="fa fa-arrow-right" action="#{itemMB.movimentar(item , 2)}" update="itens , growl" />
+							</p:column>
+
 	                    </p:dataTable>
 					</div>
 	            </div>
+
+
+
+
         	</h:form>
-        	
 
 
-        
+
+
     </ui:define>
 
 </ui:composition>

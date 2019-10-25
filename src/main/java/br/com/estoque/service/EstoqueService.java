@@ -3,7 +3,7 @@ package br.com.estoque.service;
 import br.com.estoque.dao.EstoqueDao;
 import br.com.estoque.model.Estoque;
 import br.com.estoque.model.EstoquePK;
-
+import br.com.estoque.model.Unidade;
 
 
 import javax.inject.Inject;
@@ -30,12 +30,10 @@ public class EstoqueService implements Serializable, AbstractService <Estoque, E
 
     @Override
     public void editar(Estoque entidade) {
-
     }
 
     @Override
     public void excluir(Estoque entidade) {
-
     }
 
     @Override
@@ -51,6 +49,10 @@ public class EstoqueService implements Serializable, AbstractService <Estoque, E
     @Override
     public List<Estoque> listar() {
         return null;
+    }
+
+    public void atualizar(Estoque entidade) {
+        estoqueDao.update(entidade);
     }
 
 
