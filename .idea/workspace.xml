@@ -6,24 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86cf07e6-23a8-4f01-857a-25215aaa79f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/GrupoMB1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/UsuarioMB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/EstoqueDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/dao/EstoqueDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Estoque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Estoque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Unidade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Unidade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/UnidadeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/grupos.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/lista.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/lista.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/usuario/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/usuario/cadastro.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/usuario/lista.xhtml" afterDir="false" />
-    </list>
+    <list default="true" id="86cf07e6-23a8-4f01-857a-25215aaa79f1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,13 +66,14 @@
     <option name="myCommands">
       <command value="git commit -m &quot;corrigindo bean item unico&quot;" />
       <command value="git commit -m &quot;antes mudanca drástica 02&quot;" />
-      <command value="git add ." />
       <command value="git commit -m &quot;unidadeDeMedida e Grupo OK&quot;" />
       <command value="git push origin master" />
       <command value="git status ." />
-      <command value="git push origin correcao-separacao-classes" />
       <command value="git checkout ." />
       <command value="git pull origin correcao-separacao-classes" />
+      <command value="git add ." />
+      <command value="git commit -m &quot;trabalhando com tela de itens&quot;" />
+      <command value="git push origin correcao-separacao-classes" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -193,7 +177,7 @@
       <workItem from="1571831214571" duration="8823000" />
       <workItem from="1571842133933" duration="13769000" />
       <workItem from="1571925357453" duration="7640000" />
-      <workItem from="1571960538306" duration="3767000" />
+      <workItem from="1571960538306" duration="3920000" />
     </task>
     <servers />
   </component>
