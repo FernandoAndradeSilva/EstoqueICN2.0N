@@ -102,10 +102,6 @@ public class ItemMB implements Serializable {
             itensVisualizacao.add(map);
             map = new HashMap<>();
         }
-
-
-        System.out.println(itensVisualizacao);
-
         this.itensHash = itensVisualizacao;
 
 

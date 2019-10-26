@@ -25,7 +25,8 @@
             }
         </style>
 
-        <f:event type="preRenderComponent" listener="#{itemMB.movimentacao()}"/>
+        <f:event type="preRenderComponent" listener="#{movimentacaoMB.constroiHash()}"/>
+        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
     </ui:define>
 
     <ui:define name="title">
@@ -49,64 +50,73 @@
 
                     <p:separator/>
 
+                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+
+                        <p:selectOneMenu>
+                            <f:selectItem itemLabel="Entrada" noSelectionOption="false"/>
+                            <f:selectItem itemLabel="Saída" noSelectionOption="false"/>
+                            <f:selectItem itemLabel="Tipo de Movimentação" noSelectionOption="false"/>
+                        </p:selectOneMenu>
+
+                    </div>
 
                     <div class="ui-g-2 ui-md-2 ui-lg-2">
                         <p:selectBooleanCheckbox style="margin-top: 8px" itemLabel="AJUSTE DE ESTOQUE"/>
                     </div>
 
 
-    <!--                <div class="ui-g-2 ui-md-2 ui-lg-2">
-                        <div class="ui-inputgroup">
-                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                             filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Fornecedor"/>
-                            </p:selectOneMenu>
-                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                             styleClass="btn btn-primary btn-sm"/>
-                        </div>
-                    </div>
+                    <!--                <div class="ui-g-2 ui-md-2 ui-lg-2">
+                                        <div class="ui-inputgroup">
+                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                                             filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="Fornecedor"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                                             styleClass="btn btn-primary btn-sm"/>
+                                        </div>
+                                    </div>
 
-                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                        <div class="ui-inputgroup">
-                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                             filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Motivo"/>
-                            </p:selectOneMenu>
-                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                             styleClass="btn btn-primary btn-sm"/>
-                        </div>
-                    </div>
-
-
-                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                        <div class="ui-inputgroup">
-                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                             filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Aplicação"/>
-                            </p:selectOneMenu>
-                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                             styleClass="btn btn-primary btn-sm"/>
-                        </div>
-                    </div>
+                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                                        <div class="ui-inputgroup">
+                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                                             filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="Motivo"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                                             styleClass="btn btn-primary btn-sm"/>
+                                        </div>
+                                    </div>
 
 
-                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                        <div class="ui-inputgroup">
-                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
-                                             filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Setor"/>
-                            </p:selectOneMenu>
-                        </div>
-                    </div>
+                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                                        <div class="ui-inputgroup">
+                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
+                                                             filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="Aplicação"/>
+                                            </p:selectOneMenu>
+                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
+                                                             styleClass="btn btn-primary btn-sm"/>
+                                        </div>
+                                    </div>
 
-                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                        <div class="ui-inputgroup">
-                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
-                                             filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Centro de Custo"/>
-                            </p:selectOneMenu>
-                        </div>
-                    </div>-->
+
+                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                                        <div class="ui-inputgroup">
+                                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
+                                                             filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="Setor"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
+                                        <div class="ui-inputgroup">
+                                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
+                                                             filterMatchMode="startsWith">
+                                                <f:selectItem itemLabel="Centro de Custo"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>-->
 
 
                     <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -114,37 +124,36 @@
                     </div>
 
 
-
-                    <p:panelGrid columns="3">
-
-                        <p:outputLabel value="FILTRAR" style="margin-top: 8px"/>
-
-                        <p:selectOneMenu  converter="omnifaces.SelectItemsConverter"
-                                         filter="true" filterMatchMode="startsWith">
-                            <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
-                            <f:selectItems value="#{grupoMB.grupos}"/>
-                        </p:selectOneMenu>
-                        <p:selectOneMenu  converter="omnifaces.SelectItemsConverter"
-                                         filter="true" filterMatchMode="startsWith">
-                            <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
-                            <f:selectItems value="#{grupoMB.grupos}"/>
-                        </p:selectOneMenu>
+                    <div align="right" class="ui-g-12 ui-md-12 ui-lg-12">
 
 
-                    </p:panelGrid>
+                        <p:panelGrid columns="3">
 
 
-                    <br/>
-                    <br/>
+                            <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                                <f:selectItems value="#{grupoMB.grupos}"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
+                                <f:selectItems value="#{grupoMB.grupos}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="FILTRAR" style="margin-top: 8px"/>
+
+
+                        </p:panelGrid>
+
+                    </div>
+
 
                     <div class="ui-g-12 ui-md-12 ui-lg-12">
 
 
-
-
-
                         <p:dataTable id="itensHash" widgetVar="itens" rows="10"
-                                     paginator="true" value="#{itemMB.itensHash}"
+                                     paginator="true" value="#{movimentacaoMB.itensHash}"
                                      paginatorPosition="bottom" var="itemHash"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
 	                                 {PageLinks} {NextPageLink} {LastPageLink} "
@@ -161,22 +170,39 @@
                             </p:column>
 
                             <p:column headerText="Quantidade">
-                                <p:inputNumber value="#{itemHash.quantidade}"/>
+                                <p:inputNumber value="#{itemHash.quantidade}" id="quantidade"
+                                               decimalPlaces="0" thousandSeparator="" >
+                                </p:inputNumber>
                             </p:column>
 
-                            <p:column headerText="Cupom Fiscal">
-                                <p:inputText value="#{itemHash.cupomFiscal}"/>
+                            <p:column headerText="Cupom Fiscal" >
+                                <p:inputText value="#{itemHash.cupomFiscal}" id="cupomFiscal"/>
                             </p:column>
 
-                            <p:column headerText="Nota Fiscal">
-                                <p:inputText value="#{itemHash.notaFiscal}"/>
+                            <p:column headerText="Nota Fiscal" >
+                                <p:inputText value="#{itemHash.notaFiscal}" id="notaFiscal"/>
                             </p:column>
 
                             <p:column headerText="Valor">
-                                <p:inputNumber value="#{itemHash.valor}"/>
+                                <p:inputNumber decimalSeparator="," thousandSeparator="."
+                                               value="#{itemHash.valor}" id="valor"/>
+                            </p:column>
+
+                            <p:column headerText="" style="width: 120px ; text-align: center">
+                                <p:commandButton icon="fa fa-plus"
+                                                 update="itensHash:quantidade , itensHash:cupomFiscal ,
+                                                 itensHash:notaFiscal , itensHash:valor "
+                                                 action="#{movimentacaoMB.adicionarMovimentacao(itemHash)}">
+                                </p:commandButton>
+
+
+
                             </p:column>
 
                         </p:dataTable>
+
+
+                        <p:commandButton value="Teste" action="#{movimentacaoMB.imprimeCarrinho()}"/>
 
                     </div>
 
