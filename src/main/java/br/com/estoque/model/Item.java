@@ -30,7 +30,7 @@ public class Item extends AbstractEntity {
     private UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
 
     @ManyToOne
-    @JoinColumn(name = "marca" , nullable = false)
+    @JoinColumn(name = "marca" , nullable = true)
     private Marca marca = new Marca();
 
     public void configuraCodigo(String cod) {

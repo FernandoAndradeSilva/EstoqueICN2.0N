@@ -50,7 +50,7 @@ public class MovimentacaoMB implements Serializable {
     private Movimentacao movimentacao = new Movimentacao();
 
     private int tipoMovimentacao = 0;
-    private boolean rowEdicao = false;
+
 
     //--------------------------------------------------------------//
 
@@ -160,21 +160,10 @@ public class MovimentacaoMB implements Serializable {
     }
 
 
-    public void editarRow(RowEditEvent event) {
-        Movimentacao movimentacao = ((Movimentacao) event.getObject());
-    }
 
 
-    public void habilitaRowEdicao(Movimentacao movimentacao) {
-        System.out.println("Entrou no método");
-        this.rowEdicao = true;
 
-        movimentacao.setEmEdicao(true);
-    }
 
-    public void desabilitaRowEdicao() {
-        this.rowEdicao = false;
-    }
 
     //--------------------------------------------------------------//
 
@@ -233,13 +222,6 @@ public class MovimentacaoMB implements Serializable {
         this.grupoFiltro = grupoFiltro;
     }
 
-    public boolean isRowEdicao() {
-        return rowEdicao;
-    }
-
-    public void setRowEdicao(boolean rowEdicao) {
-        this.rowEdicao = rowEdicao;
-    }
 
     public String imprimeEntrada() {
         System.out.println("Entradas");

@@ -62,8 +62,10 @@
                     <p:commandButton ajax="false" icon="fa fa-plus"
                                      value="SALVAR" styleClass="btn-primary"/>
 
+
+
                     <p:commandButton icon="fa fa-list-ol" style="float: right"
-                                     value="MOVIMENTAÇÃO" styleClass="btn-success" id="btCarrinhoMov"
+                                     value="MOVIMENTAÇÃO" styleClass="btn btn-success" id="btCarrinhoMov"
                                      disabled="#{movimentacaoMB.carrinhoVazio()}"
                                      onclick="PF('dlgCarrinhoMovimetacoes').show();"/>
 
@@ -179,8 +181,8 @@
                             <p:column headerText="" style="width: 60px ; text-align: center">
                                 <p:commandButton icon="fa fa-plus" styleClass="btn btn-primary"
                                                  title="Adicionar a movimentação"
-                                                 update="cupomFiscal , notaFiscal , quantidade , valor , growl , btCarrinhoMov
-                                                    ,DialogCarrinhoMovimentacoes"
+                                                 update="cupomFiscal, notaFiscal, quantidade, valor, growl , btCarrinhoMov,
+                                                   ,DialogCarrinhoMovimentacoes"
                                                  action="#{movimentacaoMB.adicionarMovimentacao(movimentacao)}">
                                     <f:setPropertyActionListener value="#{movimentacao}"
                                                                  target="#{movimentacaoMB.movimentacao}"/>
@@ -209,6 +211,12 @@
                 <p:commandButton icon="fa fa-save" action="#{movimentacaoMB.salvarMovimentacoes()}"
                                  value="FINALIZAR MOVIMENTAÇÃO" styleClass="btn btn-success"
                                  update="movimentacoesCarrinho , growl"/>
+
+                <p:commandButton icon="fa fa-refresh"  title="Limpar Carrinho"
+                                 styleClass="btn btn-info" id="btRefesh"
+                                 action="#{movimentacaoMB.limpaCarrinho()}"
+                                 update="movimentacoesCarrinho"/>
+
                 <p:separator/>
 
                 <p:dataTable var="movimentacaoCarrinho"
@@ -232,54 +240,41 @@
                         <p:outputLabel value="#{movimentacaoCarrinho.item.descricao}"/>
                     </p:column>
 
-                    <p:column headerText="Quantidade" id="colQtd">
-                        <p:inputNumber value="#{movimentacaoCarrinho.quantidade}" id="inputQtd"
-                                       readonly="#{!movimentacaoMB.rowEdicao}" size="10"
-                                       decimalPlaces="0" thousandSeparator=""/>
+                    <p:column headerText="Quantidade" >
 
-
-<!--                            <p:cellEditor headerText="Quantidade">
-                                <f:facet name="output"><p:outputLabel
-                                        value="#{movimentacaoCarrinho.quantidade}"/></f:facet>
-                                <f:facet name="input">
-                                    <p:inputNumber value="#{movimentacaoCarrinho.quantidade}"
-                                                   decimalPlaces="0" thousandSeparator=""/>
-                                </f:facet>
-                            </p:cellEditor>-->
+                        <p:outputLabel value="#{movimentacaoCarrinho.quantidade}"/>
 
                     </p:column>
 
-                    <p:column headerText="Valor" id="val">
-                        <p:inputNumber value="#{movimentacaoCarrinho.valor}" id="inputVal" size="10"
-                                       readonly="#{!movimentacaoMB.rowEdicao}"
-                        decimalSeparator="," thousandSeparator="."/>
-
-<!--                            <p:cellEditor headerText="Valor">
-                                <f:facet name="output"><p:outputLabel value="#{movimentacaoCarrinho.valor}"/></f:facet>
-                                <f:facet name="input">
-                                    <p:inputNumber value="#{movimentacaoCarrinho.valor}"
-                                                   decimalSeparator="," thousandSeparator="."/>
-                                </f:facet>
-                            </p:cellEditor>-->
-
+                    <p:column headerText="Valor">
+                        <p:outputLabel value="#{movimentacaoCarrinho.valor}">
+                            <f:convertNumber type="number"  minFractionDigits="2"  pattern="#,##0.00"/>
+                        </p:outputLabel>
                     </p:column>
 
                     <p:column style="width:60px">
-                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-danger" immediate="true" process="@this"
-                                         update="val" title="Excluir"
+                        <p:commandButton icon="fa fa-remove" styleClass="btn btn-danger" immediate="true" process="@this"
+                                         update="movimentacoesCarrinho" title="Remover da Movimentação"
                                          action="#{movimentacaoMB.removeMovimentacao(movimentacaoCarrinho)}"/>
                     </p:column>
 
 
-                    <p:column style="width:60px">
+<!--                    <p:column style="width:120px ; text-align: center" >
 
-                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-danger" immediate="true" process="@this"
-                                         update="val" title="Excluir"
-                                         action="#{movimentacaoMB.habilitaRowEdicao(movimentacaoCarrinho)}"/>
+                        <p:commandButton icon="fa fa-edit" styleClass="btn btn-warning"
+                                         immediate="true" process="@this"
+                                         update="inputVal , inputQtd , btSave , astVal , astQtd" title="Editar"
+                                         action="#{movimentacaoMB.habilitaRowEdicao()}"/>
+
+                        <p:commandButton icon="fa fa-save" styleClass="btn btn-success"
+                                          id="btSave" update="inputVal , inputQtd , btSave, astVal , astQtd"
+                                         title="Salvar Edição"
+                                         action="#{movimentacaoMB.editaMovimentacao(movimentacaoCarrinho)}"
+                                         style="display: #{movimentacaoMB.rowEdicao == true ? null : 'none'}"/>
 
 
 
-                    </p:column>
+                    </p:column>-->
 
                 </p:dataTable>
 
