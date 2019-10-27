@@ -6,6 +6,7 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity(name = "movimentacao")
@@ -25,13 +26,15 @@ public class Movimentacao extends AbstractEntity {
     private boolean ajusteDeEstoque = false;
     private float valor;
 
+    @Transient
+    private boolean emEdicao = false;
+
     @ManyToOne
     @JoinColumn(name="usuario",  nullable= false)
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name="item",  nullable= true)
-    @Cascade(CascadeType.ALL)
     private Item item = new Item();
 
     public Date getData() {
@@ -128,5 +131,13 @@ public class Movimentacao extends AbstractEntity {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public boolean isEmEdicao() {
+        return emEdicao;
+    }
+
+    public void setEmEdicao(boolean emEdicao) {
+        this.emEdicao = emEdicao;
     }
 }

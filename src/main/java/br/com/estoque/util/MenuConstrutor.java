@@ -49,10 +49,24 @@ public class MenuConstrutor implements Serializable {
 
         menuMovimentacoes = new DefaultMenuModel();
 
-        menuMovimentacoes.addElement(new DefaultMenuItem("ENTRADAS"));
-        menuMovimentacoes.addElement(new DefaultMenuItem("SAÍDAS"));
-        menuMovimentacoes.addElement(new DefaultMenuItem("ESTORNOS"));
-        menuMovimentacoes.addElement(new DefaultMenuItem("TRANSFERÊNCIAS"));
+        DefaultMenuItem defaultMenu = new DefaultMenuItem();
+        defaultMenu.setValue("ENTRADAS");
+        defaultMenu.setUrl("movimentacoes/cadastro.xhtml?tipo=1");
+        menuMovimentacoes.addElement(defaultMenu);
+
+        defaultMenu = new DefaultMenuItem();
+        defaultMenu.setValue("SAÍDAS");
+        defaultMenu.setUrl("movimentacoes/cadastro.xhtml?tipo=2");
+        menuMovimentacoes.addElement(defaultMenu);
+
+        defaultMenu = new DefaultMenuItem();
+        defaultMenu.setValue("ESTORNOS");
+        menuMovimentacoes.addElement(defaultMenu);
+
+        defaultMenu = new DefaultMenuItem();
+        defaultMenu.setValue("TRANSFERÊNCIAS");
+        menuMovimentacoes.addElement(defaultMenu);
+
 
 
     }
@@ -61,20 +75,24 @@ public class MenuConstrutor implements Serializable {
         menuItens = new DefaultMenuModel();
         List<Grupo> grupos = grupoService.listar();
 
+
+        DefaultMenuItem item = new DefaultMenuItem("TODOS ITENS");
+        item.setUrl("item/lista.xhtml");
+        menuItens.addElement(item);
+
         for(Grupo grupo : grupos) {
             DefaultSubMenu submenu = new DefaultSubMenu(grupo.getNome());
 
             for(Classe classe : grupo.getClasses()) {
-                DefaultMenuItem item = new DefaultMenuItem(classe.getNome());
+                item = new DefaultMenuItem(classe.getNome());
                 submenu.addElement(item);
             }
             menuItens.addElement(submenu);
         }
 
-        DefaultMenuItem item = new DefaultMenuItem("CADASTRAR ITEM");
+        item = new DefaultMenuItem("CADASTRAR ITEM");
         item.setIcon("fa fa-plus");
         item.setUrl("item/cadastro.xhtml");
-
         menuItens.addElement(item);
     }
 

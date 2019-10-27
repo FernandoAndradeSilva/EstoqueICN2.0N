@@ -8,8 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="86cf07e6-23a8-4f01-857a-25215aaa79f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/ItemMB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/MovimentacaoMB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/beans/MovimentacaoMB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Estoque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Estoque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/EstoquePK.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/EstoquePK.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Movimentacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/model/Movimentacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/service/EstoqueService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/estoque/util/MenuConstrutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/estoque/util/MenuConstrutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/item/cadastro.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/cadastro.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/movimentacoes/cadastro.xhtml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,7 +59,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/pages/movimentacoes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/resources/js" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -67,9 +72,9 @@
       <recent name="br.com.estoque.model" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Fernando\Programação\EstoqueICN2.0N\src\main\webapp\resources\js" />
       <recent name="G:\EstoqueICN2.0N\src\main\webapp\pages\movimentacoes" />
       <recent name="G:\EstoqueICN2.0N\src\main\webapp\resources\js" />
-      <recent name="E:\Fernando\Programação\EstoqueICN2.0N\src\main\webapp\resources\js" />
       <recent name="D:\Projetos\EstoqueICN2.0N\src\main\java\br\com\estoque\beans" />
     </key>
   </component>
@@ -80,11 +85,12 @@
       <command value="git commit -m &quot;unidadeDeMedida e Grupo OK&quot;" />
       <command value="git push origin master" />
       <command value="git status ." />
-      <command value="git add ." />
       <command value="git commit -m &quot;trabalhando com tela de itens&quot;" />
-      <command value="git push origin correcao-separacao-classes" />
       <command value="git checkout ." />
+      <command value="git add ." />
+      <command value="git commit -m &quot;movimentacao multipla&quot;" />
       <command value="git pull origin correcao-separacao-classes" />
+      <command value="git push origin correcao-separacao-classes" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -189,7 +195,10 @@
       <workItem from="1571842133933" duration="13769000" />
       <workItem from="1571925357453" duration="7640000" />
       <workItem from="1571960538306" duration="3920000" />
-      <workItem from="1572045545667" duration="6552000" />
+      <workItem from="1572045545667" duration="17925000" />
+      <workItem from="1572108138219" duration="11031000" />
+      <workItem from="1572129882792" duration="5751000" />
+      <workItem from="1572156048074" duration="5045000" />
     </task>
     <servers />
   </component>

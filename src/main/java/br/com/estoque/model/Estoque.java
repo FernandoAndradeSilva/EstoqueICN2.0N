@@ -33,10 +33,8 @@ public class Estoque implements Serializable {
     public void atualizaSaldo(int quantidade, int tipo) {
 
         if (tipo == 1) {
-
             entradas += quantidade;
             saldo += quantidade;
-            MessageUtil.addMessageTicket("Movimentação realizada", MessageUtil.INFO, MessageUtil.NOREDIRECT);
 
         } else if (tipo == 2) {
             if (quantidade > saldo) {
@@ -44,7 +42,7 @@ public class Estoque implements Serializable {
             } else {
                 saidas += quantidade;
                 saldo -= quantidade;
-                MessageUtil.addMessageTicket("Movimentação realizada", MessageUtil.INFO, MessageUtil.NOREDIRECT);
+
             }
         }
     }

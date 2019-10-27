@@ -16,6 +16,13 @@ public class EstoquePK implements Serializable {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    public EstoquePK(Unidade unidade, Item item) {
+        this.unidade = unidade;
+        this.item = item;
+    }
+
+    public EstoquePK() {
+    }
 
     public Unidade getUnidade() {
         return unidade;

@@ -3,6 +3,7 @@ package br.com.estoque.service;
 import br.com.estoque.dao.EstoqueDao;
 import br.com.estoque.model.Estoque;
 import br.com.estoque.model.EstoquePK;
+import br.com.estoque.model.Item;
 import br.com.estoque.model.Unidade;
 
 
@@ -53,6 +54,11 @@ public class EstoqueService implements Serializable, AbstractService <Estoque, E
 
     public void atualizar(Estoque entidade) {
         estoqueDao.update(entidade);
+    }
+
+    public Estoque buscarPorId(Unidade unidade , Item item) {
+        EstoquePK pk = new EstoquePK(unidade , item);
+        return estoqueDao.findById(pk);
     }
 
 

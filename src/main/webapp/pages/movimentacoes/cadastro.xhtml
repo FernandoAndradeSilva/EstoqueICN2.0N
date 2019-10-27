@@ -23,10 +23,15 @@
             .ui-orderlist .ui-grid-row .ui-grid-col-10 {
                 padding: 0;
             }
+
+
+            .red{
+                background-color:red;
+                background-image:none;
+            }
         </style>
 
-        <f:event type="preRenderComponent" listener="#{movimentacaoMB.constroiHash()}"/>
-        <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+
     </ui:define>
 
     <ui:define name="title">
@@ -35,6 +40,15 @@
 
 
     <ui:define name="body">
+
+        <f:metadata>
+            <f:viewParam name="tipo" value="#{movimentacaoMB.tipoMovimentacao}"/>
+
+            <f:event type="preRenderComponent" listener="#{movimentacaoMB.constroiMovimentacoes()}"/>
+            <f:event type="preRenderComponent" listener="#{grupoMB.carregaGrupos()}"/>
+        </f:metadata>
+
+
         <adm:breadcrumb title="Pesquisa Default"/>
 
         <h:form id="formMovimentacao" prependId="false">
@@ -48,15 +62,23 @@
                     <p:commandButton ajax="false" icon="fa fa-plus"
                                      value="SALVAR" styleClass="btn-primary"/>
 
+                    <p:commandButton icon="fa fa-list-ol" style="float: right"
+                                     value="MOVIMENTAÇÃO" styleClass="btn-success" id="btCarrinhoMov"
+                                     disabled="#{movimentacaoMB.carrinhoVazio()}"
+                                     onclick="PF('dlgCarrinhoMovimetacoes').show();"/>
+
+
                     <p:separator/>
 
                     <div class="ui-g-2 ui-md-2 ui-lg-2">
-
-                        <p:selectOneMenu>
-                            <f:selectItem itemLabel="Entrada" noSelectionOption="false"/>
-                            <f:selectItem itemLabel="Saída" noSelectionOption="false"/>
-                            <f:selectItem itemLabel="Tipo de Movimentação" noSelectionOption="false"/>
+                        <p:selectOneMenu id="console" value="#{movimentacaoMB.tipoMovimentacao}">
+                            <f:selectItem itemLabel="Selecione o Tipo" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Entrada" itemValue="1"/>
+                            <f:selectItem itemLabel="Saida" itemValue="2"/>
+                            <p:ajax event="change" update="formMovimentacao"
+                                    process="formMovimentacao" listener="#{movimentacaoMB.limpaCarrinho()}"/>
                         </p:selectOneMenu>
+
 
                     </div>
 
@@ -65,86 +87,47 @@
                     </div>
 
 
-                    <!--                <div class="ui-g-2 ui-md-2 ui-lg-2">
-                                        <div class="ui-inputgroup">
-                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                                             filterMatchMode="startsWith">
-                                                <f:selectItem itemLabel="Fornecedor"/>
-                                            </p:selectOneMenu>
-                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                                             styleClass="btn btn-primary btn-sm"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                                        <div class="ui-inputgroup">
-                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                                             filterMatchMode="startsWith">
-                                                <f:selectItem itemLabel="Motivo"/>
-                                            </p:selectOneMenu>
-                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                                             styleClass="btn btn-primary btn-sm"/>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                                        <div class="ui-inputgroup">
-                                            <p:selectOneMenu filter="true" style="float: left ; width: 84%"
-                                                             filterMatchMode="startsWith">
-                                                <f:selectItem itemLabel="Aplicação"/>
-                                            </p:selectOneMenu>
-                                            <p:commandButton icon="fa fa-plus" style="float: left ; width: 15%"
-                                                             styleClass="btn btn-primary btn-sm"/>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                                        <div class="ui-inputgroup">
-                                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
-                                                             filterMatchMode="startsWith">
-                                                <f:selectItem itemLabel="Setor"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                    </div>
-
-                                    <div class="ui-g-2 ui-md-2 ui-lg-2">
-                                        <div class="ui-inputgroup">
-                                            <p:selectOneMenu filter="true" style="float: left ; width: 100%"
-                                                             filterMatchMode="startsWith">
-                                                <f:selectItem itemLabel="Centro de Custo"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                    </div>-->
-
-
                     <div class="ui-g-12 ui-md-12 ui-lg-12">
-                        <p:separator/>
-                    </div>
 
 
-                    <div align="right" class="ui-g-12 ui-md-12 ui-lg-12">
+                        <div style="float: left">
+                            <p:panelGrid columns="3">
+
+                                <f:facet name="header">
+                                    <div align="left">
+                                        Filtrar itens por
+                                    </div>
+                                </f:facet>
+
+                                <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+                                                 value="#{movimentacaoMB.grupoFiltro}"
+                                                 filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
+                                    <f:selectItems value="#{grupoMB.grupos}"/>
+                                    <p:ajax event="change" update="movimentacoes , classes"
+                                            listener="#{movimentacaoMB.constroiMovimentacoes()}"/>
+
+                                </p:selectOneMenu>
+                                <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+                                                 id="classes" value="#{movimentacaoMB.classeFiltro}"
+                                                 filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
+                                    <f:selectItems
+                                            value="#{movimentacaoMB.retornaClasses(movimentacaoMB.grupoFiltro)}"/>
+                                    <p:ajax event="change" update="movimentacoes"
+                                            listener="#{movimentacaoMB.constroiMovimentacoes()}"/>
+                                </p:selectOneMenu>
 
 
-                        <p:panelGrid columns="3">
+                            </p:panelGrid>
+                        </div>
 
+                        <div style="float: right ; margin-top: 20px">
+                            <p:inputText style="width:150px"
+                                         placeholder="Buscar" styleClass="btn-group" id="filterMovimentacao"/>
+                            <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarMovimentacao"/>
 
-                            <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-                                             filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Grupo" noSelectionOption="true"/>
-                                <f:selectItems value="#{grupoMB.grupos}"/>
-                            </p:selectOneMenu>
-                            <p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-                                             filter="true" filterMatchMode="startsWith">
-                                <f:selectItem itemLabel="Classe" noSelectionOption="true"/>
-                                <f:selectItems value="#{grupoMB.grupos}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="FILTRAR" style="margin-top: 8px"/>
-
-
-                        </p:panelGrid>
+                        </div>
 
                     </div>
 
@@ -152,9 +135,10 @@
                     <div class="ui-g-12 ui-md-12 ui-lg-12">
 
 
-                        <p:dataTable id="itensHash" widgetVar="itens" rows="10"
-                                     paginator="true" value="#{movimentacaoMB.itensHash}"
-                                     paginatorPosition="bottom" var="itemHash"
+                        <p:dataTable id="movimentacoes" widgetVar="itens" rows="10"
+                                     rendered="#{movimentacaoMB.tipoMovimentacao != 0}"
+                                     paginator="true" value="#{movimentacaoMB.movimentacoes}"
+                                     paginatorPosition="bottom" var="movimentacao"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
 	                                 {PageLinks} {NextPageLink} {LastPageLink} "
                                      currentPageReportTemplate=""
@@ -162,39 +146,45 @@
 
 
                             <p:column headerText="Código">
-                                <p:outputLabel value="#{itemHash.codigo}"/>
+                                <p:outputLabel value="#{movimentacao.item.codigo}"/>
                             </p:column>
 
-                            <p:column headerText="Nome">
-                                <p:outputLabel value="#{itemHash.nome}"/>
+                            <p:column headerText="Descrição">
+                                <p:outputLabel value="#{movimentacao.item.descricao}"/>
                             </p:column>
 
                             <p:column headerText="Quantidade">
-                                <p:inputNumber value="#{itemHash.quantidade}" id="quantidade"
-                                               decimalPlaces="0" thousandSeparator="" >
+                                <p:inputNumber value="#{movimentacao.quantidade}" id="quantidade"
+                                               decimalPlaces="0" thousandSeparator="">
                                 </p:inputNumber>
                             </p:column>
 
-                            <p:column headerText="Cupom Fiscal" >
-                                <p:inputText value="#{itemHash.cupomFiscal}" id="cupomFiscal"/>
+
+                            <p:column headerText="Cupom Fiscal"
+                                      rendered="#{movimentacaoMB.tipoMovimentacao == 1}">
+                                <p:inputText value="#{movimentacao.cupomFiscal}" id="cupomFiscal"/>
                             </p:column>
 
-                            <p:column headerText="Nota Fiscal" >
-                                <p:inputText value="#{itemHash.notaFiscal}" id="notaFiscal"/>
+                            <p:column headerText="Nota Fiscal"
+                                      rendered="#{movimentacaoMB.tipoMovimentacao == 1}">
+                                <p:inputText value="#{movimentacao.notaFiscal}" id="notaFiscal"/>
                             </p:column>
 
-                            <p:column headerText="Valor">
+                            <p:column headerText="Valor"
+                                      rendered="#{movimentacaoMB.tipoMovimentacao == 1}">
                                 <p:inputNumber decimalSeparator="," thousandSeparator="."
-                                               value="#{itemHash.valor}" id="valor"/>
+                                               value="#{movimentacao.valor}" id="valor"/>
                             </p:column>
 
-                            <p:column headerText="" style="width: 120px ; text-align: center">
-                                <p:commandButton icon="fa fa-plus"
-                                                 update="itensHash:quantidade , itensHash:cupomFiscal ,
-                                                 itensHash:notaFiscal , itensHash:valor "
-                                                 action="#{movimentacaoMB.adicionarMovimentacao(itemHash)}">
+                            <p:column headerText="" style="width: 60px ; text-align: center">
+                                <p:commandButton icon="fa fa-plus" styleClass="btn btn-primary"
+                                                 title="Adicionar a movimentação"
+                                                 update="cupomFiscal , notaFiscal , quantidade , valor , growl , btCarrinhoMov
+                                                    ,DialogCarrinhoMovimentacoes"
+                                                 action="#{movimentacaoMB.adicionarMovimentacao(movimentacao)}">
+                                    <f:setPropertyActionListener value="#{movimentacao}"
+                                                                 target="#{movimentacaoMB.movimentacao}"/>
                                 </p:commandButton>
-
 
 
                             </p:column>
@@ -202,14 +192,99 @@
                         </p:dataTable>
 
 
-                        <p:commandButton value="Teste" action="#{movimentacaoMB.imprimeCarrinho()}"/>
-
                     </div>
 
                 </div>
             </div>
-
+            <p:commandButton action="#{movimentacaoMB.imprimeCarrinho()}" value="A"/>
+            <h:outputScript library="js" name="scriptMovimentacao.js"/>
         </h:form>
+
+        <p:dialog header="MOVIMENTACAO DE #{movimentacaoMB.retornaNomeMovimentacao()}"
+                  widgetVar="dlgCarrinhoMovimetacoes" modal="true"
+                  id="DialogCarrinhoMovimentacoes" width="50%" resizable="true" responsive="true">
+
+            <h:form id="formCarrinhoMovimentacoes">
+
+                <p:commandButton icon="fa fa-save" action="#{movimentacaoMB.salvarMovimentacoes()}"
+                                 value="FINALIZAR MOVIMENTAÇÃO" styleClass="btn btn-success"
+                                 update="movimentacoesCarrinho , growl"/>
+                <p:separator/>
+
+                <p:dataTable var="movimentacaoCarrinho"
+                             value="#{movimentacaoMB.carrinhoMovimentacoes}"
+                             id="movimentacoesCarrinho" scrollable="true" scrollHeight="220"
+                             widgetVar="movimetacoesCarrinho" rowStyleClass="#{movimentacaoMB.movimentacao.emEdicao == true ? 'red' : null}"
+                             editable="true" paginator="true"
+                             paginatorPosition="bottom" rows="10"
+                             paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                             currentPageReportTemplate=""
+                             rowsPerPageTemplate="5,10,15,20,30">
+
+
+
+                    <p:column headerText="Código">
+                        <p:outputLabel value="#{movimentacaoCarrinho.item.codigo}"/>
+                    </p:column>
+
+                    <p:column headerText="Descrição">
+                        <p:outputLabel value="#{movimentacaoCarrinho.item.descricao}"/>
+                    </p:column>
+
+                    <p:column headerText="Quantidade" id="colQtd">
+                        <p:inputNumber value="#{movimentacaoCarrinho.quantidade}" id="inputQtd"
+                                       readonly="#{!movimentacaoMB.rowEdicao}" size="10"
+                                       decimalPlaces="0" thousandSeparator=""/>
+
+
+<!--                            <p:cellEditor headerText="Quantidade">
+                                <f:facet name="output"><p:outputLabel
+                                        value="#{movimentacaoCarrinho.quantidade}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:inputNumber value="#{movimentacaoCarrinho.quantidade}"
+                                                   decimalPlaces="0" thousandSeparator=""/>
+                                </f:facet>
+                            </p:cellEditor>-->
+
+                    </p:column>
+
+                    <p:column headerText="Valor" id="val">
+                        <p:inputNumber value="#{movimentacaoCarrinho.valor}" id="inputVal" size="10"
+                                       readonly="#{!movimentacaoMB.rowEdicao}"
+                        decimalSeparator="," thousandSeparator="."/>
+
+<!--                            <p:cellEditor headerText="Valor">
+                                <f:facet name="output"><p:outputLabel value="#{movimentacaoCarrinho.valor}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:inputNumber value="#{movimentacaoCarrinho.valor}"
+                                                   decimalSeparator="," thousandSeparator="."/>
+                                </f:facet>
+                            </p:cellEditor>-->
+
+                    </p:column>
+
+                    <p:column style="width:60px">
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-danger" immediate="true" process="@this"
+                                         update="val" title="Excluir"
+                                         action="#{movimentacaoMB.removeMovimentacao(movimentacaoCarrinho)}"/>
+                    </p:column>
+
+
+                    <p:column style="width:60px">
+
+                        <p:commandButton icon="fa fa-trash" styleClass="btn btn-danger" immediate="true" process="@this"
+                                         update="val" title="Excluir"
+                                         action="#{movimentacaoMB.habilitaRowEdicao(movimentacaoCarrinho)}"/>
+
+
+
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </p:dialog>
 
 
     </ui:define>
