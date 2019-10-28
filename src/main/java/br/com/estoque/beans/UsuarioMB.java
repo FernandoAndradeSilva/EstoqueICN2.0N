@@ -1,12 +1,11 @@
 package br.com.estoque.beans;
 
-import br.com.estoque.enums.TipoUsuario;
+import br.com.estoque.model.enums.TipoUsuario;
 
 import br.com.estoque.model.Grupo;
 import br.com.estoque.model.GrupoUsuario;
 import br.com.estoque.model.Usuario;
 import br.com.estoque.service.GrupoUsuarioService;
-import br.com.estoque.service.SetorService;
 import br.com.estoque.service.UsuarioService;
 import br.com.estoque.util.MessageUtil;
 import br.com.estoque.util.Transacional;

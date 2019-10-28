@@ -1,6 +1,6 @@
 package br.com.estoque.security;
 
-import br.com.estoque.enums.TipoUsuario;
+
 import br.com.estoque.model.Usuario;
 import br.com.estoque.service.UsuarioService;
 
@@ -11,8 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @SessionScoped

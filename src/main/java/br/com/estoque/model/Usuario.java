@@ -1,7 +1,6 @@
 package br.com.estoque.model;
 
-import br.com.estoque.enums.TipoUsuario;
-import org.hibernate.validator.constraints.Email;
+import br.com.estoque.model.enums.TipoUsuario;
 
 import javax.persistence.*;
 import java.util.ArrayList;

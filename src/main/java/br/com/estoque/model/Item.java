@@ -1,11 +1,7 @@
 package br.com.estoque.model;
 
-import br.com.estoque.enums.TipoUsuario;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "item")

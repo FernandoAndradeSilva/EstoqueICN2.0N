@@ -9,8 +9,6 @@ public class Classe extends AbstractEntity {
 
 
     private String nome;
-
-
     private String sigla;
 
     @ManyToOne

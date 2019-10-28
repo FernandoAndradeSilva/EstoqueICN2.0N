@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+        <f:event type="preRenderComponent" listener="#{fornecedorMB.carregaFornecedores()}"/>
+    </ui:define>
+
+    <ui:define name="title">
+        FORNECEDORES
+    </ui:define>
+
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Pesquisa Default"/>
+
+        <h:form id="formItens" prependId="false">
+
+            <p:growl id="growl" showDetail="false" sticky="false" life="2000"/>
+
+
+            <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
+                <div class="box-header with-border">
+
+                    <p:commandButton icon="fa fa-plus" onclick="PF('dlgCadastroFornecedor').show();"
+                                     value="Novo" styleClass="btn-primary" process="@this"/>
+
+
+                    <p:spacer width="5"/>
+                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
+                                     process="@form" update="@form"/>
+                    <p:spacer width="5"/>
+                    <p:commandButton value="Olhar Selecionado(s)"
+                                     oncomplete="PF('defaultSelecionadas').show()"
+                                     update="@(.ui-dialog)"
+                                     styleClass="btn-info"
+                                     icon="fa fa-search"/>
+                    <p:separator/>
+
+
+                    <p:dataTable id="fornecedores" widgetVar="fornecedores" rows="10"
+                                 paginator="true" value="#{fornecedorMB.fornecedores}"
+                                 rowExpandMode="single" editable="true"
+                                 paginatorPosition="bottom" var="fornecedor"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+	                                 {PageLinks} {NextPageLink} {LastPageLink} "
+                                 currentPageReportTemplate=""
+                                 rowsPerPageTemplate="5,10,15,20,30">
+
+                        <p:ajax event="rowEdit" listener="#{fornecedorMB.editarRow}" update="growl"/>
+
+                        <p:ajax event="rowToggle" update="fornecedores , gridDocumentos , gridEndereco"
+                                listener="#{fornecedorMB.limpaEdicao(fornecedor)}"/>
+
+                        <p:column style="width:35px" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:rowToggler/>
+                        </p:column>
+
+
+                        <p:column headerText="Nome" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:cellEditor>
+                                <f:facet name="output"><p:outputLabel value="#{fornecedor.documento.nome}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{fornecedor.documento.nome}" styleClass="form-control"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+
+                        <p:column headerText="Data de Cadastro" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+
+                        </p:column>
+
+                        <p:column headerText="Cadastrado por" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+
+                        </p:column>
+
+                        <p:column headerText="Tipo Fornecedor" style="text-align: center"
+                                  styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:outputLabel value="#{fornecedor.tipoFornecedor}"/>
+                        </p:column>
+
+
+                        <p:rowExpansion>
+
+                            <div class="ui-sm-6 ui-md-6 ui-lg-6" style="float: left">
+
+                                <p:panelGrid columns="2" id="gridEndereco">
+                                    <f:facet name="header">
+
+                                        <div class="ui-grid-row">
+
+                                            <p:commandButton value="Salvar" styleClass="btn btn-success btn-xs"
+                                                             style="float: right ;
+                                                             display: #{fornecedor.endereco.emEdicao == false ? 'none' : null}"
+                                                             id="btSaveEndereco" action="#{fornecedorMB.salva()}"
+                                                             update="gridEndereco , growl"
+                                                             disabled="#{fornecedor.endereco.emEdicao == false}">
+                                                <f:setPropertyActionListener value="#{fornecedor}"
+                                                                             target="#{fornecedorMB.fornecedor}"/>
+                                            </p:commandButton>
+
+
+                                            <p:outputLabel value="ENEDEREÇO" style="float: left"/>
+                                            <p:commandButton styleClass="btn-xs btn-warning" value="Editar"
+                                                             style="float: right"
+                                                             update="lograInput, numInput, compInput, bairroInput,
+																     cidInput,  estInput , cepInput, btSaveEndereco"
+                                                             action="#{fornecedorMB.ativaEdicaoEndereco(fornecedor)}"/>
+
+                                        </div>
+
+
+                                    </f:facet>
+
+                                    <p:outputLabel id="cepLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Cep' : 'Cep*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.cep}" id="cepInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="cepLabel"/>
+                                    </p:inputText>
+
+
+                                    <p:outputLabel id="lograLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Logradouro' : 'Logradouro*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.logradouro}" id="lograInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="lograLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="numLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Número' : 'Número*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.numero}" id="numInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="numLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="complementoLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Complemento' : 'Complemento*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.complemento}" id="compInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="complementoLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="bairroLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Bairro' : 'Bairro*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.brairro}" id="bairroInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="bairroLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="cidadeLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Cidade' : 'Cidade*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.localidade}" id="cidInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="cidadeLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="estadoLabel"
+                                                   value="#{fornecedor.endereco.emEdicao == false ?
+													   'Estado' : 'Estado*'} "/>
+                                    <p:inputText value="#{fornecedor.endereco.UF}" id="estInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.endereco.emEdicao == false}">
+                                        <p:ajax event="change" update="estadoLabel"/>
+                                    </p:inputText>
+
+
+                                </p:panelGrid>
+
+                            </div>
+
+                            <div class="ui-sm-6 ui-md-6 ui-lg-6" style="float: right">
+
+                                <p:panelGrid columns="2" id="gridDocumentos">
+                                    <f:facet name="header">
+
+                                        <div class="ui-grid-row">
+                                            <p:commandButton value="Salvar" styleClass="btn btn-success btn-xs"
+                                                             style="float: right ;
+                                                             display: #{fornecedor.documento.emEdicao == false ? 'none' : null}"
+                                                             id="btSaveDados" action="#{fornecedorMB.salva()}"
+                                                             update="gridDocumentos , growl"
+                                                             disabled="#{fornecedor.documento.emEdicao == false}">
+                                                <f:setPropertyActionListener value="#{fornecedor}"
+                                                                             target="#{fornecedorMB.fornecedor}"/>
+                                            </p:commandButton>
+
+                                            <p:outputLabel value="DADOS" style="float: left"/>
+                                            <p:commandButton styleClass="btn-xs btn-warning" value="Editar"
+                                                             style="float: right"
+                                                             update="nFantInput, emailInput, telInput, celInput,
+																     cnpjInput,  cpfInput, contatoInput,
+																     observacoesInput, btSaveDados"
+                                                             action="#{fornecedorMB.ativaEdicaoDocumentos(fornecedor)}"/>
+                                        </div>
+                                    </f:facet>
+
+
+                                    <p:outputLabel id="nFantLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Nome Fantasia' : 'Nome Fantasia*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.nomeFantasia}" id="nFantInput"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}"
+                                                 styleClass="form-control">
+                                        <p:ajax event="change" update="nFantLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="emailLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Email' : 'Email*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.email}" id="emailInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="emailLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="telLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Telefone' : 'Telefone*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.tel}" id="telInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="telLabel"/>
+                                    </p:inputText>
+
+
+                                    <p:outputLabel id="celLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Celular' : 'Celular*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.cel}" id="celInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="celLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="cnpjLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'CNPJ' : 'CNPJ*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.cnpj}" id="cnpjInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="cnpjLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="cpfLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'CPF' : 'CPF*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.cpf}" id="cpfInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="cpfLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="contatoLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Contato' : 'Contato*'} "/>
+                                    <p:inputText value="#{fornecedor.documento.contato}" id="contatoInput"
+                                                 styleClass="form-control"
+                                                 readonly="#{fornecedor.documento.emEdicao == false}">
+                                        <p:ajax event="change" update="contatoLabel"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel id="observacoesLabel"
+                                                   value="#{fornecedor.documento.emEdicao == false ?
+													   'Observações' : 'Observações*'} "/>
+                                    <p:inputTextarea value="#{fornecedor.observacao}" id="observacoesInput"
+                                                     readonly="#{fornecedor.documento.emEdicao == false}"
+                                                     styleClass="form-control">
+                                        <p:ajax event="change" update="observacoesLabel"/>
+                                    </p:inputTextarea>
+                                </p:panelGrid>
+                            </div>
+                        </p:rowExpansion>
+
+                        <p:column style="width:30px" headerText="Editar" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:rowEditor editTitle="Editar" saveTitle="Salvar Alterações" cancelTitle="Cancelar"/>
+                        </p:column>
+
+                        <p:column style="width:30px ; text-align: center"
+                                  styleClass="ui-sm-1 ui-md-1 ui-lg-1">
+                            <p:commandButton icon="fa fa-trash" styleClass="btn btn-danger"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+
+
+        </h:form>
+
+
+        <p:dialog header="CADASTRO" widgetVar="dlgCadastroFornecedor" modal="true">
+
+            <p:ajax event="close" resetValues="true" update="formCadastroFornecedor"/>
+
+            <h:form id="formCadastroFornecedor">
+                <p:panelGrid columns="4">
+                    <f:facet name="header">
+                        <p:outputLabel value="NOVO GRUPO"/>
+                    </f:facet>
+
+                    <p:outputLabel value="Nome"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Nome Fantasia"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Email"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Contato"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Telefone"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Celular"/>
+                    <p:inputText/>
+                    <p:outputLabel value="CPF"/>
+                    <p:inputText/>
+                    <p:outputLabel value="CNPJ"/>
+                    <p:inputText/>
+                    <p:outputLabel value="CEP"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Endereco"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Número"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Complemento"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Bairro"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Cidade"/>
+                    <p:inputText/>
+                    <p:outputLabel value="Estado"/>
+                    <p:inputText/>
+
+
+                    <f:facet name="footer">
+                        <div align="center">
+                        <p:commandButton value="SALVAR" styleClass="btn btn-success"/>
+                        </div>
+                    </f:facet>
+
+                </p:panelGrid>
+
+
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+
+</ui:composition>
