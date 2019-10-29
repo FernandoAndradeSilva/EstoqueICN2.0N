@@ -2,6 +2,7 @@ package br.com.estoque.service;
 
 import br.com.estoque.dao.FornecedorDao;
 import br.com.estoque.model.Fornecedor;
+import br.com.estoque.security.LogonMB;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class FornecedorService implements Serializable , AbstractService<Fornece
         if(entidade.getId() >0) {
             fornecedorDao.update(entidade);
         } else
+
+            entidade.setUsuario(LogonMB.usuarioDaSessao());
             fornecedorDao.save(entidade);
     }
 

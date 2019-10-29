@@ -4,10 +4,8 @@ import br.com.estoque.model.embedables.Documento;
 import br.com.estoque.model.embedables.Endereco;
 import br.com.estoque.model.enums.TipoFornecedor;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+
 
 @Entity(name = "fornecedor")
 public class Fornecedor extends AbstractEntity{
@@ -15,6 +13,10 @@ public class Fornecedor extends AbstractEntity{
 
     @Enumerated(EnumType.STRING)
     private TipoFornecedor tipoFornecedor;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario" , nullable = false)
+    private Usuario usuario = new Usuario();
 
     @Embedded
     private Documento documento = new Documento();
@@ -54,5 +56,13 @@ public class Fornecedor extends AbstractEntity{
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

@@ -2,19 +2,19 @@ package br.com.estoque.model.enums;
 
 public enum TipoFornecedor {
 
-    PessoaFisica("Pessoa-Fisica"),
+    PessoaFisica("Pessoa-Física"),
     PessoaJuridica("Pessoa-Juridica"),
     Outros("Outros");
 
 
-    private String tipoFornecedor;
+    private String descricao;
 
-    TipoFornecedor(String tipoFornecedor) {
-        this.tipoFornecedor = tipoFornecedor;
+    TipoFornecedor(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTipoFornecedor() {
-        return tipoFornecedor;
+        return descricao;
     }
 
 

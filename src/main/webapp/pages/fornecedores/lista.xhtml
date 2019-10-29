@@ -43,19 +43,28 @@
             <div class="box box-primary ui-sm-12 ui-md-12 ui-lg-12">
                 <div class="box-header with-border">
 
-                    <p:commandButton icon="fa fa-plus" onclick="PF('dlgCadastroFornecedor').show();"
-                                     value="Novo" styleClass="btn-primary" process="@this"/>
+                    <p:menuButton value="CADASTRAR" >
+                        <p:menuitem  value="Pessoa Jurídica" actionListener="#{fornecedorMB.selecionaTipoFornecedor(1)}"
+                                     oncomplete="PF('dlgCadastroFornecedor').show()" update="formCadastroFornecedor">
+                        </p:menuitem>
+
+                        <p:menuitem  value="Pessoa Física" actionListener="#{fornecedorMB.selecionaTipoFornecedor(2)}"
+                                     oncomplete="PF('dlgCadastroFornecedor').show()" update="formCadastroFornecedor">
+                        </p:menuitem>
+
+                        <p:menuitem  value="Outros" actionListener="#{fornecedorMB.selecionaTipoFornecedor(3)}"
+                                     oncomplete="PF('dlgCadastroFornecedor').show()" update="formCadastroFornecedor">
+                        </p:menuitem>
+                    </p:menuButton>
+
+                    <div style="float: right">
+                        <p:inputText style="width:150px"
+                                     placeholder="Buscar" styleClass="btn-group" id="filterFornecedor"/>
+                        <p:commandButton icon="fa fa-search" type="button" id="buttonPesquisarGrupo"/>
+
+                    </div>
 
 
-                    <p:spacer width="5"/>
-                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
-                                     process="@form" update="@form"/>
-                    <p:spacer width="5"/>
-                    <p:commandButton value="Olhar Selecionado(s)"
-                                     oncomplete="PF('defaultSelecionadas').show()"
-                                     update="@(.ui-dialog)"
-                                     styleClass="btn-info"
-                                     icon="fa fa-search"/>
                     <p:separator/>
 
 
@@ -93,7 +102,7 @@
                         </p:column>
 
                         <p:column headerText="Cadastrado por" styleClass="ui-sm-1 ui-md-1 ui-lg-1">
-
+                            <p:outputLabel value="#{fornecedor.usuario.nome}"/>
                         </p:column>
 
                         <p:column headerText="Tipo Fornecedor" style="text-align: center"
@@ -114,7 +123,7 @@
                                             <p:commandButton value="Salvar" styleClass="btn btn-success btn-xs"
                                                              style="float: right ;
                                                              display: #{fornecedor.endereco.emEdicao == false ? 'none' : null}"
-                                                             id="btSaveEndereco" action="#{fornecedorMB.salva()}"
+                                                             id="btSaveEndereco" action="#{fornecedorMB.atualizar()}"
                                                              update="gridEndereco , growl"
                                                              disabled="#{fornecedor.endereco.emEdicao == false}">
                                                 <f:setPropertyActionListener value="#{fornecedor}"
@@ -137,11 +146,13 @@
                                     <p:outputLabel id="cepLabel"
                                                    value="#{fornecedor.endereco.emEdicao == false ?
 													   'Cep' : 'Cep*'} "/>
-                                    <p:inputText value="#{fornecedor.endereco.cep}" id="cepInput"
-                                                 styleClass="form-control"
+                                    <p:inputMask  mask="99.999-999"
+                                            value="#{fornecedor.endereco.cep}" id="cepInput"
+                                                 styleClass="form-control" onblur="cep(this)"
                                                  readonly="#{fornecedor.endereco.emEdicao == false}">
-                                        <p:ajax event="change" update="cepLabel"/>
-                                    </p:inputText>
+                                        <p:ajax event="change" update="cepLabel , lograLabel ,
+                                         bairroLabel , cidadeLabel , estadoLabel"/>
+                                    </p:inputMask>
 
 
                                     <p:outputLabel id="lograLabel"
@@ -212,7 +223,7 @@
                                             <p:commandButton value="Salvar" styleClass="btn btn-success btn-xs"
                                                              style="float: right ;
                                                              display: #{fornecedor.documento.emEdicao == false ? 'none' : null}"
-                                                             id="btSaveDados" action="#{fornecedorMB.salva()}"
+                                                             id="btSaveDados" action="#{fornecedorMB.atualizar()}"
                                                              update="gridDocumentos , growl"
                                                              disabled="#{fornecedor.documento.emEdicao == false}">
                                                 <f:setPropertyActionListener value="#{fornecedor}"
@@ -334,45 +345,66 @@
                     </f:facet>
 
                     <p:outputLabel value="Nome"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.nome}"/>
+
                     <p:outputLabel value="Nome Fantasia"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.nomeFantasia}"/>
+
                     <p:outputLabel value="Email"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.email}"/>
+
                     <p:outputLabel value="Contato"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.contato}"/>
+
                     <p:outputLabel value="Telefone"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.tel}"/>
+
                     <p:outputLabel value="Celular"/>
-                    <p:inputText/>
-                    <p:outputLabel value="CPF"/>
-                    <p:inputText/>
-                    <p:outputLabel value="CNPJ"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.documento.cel}"/>
+
+                    <p:outputLabel value="CPF" rendered="#{fornecedorMB.fornecedor.tipoFornecedor == 'PessoaFisica'}"/>
+                    <p:inputMask mask="999999999-99"
+                                 rendered="#{fornecedorMB.fornecedor.tipoFornecedor == 'PessoaFisica'}"
+                                 value="#{fornecedorMB.fornecedor.documento.cpf}"/>
+
+                    <p:outputLabel value="CNPJ" rendered="#{fornecedorMB.fornecedor.tipoFornecedor == 'PessoaJuridica'}"/>
+                    <p:inputMask mask="99.999.999/9999-99"
+                                 rendered="#{fornecedorMB.fornecedor.tipoFornecedor == 'PessoaJuridica'}"
+                                 value="#{fornecedorMB.fornecedor.documento.cnpj}"/>
+
                     <p:outputLabel value="CEP"/>
-                    <p:inputText/>
+                    <p:inputMask  mask="99.999-999"
+                                  value="#{fornecedorMB.fornecedor.endereco.cep}" id="cep"/>
+
                     <p:outputLabel value="Endereco"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.logradouro}" id="rua"/>
+
                     <p:outputLabel value="Número"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.numero}"/>
+
                     <p:outputLabel value="Complemento"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.complemento}"/>
+
                     <p:outputLabel value="Bairro"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.brairro}" id="bairro"/>
+
                     <p:outputLabel value="Cidade"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.localidade}" id="cidade"/>
+
                     <p:outputLabel value="Estado"/>
-                    <p:inputText/>
+                    <p:inputText value="#{fornecedorMB.fornecedor.endereco.UF}" id="uf"/>
 
 
                     <f:facet name="footer">
                         <div align="center">
-                        <p:commandButton value="SALVAR" styleClass="btn btn-success"/>
+                        <p:commandButton value="SALVAR" action="#{fornecedorMB.salva()}"
+                                         styleClass="btn btn-success"/>
                         </div>
                     </f:facet>
 
                 </p:panelGrid>
 
+                <h:outputScript library="js" name="fornecedor.js"/>
 
             </h:form>
         </p:dialog>

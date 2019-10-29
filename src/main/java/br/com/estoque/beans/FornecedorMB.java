@@ -4,6 +4,7 @@ package br.com.estoque.beans;
 import br.com.estoque.model.Classe;
 import br.com.estoque.model.Fornecedor;
 import br.com.estoque.model.Grupo;
+import br.com.estoque.model.enums.TipoFornecedor;
 import br.com.estoque.service.ClasseService;
 import br.com.estoque.service.FornecedorService;
 import br.com.estoque.service.GrupoService;
@@ -58,12 +59,19 @@ public class FornecedorMB implements Serializable {
 
 
     @Transacional
-    public void salva() {
-
+    public void atualizar() {
         this.limpaEdicao(this.fornecedor);
         fornecedorService.salvar(fornecedor);
-        MessageUtil.addMessageTicket("Dados Atualizados" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        MessageUtil.addMessageTicket("Informações atualizados" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
     }
+
+    @Transacional
+    public void salva() {
+        fornecedorService.salvar(fornecedor);
+        MessageUtil.addMessageTicket("Salvo com sucessos " , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        this.fornecedor = new Fornecedor();
+    }
+
 
     @Transacional
     public void excluir() {
@@ -76,7 +84,7 @@ public class FornecedorMB implements Serializable {
     @Transacional
     public void editarRow(RowEditEvent event) {
         fornecedorService.salvar((Fornecedor) event.getObject());
-        MessageUtil.addMessageTicket("Dados Atualizados" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
+        MessageUtil.addMessageTicket("Informações atualizados" , MessageUtil.INFO , MessageUtil.NOREDIRECT);
 }
 
 
@@ -86,10 +94,14 @@ public class FornecedorMB implements Serializable {
 
     }
 
-    public void limpaEdicaoToggle(Fornecedor fornecedor) {
-        fornecedor.getDocumento().setEmEdicao(false);
-        fornecedor.getEndereco().setEmEdicao(false);
-
+    public void selecionaTipoFornecedor(int num) {
+            if (num == 1) {
+                this.fornecedor.setTipoFornecedor(TipoFornecedor.PessoaJuridica);
+            } else if (num == 2) {
+                this.fornecedor.setTipoFornecedor(TipoFornecedor.PessoaFisica);
+            } else if (num == 3) {
+                this.fornecedor.setTipoFornecedor(TipoFornecedor.Outros);
+            }
     }
 
     public void carregaFornecedores() {
